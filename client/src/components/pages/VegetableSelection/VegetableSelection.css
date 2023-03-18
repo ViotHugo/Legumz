@@ -1,0 +1,25 @@
+.App-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; /* Add this property to center items vertically */
+    gap: 10px;
+    padding: 20px;
+    height: calc(100vh - 60px); /* Subtract the height of the header, adjust accordingly */
+  }
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    max-height: 45%; /* Adjust the maximum height of the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card img {
+    width: 100%;
+    max-height: 70%; /* Adjust the maximum height of the image */
+    object-fit: contain;
+  }

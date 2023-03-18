@@ -1,0 +1,56 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #00cc66; /* Modifiez la couleur du bandeau ici */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.Header-logo {
+  width: 100px; /* Changez la taille du logo ici */
+  height: auto;
+  margin-right: 1rem;
+}
+
+.Header-left {
+  display: flex;
+  align-items: center;
+}
+
+.Header-title {
+  font-size: 2.5rem;
+  margin-left: 1rem;
+  color: #333; /* Vous pouvez changer la couleur du texte ici */
+}
+
+/* Les autres styles CSS restent inchangés */
+
+
+nav {
+  display: flex;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+  color: #007bff;
+}

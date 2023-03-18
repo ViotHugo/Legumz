@@ -1,0 +1,17 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .Home h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .Home p {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
