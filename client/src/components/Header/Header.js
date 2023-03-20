@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './Header.css';
-import logo from './logo.png';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Header.css";
+import logo from "./logo.png";
 
 function Header() {
   return (
@@ -17,11 +17,11 @@ function Header() {
               Accueil
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/inscription" activeClassName="active">
               Inscription
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/connexion" activeClassName="active">
               Connexion

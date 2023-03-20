@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import './SignUpForm.css';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import "./SignUpForm.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    age: '',
-    gender: '',
-    city: '',
-    bio: '',
-    interests: '',
-    lookingFor: '',
-    profilePicture: ''
+    fullName: "",
+    prenom: "",
+    email: "",
+    password: "",
+    age: "",
+    gender: "",
+    city: "",
+    bio: "",
+    interests: "",
+    lookingFor: "",
+    profilePicture: "",
   });
 
   const { data } = useParams();
-  const {vegetableChoice,genre} = JSON.parse(data);
+  const { vegetableChoice, genre } = JSON.parse(data);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,35 +27,79 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    formData.vegetableChoice=vegetableChoice
-    formData['genreSearch']=genre
-    axios.post('http://localhost:5000/inscription', formData)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    formData.vegetableChoice = vegetableChoice;
+    formData["genreSearch"] = genre;
+    axios
+      .post("http://localhost:5000/inscription", formData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <div className="signup-container">
       <h1>Inscription</h1>
       <form className="signup-form" onSubmit={handleSubmit}>
-        <label htmlFor="fullName">Nom complet</label>
-        <input type="text" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} required />
+        <label htmlFor="fullName">Nom</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="prenom">prenom</label>
+        <input
+          type="text"
+          id="prenom"
+          name="prenom"
+          value={formData.prenom}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="password">Mot de passe</label>
-        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="age">Âge</label>
-        <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} required />
+        <input
+          type="number"
+          id="age"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="gender">Genre</label>
-        <select id="gender" name="gender" value={formData.gender} onChange={handleChange} required>
+        <select
+          id="gender"
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          required
+        >
           <option value="">Choisir un genre</option>
           <option value="homme">Homme</option>
           <option value="femme">Femme</option>
@@ -62,19 +107,53 @@ function SignUpForm() {
         </select>
 
         <label htmlFor="city">Ville</label>
-        <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} required />
+        <input
+          type="text"
+          id="city"
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="bio">Biographie</label>
-        <textarea id="bio" name="bio" value={formData.bio} onChange={handleChange} required />
+        <textarea
+          id="bio"
+          name="bio"
+          value={formData.bio}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="interests">Intérêts</label>
-        <input type="text" id="interests" name="interests" value={formData.interests} onChange={handleChange} required />
+        <input
+          type="text"
+          id="interests"
+          name="interests"
+          value={formData.interests}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="lookingFor">Recherche</label>
-        <input type="text" id="lookingFor" name="lookingFor" value={formData.lookingFor} onChange={handleChange} required />
+        <input
+          type="text"
+          id="lookingFor"
+          name="lookingFor"
+          value={formData.lookingFor}
+          onChange={handleChange}
+          required
+        />
 
         <label htmlFor="profilePicture">Photo de profil (URL)</label>
-        <input type="url" id="profilePicture" name="profilePicture" value={formData.profilePicture} onChange={handleChange} required />
+        <input
+          type="url"
+          id="profilePicture"
+          name="profilePicture"
+          value={formData.profilePicture}
+          onChange={handleChange}
+          required
+        />
 
         <button type="submit">S'inscrire</button>
       </form>
