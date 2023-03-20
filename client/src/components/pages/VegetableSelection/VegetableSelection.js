@@ -18,11 +18,6 @@ const VegetableSelection = () => {
     setBackgroundColor(index >= 0 ? gradients[index] : 'linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)');
 };
 
-const handleClick = (index) => {
-  handleBackgroundColorChange(index);
-  navigate('/gender-selection');
-};
-
   return (
     <div className="App-container" style={{ backgroundImage: backgroundColor, minHeight: '100vh' }}>
       {Array(4)

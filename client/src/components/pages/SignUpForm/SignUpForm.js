@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './SignUpForm.css';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -15,13 +17,24 @@ function SignUpForm() {
     profilePicture: ''
   });
 
+  const { data } = useParams();
+  const {vegetableChoice,genre} = JSON.parse(data);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    formData.vegetableChoice=vegetableChoice
+    formData['genreSearch']=genre
+    axios.post('http://localhost:5000/inscription', formData)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (

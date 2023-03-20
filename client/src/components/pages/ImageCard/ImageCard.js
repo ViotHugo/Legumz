@@ -11,8 +11,7 @@ function ImageCard(props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log(`Vous avez cliqué sur ${props.title}`);
-    navigate('/gender-selection');
+    navigate('/gender-selection/'+props.title);
   };
 
   const handleMouseEnter = () => {
