@@ -23,7 +23,8 @@ function App() {
           <Route path="/connexion" element={<RegistrationForm />} />
           <Route path="/quisommesnous" element={<About />} />
           <Route path="/statistiques" element={<Statistics />} />
-          <Route path="/gender-selection" element={<GenderSelection />} /> {/* Ajoutez cette ligne */}
+          <Route path="/gender-selection" element={<GenderSelection />} />{" "}
+          {/* Ajoutez cette ligne */}
           <Route path="/signup" element={<SignUpForm />} />
         </Routes>
       </div>

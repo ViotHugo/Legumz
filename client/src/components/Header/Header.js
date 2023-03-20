@@ -17,11 +17,11 @@ function Header() {
               Accueil
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/inscription" activeClassName="active">
               Inscription
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/connexion" activeClassName="active">
               Connexion
