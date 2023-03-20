@@ -9,6 +9,7 @@ import Statistics from "./components/pages/Statistics/Statistics";
 import VegetableSelection from "./components/pages/VegetableSelection/VegetableSelection";
 import GenderSelection from "./components/pages/GenderSelection/GenderSelection";
 import SignUpForm from "./components/pages/SignUpForm/SignUpForm";
+import Profile from './components/pages/Profile/Profile';
 
 import "./App.css";
 
@@ -28,6 +29,7 @@ function App() {
             element={<GenderSelection />}
           />
           <Route path="/signup/:data" element={<SignUpForm />} />
+          <Route path="/profil/:email" element={<Profile />} />
         </Routes>
       </div>
     </Router>
