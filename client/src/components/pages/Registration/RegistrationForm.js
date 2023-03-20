@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Ajoutez cette importation
 import "./RegistrationForm.css";
 import logo from "../../Header/logo.png";
+import axios from 'axios';
 
 const LoginForm = () => {
   const navigate = useNavigate(); // Ajoutez cette ligne
@@ -12,6 +13,13 @@ const LoginForm = () => {
     e.preventDefault();
     // Implement your authentication logic here
     console.log("Email:", email, "Password:", password);
+    axios.post('http://localhost:5000/connexion', {email : email, password: password})
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (
