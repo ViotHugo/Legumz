@@ -1,5 +1,28 @@
+const express = require('express');
+const app = express()
+const cors = require("cors");
+require("dotenv").config({ path: "./config.env" });
 const mongoose = require('mongoose');
+const port = process.env.PORT || 5000;
 
+app.use(cors());
+app.use(express.json());
+
+const { inscription_dB } = require('./db/inscription');
+
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
+app.post('/inscription', (req, res) => {
+  const personneInscrire = req.body
+  inscription_dB(personneInscrire)
+});
+
+app.get('/',(req,res) => {
+  res.send("hello")
+
+})
+/*
 const uri = 'mongodb+srv://root:root@cluster0.uwibc8n.mongodb.net/Test?retryWrites=true&w=majority';
 // Remplacez "<password>" par votre mot de passe MongoDB Atlas
 // Remplacez "<dbname>" par le nom de votre base de données
@@ -35,6 +58,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((error) => {
     console.log('Erreur de connexion à MongoDB Atlas :', error);
   });
-
+*/
 
 

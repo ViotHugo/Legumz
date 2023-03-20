@@ -4,37 +4,33 @@ import maleImage from '../../../images/homme.png';
 import femaleImage from '../../../images/femme.png';
 import bothImage from '../../../images/bi.png';
 import './GenderSelection.css';
-
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-function GenderSelection() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/signup');
-  };
+function GenderSelection() { 
+  const { vegetableChoice } = useParams();
 
   return (
-    <div>
+    <div >
       <h1>Choix du sexe</h1>
       <div className="gender-selection">
         <GenderCard
           title="Homme"
           image={maleImage}
+          vegetableChoice={vegetableChoice}
           description="Description pour homme"
-          onClick={handleClick}
         />
         <GenderCard
           title="Femme"
           image={femaleImage}
+          vegetableChoice={vegetableChoice}
           description="Description pour femme"
-          onClick={handleClick}
         />
         <GenderCard
           title="Les deux"
           image={bothImage}
+          vegetableChoice={vegetableChoice}
           description="Description pour les deux"
-          onClick={handleClick}
         />
       </div>
     </div>
