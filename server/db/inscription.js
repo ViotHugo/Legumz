@@ -12,18 +12,6 @@ function inscription_dB(personneInscrire){
     Users.insertOne(personneInscrire)
       .then((result) => {
         console.log('User add :', result.insertedId);
-
-        // Récupérer tous les documents de la collection Personne
-        Users.find({})
-          .toArray()
-          .then((resultats) => {
-            console.log('Users :', resultats);
-            mongoose.connection.close();
-          })
-          .catch((err) => {
-            console.log(err);
-            mongoose.connection.close();
-          });
       })
       .catch((err) => {
         console.log(err);
