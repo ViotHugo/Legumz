@@ -6,6 +6,7 @@ import axios from "axios";
 function SignUpForm() {
   const [formData, setFormData] = useState({
     fullName: "",
+    prenom: "",
     email: "",
     password: "",
     age: "",
@@ -42,12 +43,21 @@ function SignUpForm() {
     <div className="signup-container">
       <h1>Inscription</h1>
       <form className="signup-form" onSubmit={handleSubmit}>
-        <label htmlFor="fullName">Nom complet</label>
+        <label htmlFor="fullName">Nom</label>
         <input
           type="text"
           id="fullName"
           name="fullName"
           value={formData.fullName}
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="prenom">prenom</label>
+        <input
+          type="text"
+          id="prenom"
+          name="prenom"
+          value={formData.prenom}
           onChange={handleChange}
           required
         />
