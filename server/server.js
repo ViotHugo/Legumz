@@ -19,6 +19,35 @@ app.post('/inscription', (req, res) => {
   inscription_dB(personneInscrire)
 });
 
+app.post('/recupProfile', (req,res) => {
+  const emailUser = req.body.email
+  console.log(emailUser)
+  mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connexion à MongoDB Atlas réussie !');
+
+    // Récupérer la collection Personne
+    const Users = mongoose.connection.collection('Users');
+
+    // Récupérer tous les documents de la collection Personne
+    Users.find({})
+        .toArray()
+        .then((resultats) => {
+            mongoose.connection.close();
+            console.log(resultats)
+          })
+          .catch((err) => {
+            console.log(err)
+            mongoose.connection.close();
+            
+    });
+
+  })
+  .catch((error) => {
+    console.log('Erreur de connexion à MongoDB Atlas :', error);
+    throw error;
+  });
+})
 app.post('/connexion', (req, res) => {
   const paramConnexion = req.body
   mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -32,7 +61,6 @@ app.post('/connexion', (req, res) => {
     Users.find({email : paramConnexion.email , password : paramConnexion.password})
         .toArray()
         .then((resultats) => {
-            console.log(resultats)
             mongoose.connection.close();
             if(resultats.length===0){
               res.send(false)

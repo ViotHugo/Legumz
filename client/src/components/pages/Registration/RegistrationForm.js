@@ -4,10 +4,12 @@ import "./RegistrationForm.css";
 import logo from "../../Header/logo.png";
 import axios from 'axios';
 
+
 const LoginForm = () => {
   const navigate = useNavigate(); // Ajoutez cette ligne
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +17,14 @@ const LoginForm = () => {
     console.log("Email:", email, "Password:", password);
     axios.post('http://localhost:5000/connexion', {email : email, password: password})
     .then((response) => {
-      console.log(response.data);
+      if (response.data){
+        navigate('/profil/'+email);
+      }
+      else{
+        setErrorMessage("L'email ou le mot de passe est incorrect.");
+      }
+      
+
     })
     .catch((error) => {
       console.log(error);
@@ -48,6 +57,7 @@ const LoginForm = () => {
               required
             />
           </div>
+          <div className="error-message">{errorMessage}</div>
           <div className="button-group">
             <button type="submit" className="connexion-button">
               Connexion
