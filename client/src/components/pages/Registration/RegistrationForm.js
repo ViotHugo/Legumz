@@ -14,7 +14,6 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Implement your authentication logic here
-    console.log("Email:", email, "Password:", password);
     axios.post('http://localhost:5000/connexion', {email : email, password: password})
     .then((response) => {
       if (response.data){
