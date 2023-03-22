@@ -28,6 +28,11 @@ function Header() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/map" activeClassName="active" exact>
+              Carte géographique
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/quisommesnous" activeClassName="active">
               Qui sommes-nous
             </NavLink>

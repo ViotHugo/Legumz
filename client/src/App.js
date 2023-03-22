@@ -10,6 +10,7 @@ import VegetableSelection from "./components/pages/VegetableSelection/VegetableS
 import GenderSelection from "./components/pages/GenderSelection/GenderSelection";
 import SignUpForm from "./components/pages/SignUpForm/SignUpForm";
 import Profile from './components/pages/Profile/Profile';
+import MapPage from './components/pages/MapPage/MapPage';
 
 import "./App.css";
 
@@ -29,6 +30,7 @@ function App() {
             element={<GenderSelection />}
           />
           <Route path="/signup/:data" element={<SignUpForm />} />
+          <Route path="/map" element={<MapPage />} />
           <Route path="/profil/:email" element={<Profile />} />
         </Routes>
       </div>
