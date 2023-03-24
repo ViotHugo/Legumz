@@ -1,61 +1,104 @@
-/* src/components/MapPage.css */
+
+.leaflet-container .leaflet-marker-icon {
+  background-image: url("https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png");
+  background-size: cover;
+}
+
+.leaflet-container .leaflet-marker-shadow {
+  background-image: url("https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png");
+  background-size: cover;
+}
+
+/* .leaflet-container .leaflet-marker-icon.leaflet-zoom-animated {
+  background: none;
+  border: none;
+} */
+.leaflet-default-icon-path {
+  background-image: url(https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png);
+}
+
+
 .map-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  .map-page h1 {
-    margin: 20px 0;
-    font-size: 24px;
-  }
-  
-  .search-bar {
-    display: flex;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar input {
-    flex: 1;
-    padding: 8px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: "Poppins", sans-serif;
-    transition: border-color 0.2s ease-in-out;
-  }
-  
-  .search-bar input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .search-bar button {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-family: "Poppins", sans-serif;
-    margin-left: 5px;
-  }
-  
-  .search-bar button:hover {
-    background-color: #0056b3;
-  }
-  
-  .map-container {
-    width: 100%;
-    max-width: 800px;
-    height: 80%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.map-page h1 {
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+.search-bar {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+flex: 1;
+padding: 8px;
+border: 2px solid #ccc;
+border-radius: 4px;
+font-size: 14px;
+font-family: "Poppins", sans-serif;
+transition: border-color 0.2s ease-in-out;
+}
+
+.search-bar input:focus {
+border-color: #007bff;
+outline: none;
+}
+
+.search-bar button {
+padding: 8px 12px;
+background-color: #007bff;
+color: white;
+font-weight: 600;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.2s ease-in-out;
+font-family: "Poppins", sans-serif;
+margin-left: 5px;
+}
+
+.search-bar button:hover {
+background-color: #0056b3;
+}
+
+.map-container {
+width: 100%;
+max-width: 800px;
+height: 80%;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+.zoom-buttons {
+display: flex;
+justify-content: space-between;
+width: 100%;
+max-width: 600px;
+margin-bottom: 20px;
+}
+
+.zoom-buttons button {
+padding: 8px 12px;
+background-color: #007bff;
+color: white;
+font-weight: 600;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.2s ease-in-out;
+font-family: "Poppins", sans-serif;
+}
+
+.zoom-buttons button:hover {
+background-color: #0056b3;
+}

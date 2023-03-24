@@ -21,15 +21,20 @@ function SignUpForm() {
   });
 
   const hobbiesList = [
-    "Reading",
-    "Watching movies",
-    "Playing video games",
-    "Traveling",
-    "Cooking",
-    "Hiking",
-    "Gardening",
-    "Painting",
-    "Dancing",
+    "Lecture",
+    "Cinéma",
+    "Jeux vidéo",
+    "Voyages",
+    "Cuisine",
+    "Randonnée",
+    "Jardinage",
+    "Peinture",
+    "Danse",
+    "Photographie",
+    "Sport",
+    "Musique",
+    "Bricolage",
+    "Yoga",
   ];
 
   const onDragStart = (e, hobby) => {
@@ -38,6 +43,18 @@ function SignUpForm() {
 
   const onDragOver = (e) => {
     e.preventDefault();
+  };
+
+  const onDragStartFromDropzone = (e, hobby) => {
+    e.dataTransfer.setData("hobbyToRemove", hobby);
+  };
+
+  const onDropToRemove = (e) => {
+    const hobbyToRemove = e.dataTransfer.getData("hobbyToRemove");
+    setFormData({
+      ...formData,
+      hobbies: formData.hobbies.filter((hobby) => hobby !== hobbyToRemove),
+    });
   };
 
   const onDrop = (e) => {
@@ -51,7 +68,7 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (
       formData.firstName &&
       formData.age &&
@@ -78,7 +95,6 @@ function SignUpForm() {
       }
     }
   };
-  
 
   const handleFinalSubmit = (e) => {
     e.preventDefault();
@@ -163,14 +179,16 @@ function SignUpForm() {
 
       {section === 2 && (
         <div>
-          <h1>Select Your Hobbies</h1>
-          <p>Drag and drop hobbies into the box below:</p>
+          <h1>Sélectionnez vos hobbies</h1>
+          <p>
+            Faites glisser et déposez les hobbies dans la boîte ci-dessous :
+          </p>
           <div className="hobbies-container">
             {hobbiesList.map((hobby, index) => (
               <div
                 key={index}
                 className="hobby-item"
-                draggable="true" // Add this attribute
+                draggable="true"
                 onDragStart={(e) => onDragStart(e, hobby)}
               >
                 {hobby}
@@ -184,26 +202,41 @@ function SignUpForm() {
               onDrop={(e) => onDrop(e)}
             >
               {formData.hobbies.map((hobby, index) => (
-                <div key={index} className="hobby-item">
+                <div
+                  key={index}
+                  className="hobby-item"
+                  draggable="true"
+                  onDragStart={(e) => onDragStartFromDropzone(e, hobby)}
+                >
                   {hobby}
                 </div>
               ))}
             </div>
           </div>
-          <button
-            type="button"
-            className="section-button"
-            onClick={() => setSection(1)}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            className="section-button"
-            onClick={() => setSection(3)}
-          >
-            Next
-          </button>
+          <div className="remove-hobbies-container">
+            <p>Faites glisser les hobbies ici pour les enlever :</p>
+            <div
+              className="dropzone-remove"
+              onDragOver={(e) => onDragOver(e)}
+              onDrop={(e) => onDropToRemove(e)}
+            ></div>
+          </div>
+          <div className="button-container">
+            <button
+              type="button"
+              className="section-button"
+              onClick={() => setSection(1)}
+            >
+              Précédent
+            </button>
+            <button
+              type="button"
+              className="section-button"
+              onClick={() => setSection(3)}
+            >
+              Suivant
+            </button>
+          </div>
         </div>
       )}
 
@@ -231,12 +264,22 @@ function SignUpForm() {
                 : "None"}
             </li>
           </ul>
-          <button type="button" onClick={() => setSection(2)}>
-            Previous
-          </button>
-          <button type="button" onClick={handleFinalSubmit}>
-            Sign Up
-          </button>
+          <div className="button-container">
+            <button
+              type="button"
+              className="section-button"
+              onClick={() => setSection(2)}
+            >
+              Précédent
+            </button>
+            <button
+              type="button"
+              className="section-button"
+              onClick={handleFinalSubmit}
+            >
+              S'inscrire
+            </button>
+          </div>
         </div>
       )}
 
