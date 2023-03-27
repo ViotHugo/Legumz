@@ -17,7 +17,7 @@ function SignUpForm() {
     interests: "", // not used in the code
     hobbies: [], // changed hobbies to an empty array
     lookingFor: "", // not used in the code
-    profilePicture: "", // not used in the code
+    profilePictures: [], // not used in the code
   });
 
   const hobbiesList = [
@@ -120,15 +120,31 @@ function SignUpForm() {
     }
   };
 
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            profilePictures: prevFormData.profilePictures.concat(reader.result),
+          }));
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
   const [section, setSection] = useState(1);
 
   return (
     <div className="signup-container">
       {section === 1 && (
         <div>
-          <h1>Sign Up</h1>
+          <h1>Inscription</h1>
           <form className="signup-form" onSubmit={handleSubmit}>
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName">Prénom</label>
             <input
               type="text"
               id="firstName"
@@ -138,29 +154,35 @@ function SignUpForm() {
               required
             />
 
-            <label htmlFor="age">Age</label>
-            <input
-              type="number"
-              id="age"
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              required
-            />
+            <div className="form-row">
+              <div>
+                <label htmlFor="age">Âge</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <label htmlFor="gender">Gender</label>
-            <select
-              id="gender"
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select a gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
+              <div>
+                <label htmlFor="gender">Genre</label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Sélectionner un genre</option>
+                  <option value="male">Homme</option>
+                  <option value="female">Femme</option>
+                  <option value="other">Autre</option>
+                </select>
+              </div>
+            </div>
 
             <label htmlFor="email">Email</label>
             <input
@@ -171,13 +193,75 @@ function SignUpForm() {
               onChange={handleChange}
               required
             />
+            <div className="input-group">
+              <label htmlFor="password">Mot de passe</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-            <button type="submit">Next</button>
+            <label htmlFor="city">Ville</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">Suivant</button>
           </form>
         </div>
       )}
-
       {section === 2 && (
+        <div>
+          <h1>Dis nous en un peu plus sur toi</h1>
+          <form className="signup-form" onSubmit={handleSubmit}>
+            <label htmlFor="bio">Description/Bio</label>
+            <textarea
+              id="bio"
+              name="bio"
+              value={formData.bio}
+              onChange={handleChange}
+              required
+            />
+            <div className="input-group">
+              <label htmlFor="profilePicture">Photo de profil</label>
+              <input
+                type="file"
+                id="profilePictures"
+                name="profilePictures"
+                onChange={handleFileChange}
+                multiple
+                required
+              />
+            </div>
+
+            <div className="button-container">
+            <button
+              type="button"
+              className="section-button"
+              onClick={() => setSection(1)}
+            >
+              Précédent
+            </button>
+            <button
+              type="button"
+              className="section-button"
+              onClick={() => setSection(3)}
+            >
+              Suivant
+            </button>
+          </div>
+          </form>
+        </div>
+      )}
+      {section === 3 && (
         <div>
           <h1>Sélectionnez vos hobbies</h1>
           <p>
@@ -225,14 +309,14 @@ function SignUpForm() {
             <button
               type="button"
               className="section-button"
-              onClick={() => setSection(1)}
+              onClick={() => setSection(2)}
             >
               Précédent
             </button>
             <button
               type="button"
               className="section-button"
-              onClick={() => setSection(3)}
+              onClick={() => setSection(4)}
             >
               Suivant
             </button>
@@ -240,23 +324,30 @@ function SignUpForm() {
         </div>
       )}
 
-      {section === 3 && (
+      {section === 4 && (
         <div>
-          <h1>Confirm Your Sign Up</h1>
-          <p>Please check the following information:</p>
+          <h1>Confirmez votre inscription</h1>
+          <p>Vérifiez vos informations :</p>
           <ul>
             <li>
-              <strong>First Name:</strong> {formData.firstName}
+              <strong>Prénom :</strong> {formData.firstName}
             </li>
             <li>
-              <strong>Age:</strong> {formData.age}
+              <strong>Age :</strong> {formData.age}
             </li>
             <li>
-              <strong>Gender:</strong> {formData.gender}
+              <strong>Genre :</strong> {formData.gender}
             </li>
             <li>
               <strong>Email:</strong> {formData.email}
             </li>
+            <li>
+              <strong>Description/Bio :</strong> {formData.bio}
+            </li>
+            <li>
+              <strong>Ville :</strong> {formData.city}
+            </li>
+
             <li>
               <strong>Hobbies:</strong>{" "}
               {formData.hobbies.length > 0
@@ -264,11 +355,27 @@ function SignUpForm() {
                 : "None"}
             </li>
           </ul>
+          {formData.profilePictures.length > 0 && (
+            <div>
+              <p>
+                <strong>Photos de profil :</strong>
+              </p>
+              {formData.profilePictures.map((picture, index) => (
+                <img
+                  key={index}
+                  src={picture}
+                  alt={`Photo de profil ${index + 1}`}
+                  className="profile-picture profile-picture-preview"
+                />
+              ))}
+            </div>
+          )}
+
           <div className="button-container">
             <button
               type="button"
               className="section-button"
-              onClick={() => setSection(2)}
+              onClick={() => setSection(3)}
             >
               Précédent
             </button>
