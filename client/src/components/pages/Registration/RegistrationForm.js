@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Ajoutez cette importation
 import "./RegistrationForm.css";
 import logo from "../../Header/logo.png";
 import axios from 'axios';
-
+import Header from "./../../Header/Header";
 
 const LoginForm = () => {
   const navigate = useNavigate(); // Ajoutez cette ligne
@@ -31,6 +31,8 @@ const LoginForm = () => {
   };
 
   return (
+    <div>
+      <Header/>
     <div className="container">
       <div className="match-container">
         <img src={logo} alt="Logo" className="logo" />
@@ -74,6 +76,7 @@ const LoginForm = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

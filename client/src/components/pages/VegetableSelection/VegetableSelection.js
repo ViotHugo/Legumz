@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ImageCard from '../ImageCard/ImageCard';
 import { useNavigate } from 'react-router-dom';
 import GenderSelection from '../GenderSelection/GenderSelection';
-
+import Header from "./../../Header/Header";
 
 const VegetableSelection = () => {
   const navigate = useNavigate();
@@ -19,6 +19,8 @@ const VegetableSelection = () => {
 };
 
   return (
+    <div>
+      <Header />
     <div className="App-container" style={{ backgroundImage: backgroundColor, minHeight: '100vh' }}>
       {Array(4)
         .fill()
@@ -31,6 +33,7 @@ const VegetableSelection = () => {
             onBackgroundColorChange={handleBackgroundColorChange}
           />
         ))}
+    </div>
     </div>
   );
 };

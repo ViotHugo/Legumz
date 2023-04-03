@@ -6,11 +6,14 @@ import bothImage from '../../../images/bi.png';
 import './GenderSelection.css';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Header from "./../../Header/Header";
 
 function GenderSelection() { 
   const { vegetableChoice } = useParams();
 
   return (
+    <div>
+      <Header/>
     <div >
       <h1>Choix du sexe</h1>
       <div className="gender-selection">
@@ -33,6 +36,7 @@ function GenderSelection() {
           description="Description pour les deux"
         />
       </div>
+    </div>
     </div>
   );
 }

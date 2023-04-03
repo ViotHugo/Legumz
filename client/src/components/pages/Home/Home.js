@@ -3,9 +3,12 @@ import "./Home.css";
 import image1 from '../../../images/Accueil1.png';
 import image2 from '../../../images/Accueil2.png';
 import image3 from '../../../images/Accueil3.png';
+import Header from "./../../Header/Header";
 
 function Home() {
   return (
+    <div>
+    <Header />
     <div className="Home">
       <div className="header">
         <h1>Welcum to Legumz</h1>
@@ -32,6 +35,7 @@ function Home() {
           className="image"
         />
       </div>
+    </div>
     </div>
   );
 }

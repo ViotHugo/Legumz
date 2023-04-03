@@ -3,6 +3,7 @@ import "./SignUpForm.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "font-awesome/css/font-awesome.min.css";
+import Header from "./../../Header/Header";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -139,6 +140,8 @@ function SignUpForm() {
   const [section, setSection] = useState(1);
 
   return (
+    <div>
+      <Header/>
     <div className="signup-container">
       {section === 1 && (
         <div>
@@ -395,6 +398,7 @@ function SignUpForm() {
         <i className="fa fa-google" aria-hidden="true"></i>
         <i className="fa fa-twitter" aria-hidden="true"></i>
       </div>
+    </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import "./MapPage.css";
 import "leaflet/dist/images/marker-shadow.png";
+import Header from "./../../Header/Header";
 
 const UpdateMapPosition = ({ position }) => {
   const map = useMap();
@@ -53,6 +54,8 @@ const MapPage = () => {
   };
 
   return (
+    <div>
+      <Header/>
     <div className="map-page">
       <h1>Carte</h1>
       <div className="search-bar">
@@ -80,6 +83,7 @@ const MapPage = () => {
         </Marker>
         <UpdateMapPosition position={position} />
       </MapContainer>
+    </div>
     </div>
   );
 };
