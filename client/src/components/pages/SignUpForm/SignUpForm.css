@@ -1,3 +1,4 @@
+
 /* SignUpForm.css */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
@@ -208,4 +209,22 @@ body {
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.profile-picture {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.profile-picture-preview {
+  margin-right: 8px;
 }
