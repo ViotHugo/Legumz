@@ -49,6 +49,73 @@ app.post('/recupProfile', (req,res) => {
   });
 })
 
+app.post('/recupMatchPossible', async (req,res)  => {
+  const emailUser = req.body.email
+  const genderSearch = req.body.genderSearch
+  const vegetableChoice = req.body.vegetableChoice
+  const hobbies = req.body.hobbies;
+  const Users = mongoose.connection.collection('Users');
+  const NoMatch = mongoose.connection.collection('NoMatch');
+  const Match = mongoose.connection.collection('Match');
+  const emailsToExclude = [emailUser];
+
+  try {
+    const noMatchDocs = await NoMatch.find({ email1: emailUser }, { _id: 0, email2: 1 }).toArray();
+    const matchDocs = await Match.find({ email1: emailUser }, { _id: 0, email2: 1 }).toArray();
+
+    noMatchDocs.forEach((doc) => {
+      emailsToExclude.push(doc.email2);
+    });
+
+    matchDocs.forEach((doc) => {
+      emailsToExclude.push(doc.email2);
+    });
+
+    let resultats = await Users.find({ email: { $nin: emailsToExclude } }).toArray();
+
+    //Enlever les profils dont le genre ne correspond pas
+    if (genderSearch && genderSearch !== 'lesdeux') {
+      resultats = resultats.filter((user) => user.gender == genderSearch );
+    } 
+
+    // Trie par légume
+    if(vegetableChoice){
+      resultats.sort((a, b) => {
+        if(a.vegetableChoice == vegetableChoice && b.vegetableChoice != vegetableChoice){
+          return -1
+        }
+        else if (a.vegetableChoice != vegetableChoice && b.vegetableChoice == vegetableChoice){
+          return 1
+        }
+        else{
+          return 0
+        }
+      })
+    }
+    if(hobbies){
+      resultats.sort((a, b) => {
+        if (a.vegetableChoice == b.vegetableChoice){
+          const commonHobbiesA  = a.hobbies.filter((element) => hobbies.includes(element)).length;
+          const commonHobbiesB  = b.hobbies.filter((element) => hobbies.includes(element)).length;
+          if (commonHobbiesA > commonHobbiesB){
+            return -1;
+          }
+          else if(commonHobbiesA < commonHobbiesB){
+            return 1;
+          }
+          else{
+            return 0;
+          }
+        }
+      });
+    }
+    res.send(resultats);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+})
+
 app.post('/connexion', (req, res) => {
   const paramConnexion = req.body
   const Users = mongoose.connection.collection('Users');
@@ -76,43 +143,3 @@ app.get('/',(req,res) => {
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
-
-/*
-const uri = 'mongodb+srv://root:root@cluster0.uwibc8n.mongodb.net/Test?retryWrites=true&w=majority';
-// Remplacez "<password>" par votre mot de passe MongoDB Atlas
-// Remplacez "<dbname>" par le nom de votre base de données
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connexion à MongoDB Atlas réussie !');
-
-    // Récupérer la collection Personne
-    const Personne = mongoose.connection.collection('Personne');
-
-    // Ajouter une personne à la collection
-    Personne.insertOne({ nom: 'Dupont', prenom: 'Jean', age: 30 })
-      .then((result) => {
-        console.log('Personne ajoutée :', result.insertedId);
-
-        // Récupérer tous les documents de la collection Personne
-        Personne.find({})
-          .toArray()
-          .then((resultats) => {
-            console.log('Personnes :', resultats);
-            mongoose.connection.close();
-          })
-          .catch((err) => {
-            console.log(err);
-            mongoose.connection.close();
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-        mongoose.connection.close();
-      });
-  })
-  .catch((error) => {
-    console.log('Erreur de connexion à MongoDB Atlas :', error);
-  });
-*/
-
-

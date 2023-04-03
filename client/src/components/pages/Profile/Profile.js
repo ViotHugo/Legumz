@@ -7,16 +7,16 @@ function Profile() {
     const { email } = useParams();
     
     const [user, setUser] = useState({})
+    useEffect(() => {
       axios.post('http://localhost:5000/recupProfile', {email : email})
           .then((response) => {
-            setUser(response.data);
+            setUser(response.data);  
             
           })
           .catch((error) => {
             console.log(error);
-          });
-    useEffect(() => {
-    }, [email])
+      });
+  }, [email])
 
   // Ici, vous pouvez ajouter des informations sur le profil de l'utilisateur, comme le nom, l'email, l'âge, etc.
   /*

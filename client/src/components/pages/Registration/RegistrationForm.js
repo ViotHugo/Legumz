@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   return (
     <div className="container">
-      <div className="logo-container">
+      <div className="match-container">
         <img src={logo} alt="Logo" className="logo" />
         <h1 className="title">Legumz</h1>
         <form onSubmit={handleSubmit} className="login-form">
