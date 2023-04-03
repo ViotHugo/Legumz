@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import Header from "./../../Header/Header";
+import Header2 from "./../../Header2/Header2";
 
 function Profile() {
     const { email } = useParams();
@@ -21,8 +21,8 @@ function Profile() {
 
   return (
     <div>
-      <Header/>
-      <div className="profile">
+      <Header2/>
+      <div className="profil  e">
         <h1>Profil</h1>
         <div className="profile-info">
           <h2>Nom : {user.fullName}</h2>
