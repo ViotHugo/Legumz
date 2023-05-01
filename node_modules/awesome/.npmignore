@@ -1,0 +1,10 @@
+.git*
+examples/
+public/
+pids/
+logs/
+views/
+.monitor
+nodemon-ignore
+test/
+.settings/

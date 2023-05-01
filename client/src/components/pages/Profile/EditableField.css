@@ -1,0 +1,10 @@
+.editable-field {
+    cursor: pointer;
+  }
+  
+  .editable-field input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 4px;
+  }
+  

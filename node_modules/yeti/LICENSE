@@ -1,0 +1,124 @@
+The following license text applies to all parts of Yeti that are not
+externally maintained libraries.
+
+# License for Yeti (BSD License)
+
+Copyright 2014 Yahoo! Inc.
+All rights reserved.
+
+Redistribution and use of this software in source and binary forms,
+with or without modification, are permitted provided that the following
+conditions are met:
+
+* Redistributions of source code must retain the above
+  copyright notice, this list of conditions and the
+  following disclaimer.
+
+* Redistributions in binary form must reproduce the above
+  copyright notice, this list of conditions and the
+  following disclaimer in the documentation and/or other
+  materials provided with the distribution.
+
+* Neither the name of Yahoo! Inc. nor the names of its
+  contributors may be used to endorse or promote products
+  derived from this software without specific prior
+  written permission of Yahoo! Inc.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Included externally maintained libraries
+
+The externally maintained libraries included with Yeti are:
+
+- YUI, located at deps/yui-runtime.js. YUI's license follows:
+
+  Copyright (c) 2013, Yahoo! Inc. All rights reserved.
+
+  Redistribution and use of this software in source and binary forms, with or
+  without modification, are permitted provided that the following conditions are
+  met:
+
+    * Redistributions of source code must retain the above copyright notice, this
+      list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+      and/or other materials provided with the distribution.
+    * Neither the name of Yahoo! Inc. nor the names of YUI's contributors may be
+      used to endorse or promote products derived from this software without
+      specific prior written permission of Yahoo! Inc.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+  ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+- sock.js, located at deps/sock.js. sock.js' license follows:
+
+  Copyright (c) 2011-2012 VMware, Inc.
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+
+# Other externally maintained libraries
+
+This program uses several Node modules contained in the node_modules/
+subdirectory, according to the terms of their respective licenses.
+
+This program uses several libraries contained in the deps/dev/
+subdirectory as required to test Yeti, according to the terms of
+their respective licenses. These libraries include:
+
+- YUI Test, located at deps/dev/yui-test.*
+  Copyright 2013 Yahoo! Inc.
+  Used under the BSD license.
+  https://github.com/yui/yuitest/blob/9f86ac45dc811abab8591c643b13c068f3534dfe/LICENSE
+
+- QUnit, located at deps/dev/qunit.*.
+  Copyright 2013 jQuery Foundation and other contributors.
+  Used under the MIT license.
+  https://github.com/jquery/jquery/blob/b326225d9087ee8c5648ace3cf88feab0330353d/MIT-LICENSE.txt
+
+- Jasmine, located at deps/dev/jasmine*.
+  Copyright 2008-2011 Pivotal Labs.
+  Used under the MIT license.
+  https://github.com/pivotal/jasmine/blob/8b02bf731b193e135ccb486e99b3ecd7165bf95c/MIT.LICENSE
+
+- Mocha, located at deps/dev/mocha.*.
+  Copyright 2011-2013 TJ Holowaychuk <tj@vision-media.ca>.
+  Used under the MIT license.
+  https://github.com/visionmedia/mocha/blob/8f66a59657dc37e523749f519753cdade9486b5f/LICENSE
+
+- Dojo, located at deps/dev/dojo*.
+  Copyright 2005-2006 The Dojo Foundation.
+  Used under the BSD license.
+  http://bugs.dojotoolkit.org/browser/dojo/trunk/LICENSE?rev=6646

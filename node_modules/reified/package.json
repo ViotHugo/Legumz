@@ -1,0 +1,21 @@
+{
+  "author": "Brandon Benvie <brandon@bbenvie.com> (http://bbenvie.com)",
+  "name": "reified",
+  "description": "JS Binary Data API. Structs, arrays, bitfields, and numbers. Reify and Reference like nobody's business.",
+  "version": "0.2.4",
+  "homepage": "https://github.com/Benvie/reified",
+  "keywords": ["binary", "struct", "c", "capi", "bitfield", "parse", "data"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Benvie/reified.git"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "tap": ">=0.2.3"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

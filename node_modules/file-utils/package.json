@@ -1,0 +1,48 @@
+{
+  "name": "file-utils",
+  "version": "0.2.2",
+  "description": "Sync file utility for Node.js command line tools",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "findup-sync": "^0.2.1",
+    "glob": "^4.3.5",
+    "iconv-lite": "^0.4.3",
+    "isbinaryfile": "^2.0.1",
+    "lodash": "^2.4.1",
+    "minimatch": "^2.0.1",
+    "rimraf": "^2.2.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-release": "^0.10.0",
+    "temporary": "0.0.8"
+  },
+  "repository": "SBoudrias/file-utils",
+  "keywords": [
+    "file",
+    "fs",
+    "utils",
+    "util",
+    "scaffold",
+    "tool",
+    "cli"
+  ],
+  "author": "Simon Boudrias",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ]
+}

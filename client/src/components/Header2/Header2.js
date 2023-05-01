@@ -14,7 +14,7 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
+import { FaList, FaRegHeart,FaRegCommentDots,FaBinoculars,FaGrinHearts,FaHeart } from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
@@ -57,12 +57,30 @@ const Header2 = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
+<<<<<<< HEAD
               <MenuItem active={true} icon={<FiHome />}>Home</MenuItem>
               <MenuItem icon={<FaList />}>Category</MenuItem>
               <MenuItem icon={<FaList />}>Category</MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
               <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
               <MenuItem icon={<BiCog />}>Settings</MenuItem>
+=======
+              <MenuItem active={true} icon={<FiHome />}>
+                Profil
+              </MenuItem>
+              <MenuItem active={false} icon={<FaRegCommentDots />}>
+                Mes messages
+              </MenuItem>
+              <MenuItem active={false} icon={<FaBinoculars />}>
+                Parametre de recherche
+              </MenuItem>
+              <MenuItem active={false} icon={<FaGrinHearts />}>
+                Trouve des célibataires
+              </MenuItem>
+              <MenuItem active={false} icon={<FaHeart/>}>
+                Mes matchs
+              </MenuItem>
+>>>>>>> d028e8c73499e5e06538c718b03ad226e3a69a31
             </Menu>
           </SidebarContent>
           <SidebarFooter>

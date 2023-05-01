@@ -1,0 +1,90 @@
+{
+  "name": "yeti",
+  "description": "Yeti automates browser testing.",
+  "author": "Reid Burke <me@reidburke.com> (http://reidburke.com)",
+  "contributors": [
+    "Dav Glass <davglass@gmail.com>",
+    "Ryuichi Okumura <okuryu@okuryu.com>",
+    "Clarence Leung <clarle@yahoo-inc.com>",
+    "Ryan Seddon <seddon.ryan@gmail.com>",
+    "Jean-Charles Sisk <jasisk@gmail.com>"
+  ],
+  "keywords": [
+    "YUI",
+    "yuitest",
+    "TDD",
+    "BDD",
+    "test",
+    "mocha",
+    "doh",
+    "jasmine",
+    "qunit"
+  ],
+  "version": "0.2.29",
+  "homepage": "http://yeti.cx",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/yui/yeti.git"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": "https://github.com/yui/yeti/issues",
+  "main": "lib/yeti",
+  "bin": "./cli.js",
+  "scripts": {
+    "pretest": "jake lint && jake dep",
+    "test": "jake test",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "engines": {
+    "node": "~0.10.0"
+  },
+  "jshintConfig": {
+    "node": true,
+    "onevar": true,
+    "white": true,
+    "curly": true,
+    "eqeqeq": true,
+    "latedef": true,
+    "newcap": true,
+    "noempty": true,
+    "nonew": true,
+    "plusplus": true,
+    "undef": true,
+    "trailing": true
+  },
+  "dependencies": {
+    "async": "~0.9.0",
+    "wd": "~0.2.5",
+    "echoecho": "~0.1.9",
+    "eventemitter2": "~0.4.8",
+    "eventyoshi": "~0.1.2",
+    "nopt": "~2.2.1",
+    "onyx": "~0.1.5",
+    "sockjs": "~0.3.1",
+    "proto-list": "~1.2.2",
+    "glob": "~3.2.1",
+    "graceful-fs": "~2.0.0",
+    "request": "~2.36.0",
+    "minimatch": "~0.3.0"
+  },
+  "optionalDependencies": {
+    "istanbul": "~0.2.9"
+  },
+  "devDependencies": {
+    "mocks": ">=0.0.15",
+    "mockery": ">=1.4.0",
+    "portfinder": ">=0.2.1",
+    "istanbul": ">=0.2.1",
+    "semver": ">=1.0.14",
+    "ronn": ">=0.3.8",
+    "jshint": ">=2.4.3",
+    "node-phantom": ">=0.2.1",
+    "vows": ">=0.6.4",
+    "selleck": "0.1.16",
+    "yuidocjs": ">=0.2.39",
+    "jake": ">=0.2.35",
+    "rimraf": ">=2.0.1",
+    "walkdir": ">=0.0.5",
+    "mock-utf8-stream": ">=0.1.0"
+  }
+}

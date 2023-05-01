@@ -1,0 +1,40 @@
+{
+  "name": "onyx",
+  "description": "Fast Node.js static file server.",
+  "keywords" : [
+    "static",
+    "HTTP",
+    "streaming"
+  ],
+  "version": "0.1.5",
+  "homepage": "http://yuilibrary.com/",
+  "author": "Reid Burke <me@reidburke.com> (http://reidburke.com/)",
+  "contributors": [{
+    "name": "Reid Burke",
+    "email": "me@reidburke.com"
+  }],
+  "main": "./lib/index",
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies" : {
+  },
+  "devDependencies" : {
+    "jslint" : ">=0.1.2",
+    "ronn" : ">=0.3.5",
+    "vows" : ">=0.6.0"
+  },
+  "engines": {
+    "node": "~0.8.0 || ~0.10.0"
+  },
+  "scripts": {
+    "test": "vows test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/reid/onyx.git"
+  },
+  "licenses" : [
+    { "type" : "BSD", "url" : "http://yuilibrary.com/license/" }
+  ]
+}

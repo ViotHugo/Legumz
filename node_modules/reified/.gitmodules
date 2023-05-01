@@ -1,0 +1,3 @@
+[submodule "browser/DataView"]
+	path = browser/DataView
+	url = https://github.com/davidflanagan/DataView.js.git
