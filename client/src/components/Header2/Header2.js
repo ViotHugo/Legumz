@@ -57,14 +57,7 @@ const Header2 = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-<<<<<<< HEAD
-              <MenuItem active={true} icon={<FiHome />}>Home</MenuItem>
-              <MenuItem icon={<FaList />}>Category</MenuItem>
-              <MenuItem icon={<FaList />}>Category</MenuItem>
-              <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-              <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
-              <MenuItem icon={<BiCog />}>Settings</MenuItem>
-=======
+
               <MenuItem active={true} icon={<FiHome />}>
                 Profil
               </MenuItem>
@@ -80,7 +73,7 @@ const Header2 = () => {
               <MenuItem active={false} icon={<FaHeart/>}>
                 Mes matchs
               </MenuItem>
->>>>>>> d028e8c73499e5e06538c718b03ad226e3a69a31
+
             </Menu>
           </SidebarContent>
           <SidebarFooter>
