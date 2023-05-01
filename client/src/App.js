@@ -13,6 +13,10 @@ import MapPage from './components/pages/MapPage/MapPage';
 import Messages from './components/pages/Messages/Messages';
 import Header2 from "./components/Header2/Header2";
 
+import Matchs from "./components/pages/Matchs/Matchs";
+import Search from "./components/pages/Search/Search";
+import Singles from "./components/pages/Singles/Singles";
+
 import "./App.css";
 
 function App() {
@@ -35,6 +39,12 @@ function App() {
           <Route path="/map" element={<MapPage />} />
           <Route path="/profil/:email" element={<Profile />} />
           <Route path="/messages/:email" element={<Messages/>} />
+
+          <Route path="/matchs/:email" element={<Matchs/>} />
+          <Route path="/search/:email" element={<Search/>} />
+          <Route path="/singles/:email" element={<Singles/>} />
+
+
         </Routes>
       </div>
     </Router>

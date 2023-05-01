@@ -77,7 +77,7 @@ const Header2 = ({ activePage, email }) => {
                 <MenuItem
                   active={activePage === "search"}
                   icon={<FaBinoculars />}
-                  onClick={() => handleClick("ParamRecherche")}
+                  onClick={() => handleClick("search")}
                 >
                   Paramètre de recherche
                 </MenuItem>
@@ -85,15 +85,15 @@ const Header2 = ({ activePage, email }) => {
                 <MenuItem
                   active={activePage === "singles"}
                   icon={<FaGrinHearts />}
-                  onClick={() => handleClick("TrouverCelib")}
+                  onClick={() => handleClick("singles")}
                 >
                   Trouver des célibataires
                 </MenuItem>
 
                 <MenuItem
-                  active={activePage === "matches"}
+                  active={activePage === "matchs"}
                   icon={<FaHeart />}
-                  onClick={() => handleClick("Matchs")}
+                  onClick={() => handleClick("matchs")}
                 >
                   Mes matchs
                 </MenuItem>
