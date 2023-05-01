@@ -10,6 +10,8 @@ import GenderSelection from "./components/pages/GenderSelection/GenderSelection"
 import SignUpForm from "./components/pages/SignUpForm/SignUpForm";
 import Profile from './components/pages/Profile/Profile';
 import MapPage from './components/pages/MapPage/MapPage';
+import Messages from './components/pages/Messages/Messages';
+import Header2 from "./components/Header2/Header2";
 
 import "./App.css";
 
@@ -31,6 +33,7 @@ function App() {
           <Route path="/signup/:data" element={<SignUpForm />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/profil/:email" element={<Profile />} />
+          <Route path="/messages/:email" element={<Messages/>} />
         </Routes>
       </div>
     </Router>
