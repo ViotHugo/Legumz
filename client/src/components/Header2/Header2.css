@@ -23,7 +23,7 @@
   }
   #header .pro-sidebar.collapsed {
     width: 80px;
-    min-width: 80px;
+    min-width: 8px;
   }
   #header .pro-sidebar-inner {
     background-color: white;
@@ -40,6 +40,8 @@
   }
   #header .pro-sidebar-inner .pro-sidebar-layout ul {
     padding: 0 5px;
+    display: flex;
+    flex-direction: column;
   }
   #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
     color: #000;
@@ -66,3 +68,5 @@
       overflow: hidden;
     }
   }
+
+  
