@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import {
   ProSidebar,
   Menu,
@@ -22,15 +22,20 @@ import { BiCog } from "react-icons/bi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Header2.css";
 
-const Header2 = ({ activePage }) => {
+const Header2 = ({ activePage, email }) => {
   const [menuCollapse, setMenuCollapse] = useState(false);
-
+  const navigate = useNavigate();
   const menuIconClick = () => {
     setMenuCollapse(!menuCollapse);
   };
 
   const handleClick = (tabName) => {
-    console.log("Clicked on", tabName);
+    if(tabName=="Logout"){
+      navigate('/');
+    }
+    else{
+      navigate('/'+tabName+'/'+email);
+    } 
   };
 
   return (
@@ -51,63 +56,53 @@ const Header2 = ({ activePage }) => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <NavLink to="/profil/your_email" activeClassName="active">
-                <MenuItem
+              <MenuItem
                   active={activePage === "profil"}
                   icon={<FiHome />}
-                  onClick={() => handleClick("Profil")}
+                  onClick={() => handleClick("profil")}
                 >
-                  Profil
+                  Profile
                 </MenuItem>
-              </NavLink>
+   
 
-              <NavLink to="/messages/your_email" activeClassName="active">
                 <MenuItem
                   active={activePage === "messages"}
                   icon={<FaRegCommentDots />}
-                  onClick={() => handleClick("Mes messages")}
+                  onClick={() => handleClick("messages")}
                 >
                   Mes messages
                 </MenuItem>
-              </NavLink>
+             
 
-              <NavLink to="/search" activeClassName="active">
                 <MenuItem
                   active={activePage === "search"}
                   icon={<FaBinoculars />}
-                  onClick={() => handleClick("Paramètre de recherche")}
+                  onClick={() => handleClick("ParamRecherche")}
                 >
                   Paramètre de recherche
                 </MenuItem>
-              </NavLink>
 
-              <NavLink to="/singles" activeClassName="active">
                 <MenuItem
                   active={activePage === "singles"}
                   icon={<FaGrinHearts />}
-                  onClick={() => handleClick("Trouver des célibataires")}
+                  onClick={() => handleClick("TrouverCelib")}
                 >
                   Trouver des célibataires
                 </MenuItem>
-              </NavLink>
 
-              <NavLink to="/matches" activeClassName="active">
                 <MenuItem
                   active={activePage === "matches"}
                   icon={<FaHeart />}
-                  onClick={() => handleClick("Mes matchs")}
+                  onClick={() => handleClick("Matchs")}
                 >
                   Mes matchs
                 </MenuItem>
-              </NavLink>
 
             </Menu>
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <NavLink to="/" activeClassName="active">
-                <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-              </NavLink>
+                <MenuItem icon={<FiLogOut />} onClick={() => handleClick("Logout")}>Logout</MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>
