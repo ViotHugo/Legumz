@@ -74,7 +74,6 @@
   font-family: "Poppins", sans-serif;
   transition: border-color 0.2s ease-in-out;
 }
-
 .signup-form input:focus,
 .signup-form select:focus,
 .signup-form textarea:focus {

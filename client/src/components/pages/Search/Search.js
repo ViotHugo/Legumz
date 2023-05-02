@@ -150,7 +150,8 @@ function Search() {
     </div>
   </div>
 </div>
-          <button
+<div className="subButton">
+  <button
             onClick={() => {
               console.log("Paramètres de recherche soumis :", {
                 relationship,
@@ -162,6 +163,8 @@ function Search() {
           >
             Soumettre
           </button>
+</div>
+          
         </div>
       </div>
     </div>

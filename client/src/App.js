@@ -35,7 +35,7 @@ function App() {
             path="/gender-selection/:vegetableChoice"
             element={<GenderSelection />}
           />
-          <Route path="/signup/:data" element={<SignUpForm />} />
+          <Route path="/signup/:vegetableGender" element={<SignUpForm />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/profil/:email" element={<Profile />} />
           <Route path="/messages/:email" element={<Messages/>} />

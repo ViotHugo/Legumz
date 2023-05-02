@@ -10,7 +10,6 @@ import Header from "./../../Header/Header";
 
 function GenderSelection() { 
   const { vegetableChoice } = useParams();
-
   return (
     <div>
       <Header/>

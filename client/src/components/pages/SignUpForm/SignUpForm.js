@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SignUpForm.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "font-awesome/css/font-awesome.min.css";
 import Header from "./../../Header/Header";
+import { useNavigate } from "react-router-dom"; 
 
 function SignUpForm() {
+  const navigate = useNavigate(); 
+  const { vegetableGender } = useParams();
+  const [emailsExists, setemailsExists] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [profilesPictures, setprofilesPictures] = useState([])
   const [formData, setFormData] = useState({
     firstName: "", // changed fullName to firstName
-    prenom: "", // not used in the code
-    email: "",
-    password: "", // not used in the code
     age: "",
-    gender: "",
-    city: "", // not used in the code
+    gender: "", // not used in the code
+    email: "",
+    password: "",
+    adress: "", // not used in the code
     bio: "", // not used in the code
-    interests: "", // not used in the code
+    profilePicture: "", // not used in the code
     hobbies: [], // changed hobbies to an empty array
-    lookingFor: "", // not used in the code
-    profilePictures: [], // not used in the code
+    vegetableChoice: vegetableGender.vegetableChoice,   
+    genderSearch: vegetableGender.genre,
+    vegetableSearch : [vegetableGender.vegetableChoice],
+    distanceMax : 50,
+    minAge : 18,
+    maxAge : 150 
   });
 
   const hobbiesList = [
@@ -37,6 +46,15 @@ function SignUpForm() {
     "Bricolage",
     "Yoga",
   ];
+  useEffect(() => {
+  axios.post('http://localhost:5000/emailsUtilises')
+      .then((response) => {
+        setemailsExists(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }, []);
 
   const onDragStart = (e, hobby) => {
     e.dataTransfer.setData("hobby", hobby);
@@ -65,6 +83,7 @@ function SignUpForm() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrorMessage('');
   };
 
   const handleSubmit = (e) => {
@@ -77,20 +96,16 @@ function SignUpForm() {
       formData.email
     ) {
       if (formData.age >= 18) {
-        setSection(2);
-        console.log("Section changed to 2");
-        axios
-          .post("http://localhost:5000/inscription", {
-            ...formData,
-            vegetableChoice,
-            genreSearch: genre,
-          })
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        console.log(emailsExists)
+        if (emailsExists.includes(formData.email)) {
+          setErrorMessage('Cet email est déjà utilisé.');
+        }
+        else{
+          setSection(2);
+          console.log("Section changed to 2");
+        }
+        
+        
       } else {
         alert("Tu dois être majeur pour t'inscrire");
       }
@@ -108,12 +123,10 @@ function SignUpForm() {
     ) {
       axios
         .post("http://localhost:5000/inscription", {
-          ...formData,
-          vegetableChoice,
-          genreSearch: genre,
+          ...formData
         })
         .then((response) => {
-          console.log(response.data);
+          navigate('/connexion');
         })
         .catch((error) => {
           console.log(error);
@@ -127,10 +140,8 @@ function SignUpForm() {
       files.forEach((file) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            profilePictures: prevFormData.profilePictures.concat(reader.result),
-          }));
+          profilesPictures.push(reader.result);
+          setprofilesPictures(profilesPictures);
         };
         reader.readAsDataURL(file);
       });
@@ -188,6 +199,9 @@ function SignUpForm() {
             </div>
 
             <label htmlFor="email">Email</label>
+            {errorMessage && (
+              <span style={{ color: 'red' }}>{errorMessage}</span>
+            )}
             <input
               type="email"
               id="email"
@@ -196,6 +210,7 @@ function SignUpForm() {
               onChange={handleChange}
               required
             />
+            
             <div className="input-group">
               <label htmlFor="password">Mot de passe</label>
               <input
@@ -208,12 +223,12 @@ function SignUpForm() {
               />
             </div>
 
-            <label htmlFor="city">Ville</label>
+            <label htmlFor="adress">Adresse</label>
             <input
               type="text"
-              id="city"
-              name="city"
-              value={formData.city}
+              id="adress"
+              name="adress"
+              value={formData.adress}
               onChange={handleChange}
               required
             />
@@ -233,6 +248,15 @@ function SignUpForm() {
               onChange={handleChange}
               required
             />
+             <label htmlFor="profilePictureAlo">Lien vers la photo de profil</label>
+            <input
+              type="text"
+              id="profilePicture"
+              name="profilePicture"
+              value={formData.profilePicture}
+              onChange={handleChange}
+              required
+            />
             <div className="input-group">
               <label htmlFor="profilePicture">Photo de profil</label>
               <input
@@ -244,7 +268,7 @@ function SignUpForm() {
                 required
               />
             </div>
-
+          
             <div className="button-container">
             <button
               type="button"
@@ -348,7 +372,7 @@ function SignUpForm() {
               <strong>Description/Bio :</strong> {formData.bio}
             </li>
             <li>
-              <strong>Ville :</strong> {formData.city}
+              <strong>Adresse :</strong> {formData.adress}
             </li>
 
             <li>
@@ -358,12 +382,19 @@ function SignUpForm() {
                 : "None"}
             </li>
           </ul>
-          {formData.profilePictures.length > 0 && (
+              <div>
+                <p>
+                  <strong>Photos de profil :</strong>
+                </p>
+                <img
+                  src={formData.profilePicture}
+                  alt={`Photo de profil 0`}
+                  className="profile-picture profile-picture-preview"
+                />
+            </div>
+          {profilesPictures.length > 0 && (
             <div>
-              <p>
-                <strong>Photos de profil :</strong>
-              </p>
-              {formData.profilePictures.map((picture, index) => (
+              {profilesPictures.map((picture, index) => (
                 <img
                   key={index}
                   src={picture}
@@ -371,6 +402,7 @@ function SignUpForm() {
                   className="profile-picture profile-picture-preview"
                 />
               ))}
+              
             </div>
           )}
 

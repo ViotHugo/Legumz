@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 function GenderCard(props) {
   const navigate = useNavigate();
-
   const handleClick = () => {
     const data = {
       vegetableChoice: props.vegetableChoice,

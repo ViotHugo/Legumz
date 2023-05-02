@@ -5,6 +5,7 @@ require("dotenv").config({ path: "./config.env" });
 const mongoose = require('mongoose');
 const port = process.env.PORT || 5000;
 
+app.use(express.json({limit: '500mb'}))
 app.use(cors());
 app.use(express.json());
 
@@ -22,11 +23,11 @@ app.post('/inscription', (req, res) => {
   const personneInscrire = req.body
   // Récupérer la collection Personne
   const Users = mongoose.connection.collection('Users');
-
   // Ajouter une personne à la collection
   Users.insertOne(personneInscrire)
     .then((result) => {
       console.log('User add :', result.insertedId);
+      res.send(true);
     })
     .catch((err) => {
       console.log(err);
@@ -46,6 +47,19 @@ app.post('/recupProfile', (req,res) => {
         })
         .catch((err) => {
           console.log(err)
+  });
+})
+
+app.post('/emailsUtilises', (req,res) => {
+  const Users = mongoose.connection.collection('Users');
+  Users.find({}, { email: 1 })
+  .toArray()
+  .then((resultats) => {
+    const emails = resultats.map((user) => user.email);
+    res.send(emails)
+  })
+  .catch((err) => {
+    console.log(err);
   });
 })
 
