@@ -1,5 +1,35 @@
-.gender-selection {
+/* GenderSelection.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+.App-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100vh - 60px);
+}
+
+.gender-selection {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+}
+
+.gender-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+}
+
+.gender-selection-title {
+  margin-top: 0px;
+  margin-bottom: 30px;
 }
