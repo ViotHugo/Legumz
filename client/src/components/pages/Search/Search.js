@@ -1,7 +1,7 @@
-import React from 'react';
-import './Search.css';
+import './Search.css'
 import { useParams } from 'react-router-dom';
-import Header2 from "./../../Header2/Header2";
+import Header2 from "../../Header2/Header2";
+import React from 'react';
 
 function Search() {
   const { email } = useParams();
@@ -11,7 +11,7 @@ function Search() {
     <div>
       <Header2 activePage="search" email={email} />
       <div className="search">
-        <h1>mes parametres de recherche</h1>
+        <h1>Vos critères de recherche</h1>
         {/* Votre contenu de page de messages ici */}
       </div>
     </div>
