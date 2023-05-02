@@ -6,6 +6,12 @@ import "font-awesome/css/font-awesome.min.css";
 import Header from "./../../Header/Header";
 
 function SignUpForm() {
+  const navigate = useNavigate();
+  const { vegetableGender } = useParams();
+  const [emailsExists, setemailsExists] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [profilesPictures, setprofilesPictures] = useState([]);
+  const [customHobby, setCustomHobby] = useState("");
   const [formData, setFormData] = useState({
     firstName: "", // changed fullName to firstName
     prenom: "", // not used in the code
@@ -20,8 +26,6 @@ function SignUpForm() {
     lookingFor: "", // not used in the code
     profilePictures: [], // not used in the code
   });
-
-  const [customHobby, setCustomHobby] = useState("");
 
   const hobbiesList = [
     "Lecture",
