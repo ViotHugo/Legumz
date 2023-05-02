@@ -1,75 +1,110 @@
 #header {
-    position: absolute;
-    width: 280px;
-  }
-  #header .pro-sidebar {
-    height: 100vh;
-  }
-  #header .closemenu {
-    color: #000;
-    position: absolute;
-    right: 0;
-    z-index: 9999;
-    line-height: 20px;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 22px;
-    top: 55px;
-    cursor: pointer;
-  }
-  #header .pro-sidebar {
-    width: 100%;
-    min-width: 100%;
-  }
-  #header .pro-sidebar.collapsed {
-    width: 80px;
-    min-width: 8px;
-  }
-  #header .pro-sidebar-inner {
-    background-color: #BACEC1;
-    box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout {
-    overflow-y: hidden;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
-    font-size: 20px;
-    padding: 0 20px;
-    color: #000;
-    font-weight: bold;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul {
-    display: flex;
-    flex-direction: column;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
-    color: #000;
-    margin: 10px 0px;
-    font-weight: bold;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
-    background-color: #30d819;
-    color: #000;
-    border-radius: 0px;
-    padding-left: -500px; /* Ajoutez ou ajustez cette propriété pour déplacer les icônes vers la gauche */
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
-    color: #000;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout .active {
-    background-image: linear-gradient(0deg, #035800 0%, #3e9433 100%);
-    align-items: left;
-    padding: 10px 20px; /* Ajustez ces valeurs pour modifier la hauteur et la largeur du rectangle */
-    margin: 5px 0; /* Ajustez ces valeurs pour modifier l'espacement entre les rectangles */
-  }
-  #header .logo {
-    padding: 20px;
-  }
-  
-  @media only screen and (max-width: 720px) {
-    html {
-      overflow: hidden;
-    }
-  }
+  position: absolute;
+  width: 280px;
+}
+#header .pro-sidebar {
+  height: 100vh;
+}
+#header .closemenu {
+  color: #000;
+  position: absolute;
+  right: 0;
+  z-index: 9999;
+  line-height: 20px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 22px;
+  top: 55px;
+  cursor: pointer;
+}
+#header .pro-sidebar {
+  width: 100%;
+  min-width: 100%;
+}
+#header .pro-sidebar.collapsed {
+  width: 80px;
+  min-width: 8px;
+}
+#header .pro-sidebar.collapsed .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
+  margin-left: -18px; /* Ajustez cette valeur pour décaler les icônes vers la gauche */
+}
 
-  
+#header .pro-sidebar-inner {
+  background-color: #ffffff;
+  box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 15px; /* Ajoutez cette ligne pour arrondir les angles */
+}
+#header .pro-sidebar-inner .pro-sidebar-layout {
+  overflow-y: hidden;
+}
+#header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
+  font-size: 20px;
+  padding: 10 20px;
+  color: #000;
+  font-weight: bold;
+}
+#header .pro-sidebar-inner .pro-sidebar-layout ul {
+  display: flex;
+  flex-direction: column;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
+  color: #000;
+  margin: 10px 0px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
+  background-color: #84fab0; /* Modifié ici */
+  color: #000;
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
+  color: #000;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout .active {
+  background-image: linear-gradient(120deg, #8fd3f4 0%, #84fab0 100%); /* Modifié ici */
+  align-items: left;
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 12px;
+}
+
+#header .logo {
+  padding: 20px;
+}
+#header .pro-sidebar-inner .pro-sidebar-layout .logotext img {
+  height: 50px; /* Ajustez cette valeur pour modifier la taille du logo */
+  width: 50px;
+}
+#header .pro-sidebar-inner .pro-sidebar-layout .logotext {
+  padding: 15px 10px; /* Ajustez ces valeurs pour modifier l'espacement autour du logo */
+}
+
+.collapsed-logo {
+  height: 20px; /* Ajustez cette valeur pour modifier la taille du logo réduit */
+  width: 20px;
+  display: block;
+}
+
+.expanded-logo {
+  height: 10px; /* Ajustez cette valeur pour modifier la taille du logo déployé */
+  width: 10px;
+  margin-right: 10px;
+}
+
+.logotext {
+  display: flex;
+  align-items: center;
+  width: 220px; /* Ajustez cette valeur selon la largeur souhaitée */
+}
+@media only screen and (max-width: 720px) {
+  html {
+    overflow: hidden;
+  }
+}
