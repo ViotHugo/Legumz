@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
 .App-container {
   display: flex;
   flex-wrap: wrap;
@@ -6,6 +8,7 @@
   gap: 20px;
   padding: 20px;
   height: calc(100vh - 60px);
+  
 }
 .card {
   border: 5px solid white;
@@ -32,18 +35,11 @@
   object-fit: contain;
   border-radius: 5px;
   }
-  
-.card-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center; /* Ajoutez cette ligne pour centrer le texte */
-}
-  
-.card-description {
-    font-size: 16px;
-    color: #666;
-    text-align: center; /* Ajoutez cette ligne pour centrer le texte */
-    word-break: break-word; /* Ajoutez cette ligne pour gérer la césure des mots */
+
+.vegetable-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
+  align-items: center;
 }

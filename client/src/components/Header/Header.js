@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import "./Header.css";
 import logo from "./logo.png";
 
@@ -13,7 +13,7 @@ function Header() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/" activeClassName="active" exact>
+            <NavLink to="/" activeClassName="active" exact="true">
               Accueil
             </NavLink>
           </li>
@@ -28,7 +28,7 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/map" activeClassName="active" exact>
+            <NavLink to="/map" activeClassName="active" exact="true">
               Carte géographique
             </NavLink>
           </li>
