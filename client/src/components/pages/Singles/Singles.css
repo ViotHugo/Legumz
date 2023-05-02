@@ -1,14 +1,14 @@
 .matchs{
-    display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+justify-content: center;
+align-items: center;
 
 }
 .container_matchs {
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  .container_matchs h1 {
-    margin-top: 50px;
-    margin-left: 70px;
-  }
+.container_matchs h1 {
+  margin-top: 50px;
+  margin-left: 70px;
+}

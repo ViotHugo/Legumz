@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ImageCard from '../ImageCard/ImageCard';
+import './VegetableSelection.css';
 import { useNavigate } from 'react-router-dom';
 import Header from "./../../Header/Header";
 
@@ -20,24 +21,27 @@ const VegetableSelection = () => {
 return (
   <div>
     <Header />
+    <div className="spacer"></div>
     <div
       className="App-container"
       style={{ backgroundImage: backgroundColor, minHeight: "100vh" }}
     >
-      {[
-        { title: "Carotte", description: "Pour cultiver une relation durable #Sérieux" },
-        { title: "Poivron jaune", description: "Pour des moments savoureux sans s'engager #AmisAvecAvantages" },
-        { title: "Piment rouge", description: "Pour épicer sa vie d'une nuit #CeSoir" },
-        { title: "Aubergine", description: "Pour des rencontres sensuelles et régulières #SexFriend" },
-      ].map((item, index) => (
-        <ImageCard
-          key={index}
-          title={item.title}
-          description={item.description}
-          index={index}
-          onBackgroundColorChange={handleBackgroundColorChange}
-        />
-      ))}
+      <div className="vegetable-card-container">
+        {[
+          { title: "Carotte", description: "Pour cultiver une relation durable #Sérieux" },
+          { title: "Poivron jaune", description: "Moments savoureux sans s'engager #AmisAvecAvantages" },
+          { title: "Piment rouge", description: "Pour épicer sa vie d'une nuit #CeSoir" },
+          { title: "Aubergine", description: "Pour des rencontres sensuelles et régulières #SexFriend" },
+        ].map((item, index) => (
+          <ImageCard
+            key={index}
+            title={item.title}
+            description={item.description}
+            index={index}
+            onBackgroundColorChange={handleBackgroundColorChange}
+          />
+        ))}
+      </div>
     </div>
   </div>
 );

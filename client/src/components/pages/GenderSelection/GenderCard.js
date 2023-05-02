@@ -1,9 +1,11 @@
+
 import React from 'react';
 import './GenderCard.css';
 import { useNavigate } from 'react-router-dom';
 
 function GenderCard(props) {
   const navigate = useNavigate();
+
   const handleClick = () => {
     const data = {
       vegetableChoice: props.vegetableChoice,
@@ -16,10 +18,11 @@ function GenderCard(props) {
   return (
     <div className="GenderCard" onClick={handleClick}>
       <img src={props.image} alt={props.title} />
-      <h2>{props.title}</h2>
-      <p>{props.description}</p>
+      <h2 className="card-title">{props.title}</h2> {/* Ajoutez la classe card-title ici */}
+      <p className="card-description">{props.description}</p> {/* Ajoutez la classe card-description ici */}
     </div>
   );
+  
 }
 
 export default GenderCard;

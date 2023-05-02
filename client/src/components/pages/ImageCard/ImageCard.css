@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
 .ImageCard {
   border: 5px solid white;
   background-color: white; /* Ajouter cette ligne pour définir un arrière-plan blanc */
   border-radius: 10px; /* Ajouter cette ligne pour avoir des bords arrondis */
   display: flex;
+  margin-left: 30px;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -23,4 +26,23 @@
   grid-gap: 20px;
   justify-items: center;
   align-items: center;
+}
+
+.card-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center; /* Ajoutez cette ligne pour centrer le texte */
+}
+
+.card-description {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  word-break: break-word;
+  height: 70px; /* Ajouter une hauteur fixe */
+  overflow: hidden; /* Masquer le texte débordant */
 }
