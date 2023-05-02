@@ -38,9 +38,12 @@ const Header2 = ({ activePage, email }) => {
     } 
   };
 
+  // Ajoutez cette ligne pour définir le style du conteneur #header en fonction de l'état de la barre latérale
+  const headerStyle = { width: menuCollapse ? '80px' : '280px' };
+
   return (
     <>
-      <div id="header">
+      <div id="header" style={headerStyle}> {/* Ajoutez la propriété 'style' ici */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
             <div className="logotext">
