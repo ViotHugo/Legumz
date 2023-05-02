@@ -45,7 +45,7 @@ function MatchCard ({data,myhobbies}) {
                 onClick={revelFruit}/>
               </span>
             </div>
-            <div>
+            <div className="devant_nom">
               <h1 class="reduce-margin">{data.prenom}, {data.age}</h1>
               <p>A {data.city}</p>
             </div>

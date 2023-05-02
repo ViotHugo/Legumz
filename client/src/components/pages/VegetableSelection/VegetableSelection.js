@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ImageCard from '../ImageCard/ImageCard';
 import { useNavigate } from 'react-router-dom';
-import GenderSelection from '../GenderSelection/GenderSelection';
 import Header from "./../../Header/Header";
 
 const VegetableSelection = () => {
@@ -18,24 +17,30 @@ const VegetableSelection = () => {
     setBackgroundColor(index >= 0 ? gradients[index] : 'linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)');
 };
 
-  return (
-    <div>
-      <Header />
-    <div className="App-container" style={{ backgroundImage: backgroundColor, minHeight: '100vh' }}>
-      {Array(4)
-        .fill()
-        .map((_, index) => (
-          <ImageCard
-            key={index}
-            title={`Légume ${index + 1}`}
-            index={index}
-            description={`Description du légume ${index + 1}`}
-            onBackgroundColorChange={handleBackgroundColorChange}
-          />
-        ))}
+return (
+  <div>
+    <Header />
+    <div
+      className="App-container"
+      style={{ backgroundImage: backgroundColor, minHeight: "100vh" }}
+    >
+      {[
+        { title: "Carotte", description: "Pour cultiver une relation durable #Sérieux" },
+        { title: "Poivron jaune", description: "Pour des moments savoureux sans s'engager #AmisAvecAvantages" },
+        { title: "Piment rouge", description: "Pour épicer sa vie d'une nuit #CeSoir" },
+        { title: "Aubergine", description: "Pour des rencontres sensuelles et régulières #SexFriend" },
+      ].map((item, index) => (
+        <ImageCard
+          key={index}
+          title={item.title}
+          description={item.description}
+          index={index}
+          onBackgroundColorChange={handleBackgroundColorChange}
+        />
+      ))}
     </div>
-    </div>
-  );
+  </div>
+);
 };
 
 export default VegetableSelection;
