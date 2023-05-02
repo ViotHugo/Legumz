@@ -53,3 +53,34 @@
     max-width: 500px;
     margin: 4rem auto;
   }
+  .age-range {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .age-inputs {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+  }
+  
+  .age-inputs label {
+    margin-bottom: 8px;
+  }
+  
+  .age-inputs input {
+    width: 60px;
+    height: 32px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .age-inputs input:focus {
+    border-color: #6cb2eb;
+  }

@@ -9,6 +9,8 @@ import genderIcon1 from "../../../images/homme.png";
 import genderIcon2 from "../../../images/femme.png";
 import genderIcon3 from "../../../images/bi.png";
 import "./Search.css";
+import { Range } from "rc-slider";
+import "rc-slider/assets/index.css";
 
 function Search() {
   const { email } = useParams();
@@ -120,27 +122,34 @@ function Search() {
             </div>
           </div>
           <div>
-            <h2>Tranche d'âge</h2>
-            <div className="age-range">
-              <input
-                type="range"
-                min="18"
-                max="99"
-                value={ageRange[0]}
-                onChange={(e) => setAgeRange([e.target.value, ageRange[1]])}
-              />
-              <input
-                type="range"
-                min="18"
-                max="99"
-                value={ageRange[1]}
-                onChange={(e) => setAgeRange([ageRange[0], e.target.value])}
-              />
-              <span>
-                {ageRange[0]} - {ageRange[1]} ans
-              </span>
-            </div>
-          </div>
+  <h2>Tranche d'âge</h2>
+  <div className="age-range">
+    <div className="age-inputs">
+      <label htmlFor="min-age">Âge minimum:</label>
+      <input
+        type="number"
+        id="min-age"
+        name="min-age"
+        value={ageRange[0]}
+        onChange={(e) => setAgeRange([e.target.value, ageRange[1]])}
+        min="18"
+        max="99"
+      />
+    </div>
+    <div className="age-inputs">
+      <label htmlFor="max-age">Âge maximum:</label>
+      <input
+        type="number"
+        id="max-age"
+        name="max-age"
+        value={ageRange[1]}
+        onChange={(e) => setAgeRange([ageRange[0], e.target.value])}
+        min="18"
+        max="99"
+      />
+    </div>
+  </div>
+</div>
           <button
             onClick={() => {
               console.log("Paramètres de recherche soumis :", {
