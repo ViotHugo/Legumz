@@ -33,8 +33,8 @@ function ImageCard(props) {
       onMouseLeave={handleMouseLeave}
     >
       <img src={images[props.index]} alt={props.title} />
-      <h2>{props.title}</h2>
-      <p>{props.description}</p>
+      <h2 className="card-title">{props.title}</h2>
+      <p className="card-description">{props.description}</p>
     </div>
   );
 }

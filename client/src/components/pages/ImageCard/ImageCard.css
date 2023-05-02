@@ -1,20 +1,26 @@
 .ImageCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .ImageCard img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-  }
-  .App-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-    justify-items: center;
-    align-items: center;
-  }
-  
+  border: 5px solid white;
+  background-color: white; /* Ajouter cette ligne pour définir un arrière-plan blanc */
+  border-radius: 10px; /* Ajouter cette ligne pour avoir des bords arrondis */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px; /* Ajouter cette ligne pour ajouter de l'espace entre le contenu et les bords de la carte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajouter cette ligne pour ajouter une ombre légère */
+}
+
+.ImageCard img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px; /* Ajouter cette ligne pour avoir des bords arrondis pour l'image */
+}
+
+.App-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
