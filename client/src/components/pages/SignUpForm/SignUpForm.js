@@ -12,6 +12,7 @@ function SignUpForm() {
   const [emailsExists, setemailsExists] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [profilesPictures, setprofilesPictures] = useState([])
+  const [customHobby, setCustomHobby] = useState("");
   const [formData, setFormData] = useState({
     firstName: "", // changed fullName to firstName
     age: "",
@@ -75,10 +76,19 @@ function SignUpForm() {
       hobbies: formData.hobbies.filter((hobby) => hobby !== hobbyToRemove),
     });
   };
-
+  const handleAddCustomHobby = () => {
+    if (customHobby && !formData.hobbies.includes(customHobby)) {
+      setFormData({ ...formData, hobbies: [...formData.hobbies, customHobby] });
+      setCustomHobby("");
+    }
+  };
   const onDrop = (e) => {
     const hobby = e.dataTransfer.getData("hobby");
-    setFormData({ ...formData, hobbies: [...formData.hobbies, hobby] });
+
+    // Vérifie si le hobby n'est pas déjà présent dans formData.hobbies
+    if (!formData.hobbies.includes(hobby)) {
+      setFormData({ ...formData, hobbies: [...formData.hobbies, hobby] });
+    }
   };
 
   const handleChange = (e) => {
@@ -324,6 +334,20 @@ function SignUpForm() {
               ))}
             </div>
           </div>
+          <label htmlFor="customHobby">Créer un hobby personnalisé :</label>
+            <input
+              type="text"
+              class="customHobby-input"
+              id="customHobby"
+              name="customHobby"
+              value={customHobby}
+              onChange={(e) => setCustomHobby(e.target.value)}
+            />
+            <div class="customHobby-button-container">
+              <button class="customHobby-button" onClick={handleAddCustomHobby}>
+                Ajouter
+              </button>
+            </div>
           <div className="remove-hobbies-container">
             <p>Faites glisser les hobbies ici pour les enlever :</p>
             <div
