@@ -1,0 +1,95 @@
+/* Messages.css */
+
+.messages {
+    display: flex;
+    height: 100vh;
+    margin-left: 100px;
+  }
+  
+  .messages-content {
+    flex: 3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 64px); /* 64px est la hauteur approximative de votre en-tête */
+  }
+  
+  .messages-sidebar {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+ 
+  
+  .contact:hover {
+    background-color: #f0f0f0;
+  }
+
+  .contact {
+    padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  background-color: #f1f0f0;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  }
+  
+  .contact-image {
+    width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  }
+  
+  
+  .message-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  
+  .message-sent {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    margin-left: 50px;
+  }
+  
+  .message-received {
+    align-self: flex-start;
+    background-color: #f1f0f0;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    margin-right: 50px;
+  }
+  
+  .sender {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #777;
+  }
+  
+  .new-message-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .new-message-input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  

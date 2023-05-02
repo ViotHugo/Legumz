@@ -21,8 +21,8 @@ function Profile() {
 
   return (
     <div>
-      <Header2/>
-      <div className="profil  e">
+      <Header2 activePage="profil" email={email}/>
+      <div className="profil">
         <h1>Profil</h1>
         <div className="profile-info">
           <h2>Nom : {user.fullName}</h2>

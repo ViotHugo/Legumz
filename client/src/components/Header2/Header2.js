@@ -1,9 +1,5 @@
-
-
-//import useState hook to create menu collapse state
 import React, { useState } from "react";
-
-//import react pro sidebar components
+import { useNavigate } from 'react-router-dom';
 import {
   ProSidebar,
   Menu,
@@ -12,71 +8,104 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-
-//import icons from react icons
-import { FaList, FaRegHeart,FaRegCommentDots,FaBinoculars,FaGrinHearts,FaHeart } from "react-icons/fa";
+import {
+  FaList,
+  FaRegHeart,
+  FaRegCommentDots,
+  FaBinoculars,
+  FaGrinHearts,
+  FaHeart,
+} from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
-
-
-//import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Header2.css";
 
-
-const Header2 = () => {
-  
-    //create initial menuCollapse state using useState hook
-    const [menuCollapse, setMenuCollapse] = useState(false)
-
-    //create a custom function that will change menucollapse state from false to true and true to false
+const Header2 = ({ activePage, email }) => {
+  const [menuCollapse, setMenuCollapse] = useState(false);
+  const navigate = useNavigate();
   const menuIconClick = () => {
-    //condition checking to change state from true to false and vice versa
-    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
+    setMenuCollapse(!menuCollapse);
   };
+
+  const handleClick = (tabName) => {
+    if(tabName=="Logout"){
+      navigate('/');
+    }
+    else{
+      navigate('/'+tabName+'/'+email);
+    } 
+  };
+
+  // Ajoutez cette ligne pour définir le style du conteneur #header en fonction de l'état de la barre latérale
+  const headerStyle = { width: menuCollapse ? '80px' : '280px' };
 
   return (
     <>
-      <div id="header">
-          {/* collapsed props to change menu size using menucollapse state */}
+      <div id="header" style={headerStyle}> {/* Ajoutez la propriété 'style' ici */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
-          <div className="logotext">
-              {/* small and big change using menucollapse state */}
+            <div className="logotext">
               <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
-                {/* changing menu collapse icon on click */}
               {menuCollapse ? (
-                <FiArrowRightCircle/>
+                <FiArrowRightCircle />
               ) : (
-                <FiArrowLeftCircle/>
+                <FiArrowLeftCircle />
               )}
             </div>
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
-                Profil
-              </MenuItem>
-              <MenuItem active={false} icon={<FaRegCommentDots />}>
-                Mes messages
-              </MenuItem>
-              <MenuItem active={false} icon={<FaBinoculars />}>
-                Parametre de recherche
-              </MenuItem>
-              <MenuItem active={false} icon={<FaGrinHearts />}>
-                Trouve des célibataires
-              </MenuItem>
-              <MenuItem active={false} icon={<FaHeart/>}>
-                Mes matchs
-              </MenuItem>
+              <MenuItem
+                  active={activePage === "profil"}
+                  icon={<FiHome />}
+                  onClick={() => handleClick("profil")}
+                >
+                  Profile
+                </MenuItem>
+   
+
+                <MenuItem
+                  active={activePage === "messages"}
+                  icon={<FaRegCommentDots />}
+                  onClick={() => handleClick("messages")}
+                >
+                  Mes messages
+                </MenuItem>
+             
+
+                <MenuItem
+                  active={activePage === "search"}
+                  icon={<FaBinoculars />}
+                  onClick={() => handleClick("search")}
+                >
+                  Paramètre de recherche
+                </MenuItem>
+
+                <MenuItem
+                  active={activePage === "singles"}
+                  icon={<FaGrinHearts />}
+                  onClick={() => handleClick("singles")}
+                >
+                  Trouver des célibataires
+                </MenuItem>
+
+                <MenuItem
+                  active={activePage === "matchs"}
+                  icon={<FaHeart />}
+                  onClick={() => handleClick("matchs")}
+                >
+                  Mes matchs
+                </MenuItem>
+
             </Menu>
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+                <MenuItem icon={<FiLogOut />} onClick={() => handleClick("Logout")}>Logout</MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>
