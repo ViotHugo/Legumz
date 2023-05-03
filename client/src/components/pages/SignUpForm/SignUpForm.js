@@ -30,7 +30,7 @@ function SignUpForm() {
     minAge : 18,
     maxAge : 150 
   });
-
+  //test
   const hobbiesList = [
     "Lecture",
     "Cinéma",
