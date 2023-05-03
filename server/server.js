@@ -115,18 +115,22 @@ app.post('/recupMatchPossible', async (req,res)  => {
     }
  
     //Trie par distance
-    if(user.distanceMax){
-      resultats = resultats.filter((match) => calculDistance(match.adress, user.adress,user.distanceMax).then(distance => distance));
+    if (user.distanceMax) {
+      resultats = await Promise.all(resultats.map(async (match) => {
+        try {
+          const distanceAccepte = await compareDistance(match.adress, user.adress, user.distanceMax);
+          return distanceAccepte ? match : null;
+        } catch (error) {
+          return null;
+        }
+      }));
+      resultats = resultats.filter((match) => match !== null);
     }
-    console.log(resultats)
-/*
-   
-    
-    if(hobbies){
+    //par hobbies
+    if(user.hobbies){
       resultats.sort((a, b) => {
-        if (a.vegetableChoice == b.vegetableChoice){
-          const commonHobbiesA  = a.hobbies.filter((element) => hobbies.includes(element)).length;
-          const commonHobbiesB  = b.hobbies.filter((element) => hobbies.includes(element)).length;
+          const commonHobbiesA  = a.hobbies.filter((element) => user.hobbies.includes(element)).length;
+          const commonHobbiesB  = b.hobbies.filter((element) => user.hobbies.includes(element)).length;
           if (commonHobbiesA > commonHobbiesB){
             return -1;
           }
@@ -136,10 +140,10 @@ app.post('/recupMatchPossible', async (req,res)  => {
           else{
             return 0;
           }
-        }
+      
       });
     }
-    res.send(resultats);*/
+    res.send(resultats);
   } catch (err) {
     console.error(err);
     res.status(500).send(err);
@@ -175,42 +179,46 @@ app.listen(port, () => {
 });
 
 
-function calculDistance(address1,address2,maxx){
-  // Utiliser une promesse pour retourner la distance calculée
-  return new Promise((resolve, reject) => {
-    // Requête de géocodage pour l'adresse 1
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address1}`)
-      .then(response => response.json())
-      .then(data1 => {
-        // Récupération des coordonnées de l'adresse 1
-        const lat1 = data1[0].lat;
-        const lon1 = data1[0].lon;
-    
-        // Requête de géocodage pour l'adresse 2
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address2}`)
-          .then(response => response.json())
-          .then(data2 => {
-            // Récupération des coordonnées de l'adresse 2
-            const lat2 = data2[0].lat;
-            const lon2 = data2[0].lon;
-    
-            // Calcul de la distance en kilomètres
-            const R = 6371; // Rayon de la terre en km
-            const dLat = (lat2 - lat1) * Math.PI / 180; // Différence de latitude en radians
-            const dLon = (lon2 - lon1) * Math.PI / 180; // Différence de longitude en radians
-            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                      Math.sin(dLon/2) * Math.sin(dLon/2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            const distance = R * c;
-    
-            // Renvoyer la distance calculée
-            console.log(Math.ceil(distance), maxx)
-            console.log(Math.ceil(distance)<=maxx)
-            resolve(Math.ceil(distance)<=maxx);
-          })
-          .catch(error => reject(error));
-      })
-      .catch(error => reject(error));
-  });
+function calculDistance(address1, address2) {
+  // Requête de géocodage pour l'adresse 1
+  const fetchAddress1 = fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address1}`)
+    .then(response => response.json())
+    .then(data1 => {
+      // Récupération des coordonnées de l'adresse 1
+      const lat1 = data1[0].lat;
+      const lon1 = data1[0].lon;
+      return { lat: lat1, lon: lon1 };
+    });
+
+  // Requête de géocodage pour l'adresse 2
+  const fetchAddress2 = fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address2}`)
+    .then(response => response.json())
+    .then(data2 => {
+      // Récupération des coordonnées de l'adresse 2
+      const lat2 = data2[0].lat;
+      const lon2 = data2[0].lon;
+      return { lat: lat2, lon: lon2 };
+    });
+
+  // Attente des deux requêtes de géocodage
+  return Promise.all([fetchAddress1, fetchAddress2])
+    .then(([coords1, coords2]) => {
+      // Calcul de la distance en kilomètres
+      const R = 6371; // Rayon de la terre en km
+      const dLat = (coords2.lat - coords1.lat) * Math.PI / 180; // Différence de latitude en radians
+      const dLon = (coords2.lon - coords1.lon) * Math.PI / 180; // Différence de longitude en radians
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(coords1.lat * Math.PI / 180) * Math.cos(coords2.lat * Math.PI / 180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const distance = R * c;
+
+      // Retourne la distance en kilomètres
+      return distance;
+    });
+}
+
+async function compareDistance(address1, address2, distanceMax) {
+  const distance = await calculDistance(address1, address2);
+  return distance <= distanceMax;
 }
