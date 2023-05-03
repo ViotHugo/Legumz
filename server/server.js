@@ -65,16 +65,14 @@ app.post('/emailsUtilises', (req,res) => {
 
 app.post('/recupMatchPossible', async (req,res)  => {
   const user = req.body.user; 
-  console.log(user);
-  /*
   const Users = mongoose.connection.collection('Users');
   const NoMatch = mongoose.connection.collection('NoMatch');
   const Match = mongoose.connection.collection('Match');
-  const emailsToExclude = [emailUser];
+  const emailsToExclude = [user.email];
 
   try {
-    const noMatchDocs = await NoMatch.find({ email1: emailUser }, { _id: 0, email2: 1 }).toArray();
-    const matchDocs = await Match.find({ email1: emailUser }, { _id: 0, email2: 1 }).toArray();
+    const noMatchDocs = await NoMatch.find({ email1: user.email }, { _id: 0, email2: 1 }).toArray();
+    const matchDocs = await Match.find({ email1: user.email }, { _id: 0, email2: 1 }).toArray();
 
     noMatchDocs.forEach((doc) => {
       emailsToExclude.push(doc.email2);
@@ -85,7 +83,14 @@ app.post('/recupMatchPossible', async (req,res)  => {
     });
 
     let resultats = await Users.find({ email: { $nin: emailsToExclude } }).toArray();
-
+    //Enlever les profils dont le genre ne correspond pas
+    console.log(user.genderSearch)
+    console.log(resultats)
+    if (user.genderSearch !== 'lesdeux') {
+      resultats = resultats.filter((match) => match.gender == user.genderSearch );
+    } 
+    console.log(resultats)
+/*
     //Enlever les profils dont le genre ne correspond pas
     if (genderSearch && genderSearch !== 'lesdeux') {
       resultats = resultats.filter((user) => user.gender == genderSearch );
@@ -122,11 +127,11 @@ app.post('/recupMatchPossible', async (req,res)  => {
         }
       });
     }
-    res.send(resultats);
+    res.send(resultats);*/
   } catch (err) {
     console.error(err);
     res.status(500).send(err);
-  }*/
+  }
 })
 
 app.post('/connexion', (req, res) => {

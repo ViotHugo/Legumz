@@ -202,9 +202,9 @@ function SignUpForm() {
                   required
                 >
                   <option value="">Sélectionner un genre</option>
-                  <option value="male">Homme</option>
-                  <option value="female">Femme</option>
-                  <option value="other">Autre</option>
+                  <option value="Homme">Homme</option>
+                  <option value="Femme">Femme</option>
+                  <option value="Les deux">Autre</option>
                 </select>
               </div>
             </div>

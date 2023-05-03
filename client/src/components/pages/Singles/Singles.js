@@ -14,8 +14,7 @@ function Singles() {
     axios.post('http://localhost:5000/recupProfile', {email: email})
       .then((response) => {
         setUser(response.data);  
-        console.log(response.data); // log the response data instead of the state variable
-        axios.post('http://localhost:5000/recupMatchPossible', {user: user})
+        axios.post('http://localhost:5000/recupMatchPossible', {user: response.data})
         .then((response) => {
           setMatch(response.data);
         })
