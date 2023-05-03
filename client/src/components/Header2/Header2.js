@@ -40,81 +40,80 @@ const Header2 = ({ activePage, email }) => {
     } 
   };
 
-  // Ajoutez cette ligne pour définir le style du conteneur #header en fonction de l'état de la barre latérale
   const headerStyle = { width: menuCollapse ? '80px' : '280px' };
 
   return (
     <>
       <div id="header" style={headerStyle}>
-        <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader>
-            <div className={`logotext${menuCollapse ? " collapsed-logo" : " expanded-logo"}`}>
-              <img src={logo} alt="Your Logo" />
-              {!menuCollapse && <span>Legumz</span>}
-            </div>
-            <div className="closemenu" onClick={menuIconClick}>
-              {menuCollapse ? (
-                <FiArrowRightCircle />
-              ) : (
-                <FiArrowLeftCircle />
-              )}
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <Menu iconShape="square">
+        <div id="sidebar-container" onClick={() => setMenuCollapse(!menuCollapse)}>
+          <ProSidebar collapsed={menuCollapse}>
+            <SidebarHeader>
+              <div className={`logotext${menuCollapse ? " collapsed-logo" : " expanded-logo"}`}>
+                <img src={logo} alt="Your Logo" />
+                {!menuCollapse && <span>Legumz</span>}
+              </div>
+              <div className="closemenu" onClick={menuIconClick}>
+                {menuCollapse ? (
+                  <FiArrowRightCircle />
+                ) : (
+                  <FiArrowLeftCircle />
+                )}
+              </div>
+            </SidebarHeader>
+            <SidebarContent>
+              <Menu iconShape="square">
+                <MenuItem
+                    active={activePage === "profil"}
+                    icon={<FiHome />}
+                    onClick={() => handleClick("profil")}
+                  >
+                    Profil
+                  </MenuItem>
+
+
+                  <MenuItem
+                    active={activePage === "messages"}
+                    icon={<FaRegCommentDots />}
+                    onClick={() => handleClick("messages")}
+                    >
+                      Messages
+                    </MenuItem>
+                <MenuItem
+                active={activePage === "search"}
+                icon={<FaBinoculars />}
+                onClick={() => handleClick("search")}
+              >
+                Paramètre de recherche
+              </MenuItem>
+
               <MenuItem
-                  active={activePage === "profil"}
-                  icon={<FiHome />}
-                  onClick={() => handleClick("profil")}
-                >
-                  Profil
-                </MenuItem>
-   
+                active={activePage === "singles"}
+                icon={<FaGrinHearts />}
+                onClick={() => handleClick("singles")}
+              >
+                Trouver des célibataires
+              </MenuItem>
 
-                <MenuItem
-                  active={activePage === "messages"}
-                  icon={<FaRegCommentDots />}
-                  onClick={() => handleClick("messages")}
-                >
-                  Mes messages
-                </MenuItem>
-             
+              <MenuItem
+                active={activePage === "matchs"}
+                icon={<FaHeart />}
+                onClick={() => handleClick("matchs")}
+              >
+                Mes matchs
+              </MenuItem>
 
-                <MenuItem
-                  active={activePage === "search"}
-                  icon={<FaBinoculars />}
-                  onClick={() => handleClick("search")}
-                >
-                  Paramètre de recherche
-                </MenuItem>
-
-                <MenuItem
-                  active={activePage === "singles"}
-                  icon={<FaGrinHearts />}
-                  onClick={() => handleClick("singles")}
-                >
-                  Trouver des célibataires
-                </MenuItem>
-
-                <MenuItem
-                  active={activePage === "matchs"}
-                  icon={<FaHeart />}
-                  onClick={() => handleClick("matchs")}
-                >
-                  Mes matchs
-                </MenuItem>
-
-            </Menu>
-          </SidebarContent>
-          <SidebarFooter>
-            <Menu iconShape="square">
-                <MenuItem icon={<FiLogOut />} onClick={() => handleClick("Logout")}>Logout</MenuItem>
-            </Menu>
-          </SidebarFooter>
-        </ProSidebar>
-      </div>
-    </>
-  );
+          </Menu>
+        </SidebarContent>
+        <SidebarFooter>
+          <Menu iconShape="square">
+              <MenuItem icon={<FiLogOut />} onClick={() => handleClick("Logout")}>Logout</MenuItem>
+          </Menu>
+        </SidebarFooter>
+      </ProSidebar>
+    </div>
+  </div>
+</>
+);
 };
 
 export default Header2;
