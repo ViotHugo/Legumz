@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const navigate = useNavigate(); 
   const { vegetableGender } = useParams();
+  const parsedVegetableGender = JSON.parse(vegetableGender);
   const [emailsExists, setemailsExists] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [profilesPictures, setprofilesPictures] = useState([])
@@ -22,10 +23,10 @@ function SignUpForm() {
     adress: "", // not used in the code
     bio: "", // not used in the code
     profilePicture: "", // not used in the code
-    hobbies: [], // changed hobbies to an empty array
-    vegetableChoice: vegetableGender.vegetableChoice,   
-    genderSearch: vegetableGender.genre,
-    vegetableSearch : [vegetableGender.vegetableChoice],
+    hobbies: [], // chasnged hobbies to an empty array
+    vegetableChoice: parsedVegetableGender.vegetableChoice,   
+    genderSearch: parsedVegetableGender.genre,
+    vegetableSearch : [parsedVegetableGender.vegetableChoice],
     distanceMax : 50,
     minAge : 18,
     maxAge : 150 

@@ -11,22 +11,24 @@ function Singles() {
   // Utilisez 'email' pour récupérer les données spécifiques à cet utilisateur
   const [user, setUser] = useState({})
   useEffect(() => {
-    axios.post('http://localhost:5000/recupMatchPossible', {email: email})
-      .then((response) => {
-        setMatch(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  
     axios.post('http://localhost:5000/recupProfile', {email: email})
       .then((response) => {
         setUser(response.data);  
         console.log(response.data); // log the response data instead of the state variable
+        axios.post('http://localhost:5000/recupMatchPossible', {user: user})
+        .then((response) => {
+          setMatch(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       })
       .catch((error) => {
         console.log(error);
       });
+    
+  
+    
   }, [email]); // add email as a dependency of useEffect
 
   return (

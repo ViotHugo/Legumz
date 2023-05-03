@@ -64,10 +64,9 @@ app.post('/emailsUtilises', (req,res) => {
 })
 
 app.post('/recupMatchPossible', async (req,res)  => {
-  const emailUser = req.body.email
-  const genderSearch = req.body.genderSearch
-  const vegetableChoice = req.body.vegetableChoice
-  const hobbies = req.body.hobbies;
+  const user = req.body.user; 
+  console.log(user);
+  /*
   const Users = mongoose.connection.collection('Users');
   const NoMatch = mongoose.connection.collection('NoMatch');
   const Match = mongoose.connection.collection('Match');
@@ -127,7 +126,7 @@ app.post('/recupMatchPossible', async (req,res)  => {
   } catch (err) {
     console.error(err);
     res.status(500).send(err);
-  }
+  }*/
 })
 
 app.post('/connexion', (req, res) => {
