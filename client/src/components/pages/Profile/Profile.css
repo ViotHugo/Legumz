@@ -28,7 +28,17 @@
   font-size: 1rem;
   font-weight: normal;
 }
+.profile-info h7 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
 
+.profile-info h8 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
 .profile-info img {
   width: 150px;
   height: 150px;
@@ -42,4 +52,18 @@
     max-width: 90%;
     padding: 1rem;
   }
+}
+.profile-info .image-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.profile-info .image-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 0.5rem;
 }
