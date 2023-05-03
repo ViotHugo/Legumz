@@ -26,7 +26,7 @@ function SignUpForm() {
     lookingFor: "", // not used in the code
     profilePictures: [], // not used in the code
   });
-
+  //test
   const hobbiesList = [
     "Lecture",
     "Cinéma",
