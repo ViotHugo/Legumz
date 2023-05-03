@@ -84,32 +84,26 @@ app.post('/recupMatchPossible', async (req,res)  => {
 
     let resultats = await Users.find({ email: { $nin: emailsToExclude } }).toArray();
     //Enlever les profils dont le genre ne correspond pas
-    console.log(user.genderSearch)
-    console.log(resultats)
     if (user.genderSearch !== 'lesdeux') {
-      resultats = resultats.filter((match) => match.gender == user.genderSearch );
+      resultats = resultats.filter((match) => match.gender == user.genderSearch || match.gender == "Les deux");
     } 
+    // Trie par légume
+    if(user.vegetableSearch){
+      resultats = resultats.filter((match) => user.vegetableSearch.includes(match.vegetableChoice));
+    }
+    // Trie par age
+    if(user.vegetableSearch){
+      resultats = resultats.filter((match) => user.minAge<=match.age && match.age<=user.maxAge);
+    }
+ 
+    //Trie par distance
+    if(user.distanceMax){
+      resultats = resultats.filter((match) => calculDistance(match.adress, user.adress,user.distanceMax).then(distance => distance));
+    }
     console.log(resultats)
 /*
-    //Enlever les profils dont le genre ne correspond pas
-    if (genderSearch && genderSearch !== 'lesdeux') {
-      resultats = resultats.filter((user) => user.gender == genderSearch );
-    } 
-
-    // Trie par légume
-    if(vegetableChoice){
-      resultats.sort((a, b) => {
-        if(a.vegetableChoice == vegetableChoice && b.vegetableChoice != vegetableChoice){
-          return -1
-        }
-        else if (a.vegetableChoice != vegetableChoice && b.vegetableChoice == vegetableChoice){
-          return 1
-        }
-        else{
-          return 0
-        }
-      })
-    }
+   
+    
     if(hobbies){
       resultats.sort((a, b) => {
         if (a.vegetableChoice == b.vegetableChoice){
@@ -161,3 +155,44 @@ app.get('/',(req,res) => {
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
+function calculDistance(address1,address2,maxx){
+  // Utiliser une promesse pour retourner la distance calculée
+  return new Promise((resolve, reject) => {
+    // Requête de géocodage pour l'adresse 1
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address1}`)
+      .then(response => response.json())
+      .then(data1 => {
+        // Récupération des coordonnées de l'adresse 1
+        const lat1 = data1[0].lat;
+        const lon1 = data1[0].lon;
+    
+        // Requête de géocodage pour l'adresse 2
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address2}`)
+          .then(response => response.json())
+          .then(data2 => {
+            // Récupération des coordonnées de l'adresse 2
+            const lat2 = data2[0].lat;
+            const lon2 = data2[0].lon;
+    
+            // Calcul de la distance en kilomètres
+            const R = 6371; // Rayon de la terre en km
+            const dLat = (lat2 - lat1) * Math.PI / 180; // Différence de latitude en radians
+            const dLon = (lon2 - lon1) * Math.PI / 180; // Différence de longitude en radians
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c;
+    
+            // Renvoyer la distance calculée
+            console.log(Math.ceil(distance), maxx)
+            console.log(Math.ceil(distance)<=maxx)
+            resolve(Math.ceil(distance)<=maxx);
+          })
+          .catch(error => reject(error));
+      })
+      .catch(error => reject(error));
+  });
+}
