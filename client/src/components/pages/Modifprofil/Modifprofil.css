@@ -1,0 +1,52 @@
+.modifprofil {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 500px;
+    margin: 4rem auto;
+    }
+    
+    .modifprofil h1 {
+    margin: 0 0 1rem 0;
+    }
+    
+    .modifprofil form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    }
+    
+    .modifprofil label {
+    margin: 0.5rem 0;
+    }
+    
+    .modifprofil input,
+    .modifprofil select,
+    .modifprofil textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    }
+    
+    .modifprofil textarea {
+    resize: vertical;
+    min-height: 100px;
+    }
+    
+    .btn-modifier-profil {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    margin-top: 1rem;
+    }

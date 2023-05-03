@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import logo from "./logo.png";
 import { useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
 import {
   ProSidebar,
   Menu,
@@ -40,29 +38,25 @@ const Header2 = ({ activePage, email }) => {
     } 
   };
 
+  // Ajoutez cette ligne pour définir le style du conteneur #header en fonction de l'état de la barre latérale
+  const headerStyle = { width: menuCollapse ? '80px' : '280px' };
+
   return (
     <>
-      <div id="header">
+      <div id="header" style={headerStyle}> {/* Ajoutez la propriété 'style' ici */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
-  <div className="logotext">
-    {menuCollapse ? (
-      <img src={logo} alt="logo" className="collapsed-logo" />
-    ) : (
-      <>
-        <img src={logo} alt="logo" className="expanded-logo" />
-        <p>Legumz</p>
-      </>
-    )}
-  </div>
-  <div className="closemenu" onClick={menuIconClick}>
-    {menuCollapse ? (
-      <FiArrowRightCircle />
-    ) : (
-      <FiArrowLeftCircle />
-    )}
-  </div>
-</SidebarHeader>
+            <div className="logotext">
+              <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
+            </div>
+            <div className="closemenu" onClick={menuIconClick}>
+              {menuCollapse ? (
+                <FiArrowRightCircle />
+              ) : (
+                <FiArrowLeftCircle />
+              )}
+            </div>
+          </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem
@@ -70,7 +64,7 @@ const Header2 = ({ activePage, email }) => {
                   icon={<FiHome />}
                   onClick={() => handleClick("profil")}
                 >
-                  Profile
+                  Profil
                 </MenuItem>
    
 
