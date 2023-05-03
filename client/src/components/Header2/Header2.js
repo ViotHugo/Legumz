@@ -22,6 +22,8 @@ import { BiCog } from "react-icons/bi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Header2.css";
 
+import logo from "./logo.png";
+
 const Header2 = ({ activePage, email }) => {
   const [menuCollapse, setMenuCollapse] = useState(false);
   const navigate = useNavigate();
@@ -43,11 +45,12 @@ const Header2 = ({ activePage, email }) => {
 
   return (
     <>
-      <div id="header" style={headerStyle}> {/* Ajoutez la propriété 'style' ici */}
+      <div id="header" style={headerStyle}>
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
-            <div className="logotext">
-              <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
+            <div className={`logotext${menuCollapse ? " collapsed-logo" : " expanded-logo"}`}>
+              <img src={logo} alt="Your Logo" />
+              {!menuCollapse && <span>Legumz</span>}
             </div>
             <div className="closemenu" onClick={menuIconClick}>
               {menuCollapse ? (

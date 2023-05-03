@@ -3,6 +3,7 @@ import './Modifprofil.css';
 import { Link, useParams } from "react-router-dom";
 import axios from 'axios';
 import Header2 from "./../../Header2/Header2";
+import { useNavigate } from "react-router-dom";
 
 import relationshipIcon1 from "../../../images/aubergine.png";
 import relationshipIcon2 from "../../../images/carrote.png";
@@ -15,7 +16,7 @@ import genderIcon3 from "../../../images/bi.png";
 
 function Modifprofil() {
   const { email } = useParams();
-
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     firstName: "",
     age: "",
@@ -48,8 +49,7 @@ useEffect(() => {
     //console.log(user);
     axios.post('http://localhost:5000/modifProfile', user)
       .then((response) => {
-        console.log(response.data);
-        history.push(`/profil/${email}`);
+        navigate('/profil/'+email);
       })
       .catch((error) => {
         console.log(error);

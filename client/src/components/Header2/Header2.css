@@ -93,15 +93,20 @@
 }
 
 .expanded-logo {
-  height: 10px; /* Ajustez cette valeur pour modifier la taille du logo déployé */
-  width: 10px;
+  height: 20px; /* Ajustez cette valeur pour modifier la taille du logo déployé */
+  width: 20px;
   margin-right: 10px;
+  display: block;
 }
 
 .logotext {
   display: flex;
   align-items: center;
   width: 220px; /* Ajustez cette valeur selon la largeur souhaitée */
+  font-size: 20px;
+  padding: 10 20px;
+  color: #000;
+  font-weight: bold;
 }
 @media only screen and (max-width: 720px) {
   html {
