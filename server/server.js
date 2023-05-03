@@ -37,7 +37,9 @@ app.post('/inscription', (req, res) => {
 
 app.post('/modifProfile', (req, res) => {
   const updateprofil = req.body
+  delete updateprofil._id;
   // Récupérer la collection Personne
+  
   const Users = mongoose.connection.collection('Users');
   // Ajouter une personne à la collection
   Users.updateOne({email:updateprofil.email},{$set:updateprofil})
