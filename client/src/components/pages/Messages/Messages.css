@@ -55,7 +55,7 @@
   
   .message-sent {
     align-self: flex-end;
-    background-color: #dcf8c6;
+    background-color: #d5f6bc;
     border-radius: 10px;
     padding: 8px 12px;
     margin-bottom: 10px;
@@ -65,7 +65,7 @@
   
   .message-received {
     align-self: flex-start;
-    background-color: #f1f0f0;
+    background-color: #a7dbf4;
     border-radius: 10px;
     padding: 8px 12px;
     margin-bottom: 10px;
@@ -92,4 +92,9 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+  
+
+
+
+
   
