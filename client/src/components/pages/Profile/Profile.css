@@ -67,3 +67,24 @@
   object-fit: cover;
   margin: 0 0.5rem;
 }
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.profile-header h1 {
+  margin: 0;
+}
+
+.btn-modifier-profil {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}

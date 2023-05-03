@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Profile.css';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom"; // Importer Link pour créer un lien vers la page Modifprofil.js
 import axios from 'axios';
 import Header2 from "./../../Header2/Header2";
 
@@ -41,8 +41,6 @@ function Profile() {
     vegetableImage = relationshipIcon1;
   }
 
-
-
   let sexeUsersearch;
   if (user.genderSearch=="Homme"){
     sexeUsersearch=genderIcon1;
@@ -54,33 +52,30 @@ function Profile() {
     sexeUsersearch=genderIcon3;
   }
 
-
-
-
-
-
   return (
     <div>
       <Header2 activePage="profil" email={email}/>
       <div className="profil">
+      <div className="profile-header">
         <h1>Profil</h1>
+          <Link to={"/modifprofil/"+email} className="btn-modifier-profil">Modifier profil</Link>
+        </div>
         <div className="profile-info">
-  <h2>Nom : {user.firstName}</h2>
-  <h3>Email : {user.email}</h3>
-  <h3>Age : {user.age} ans</h3>
-  <h4>Genre: {user.gender}</h4>
-  <h5>Adresse: {user.adress}</h5>
-  <h6>Bio: {user.bio}</h6>
-  
-  
-  <div className="image-container">
-  <h7><img src={sexeUsersearch} alt={user.genderSearch} /></h7>
-    
-    <h8><img src={vegetableImage} alt={user.vegetableChoice} /></h8>
-  </div>
-  <img src={user.profilePicture} alt="new" />
-  {/* Ajoutez d'autres informations sur le profil ici */}
-</div>
+          <h2>Nom : {user.firstName}</h2>
+          <h3>Email : {user.email}</h3>
+          <h3>Age : {user.age} ans</h3>
+          <h4>Genre: {user.gender}</h4>
+          <h5>Adresse: {user.adress}</h5>
+          <h6>Bio: {user.bio}</h6>
+          
+          
+          <div className="image-container">
+            <img src={sexeUsersearch} alt={user.genderSearch} />
+            <img src={vegetableImage} alt={user.vegetableChoice} />
+          </div>
+          <img src={user.profilePicture} alt="new" />
+          {/* Ajoutez d'autres informations sur le profil ici */}
+        </div>
       </div>
     </div>
   );
