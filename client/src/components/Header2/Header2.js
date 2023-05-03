@@ -64,7 +64,7 @@ const Header2 = ({ activePage, email }) => {
                   icon={<FiHome />}
                   onClick={() => handleClick("profil")}
                 >
-                  Profile
+                  Profil
                 </MenuItem>
    
 

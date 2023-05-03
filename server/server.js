@@ -35,6 +35,22 @@ app.post('/inscription', (req, res) => {
     });
 });
 
+app.post('/modifProfile', (req, res) => {
+  const updateprofil = req.body
+  // Récupérer la collection Personne
+  const Users = mongoose.connection.collection('Users');
+  // Ajouter une personne à la collection
+  Users.updateOne({email:updateprofil.email},{$set:updateprofil})
+    .then((result) => {
+      console.log('User modif :');
+      res.send(true);
+    })
+    .catch((err) => {
+      console.log(err);
+      mongoose.connection.close();    
+    });
+});
+
 app.post('/recupProfile', (req,res) => {
   const emailUser = req.body.email
   const Users = mongoose.connection.collection('Users');

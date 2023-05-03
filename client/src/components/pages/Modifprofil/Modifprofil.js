@@ -42,8 +42,10 @@ useEffect(() => {
     setUser({ ...user, [name]: value });
   };
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    //console.log(user);
     axios.post('http://localhost:5000/modifProfile', user)
       .then((response) => {
         console.log(response.data);
@@ -52,6 +54,8 @@ useEffect(() => {
       .catch((error) => {
         console.log(error);
       });
+
+
   };
 
   return (
