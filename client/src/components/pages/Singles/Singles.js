@@ -51,7 +51,7 @@ function Singles() {
         ) : (
           <div className='matchs'>
             {match.slice(0, 2).map((matchItem) => (
-              <MatchCard data={matchItem} myhobbies={user.hobbies} myLat={user.lat} myLon={user.lon}/>
+              <MatchCard data={matchItem} myhobbies={user.hobbies} user={user}/>
             ))}
           </div>
         )}

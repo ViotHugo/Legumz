@@ -83,6 +83,32 @@ app.post('/emailsUtilises', (req,res) => {
   });
 })
 
+app.post('/noMatch', (req,res) => {
+  try {
+    const NoMatch = mongoose.connection.collection('NoMatch');
+    const userEmail = req.body.userEmail;
+    const dataEmail = req.body.dataEmail;
+    const result = NoMatch.insertOne({email1 : userEmail, email2 : dataEmail });
+    console.log('NoMatch add :', result.insertedId);
+    res.send(true);
+  } catch (err) {
+    console.log(err);
+  }
+})
+
+app.post('/MatchVerif', async (req, res) => {
+  try {
+    const WaitMatch = mongoose.connection.collection('WaitMatch');
+    const userEmail = req.body.userEmail;
+    const dataEmail = req.body.dataEmail;
+    const match = await WaitMatch.findOne({ email1: dataEmail, email2: userEmail });
+    console.log(match);
+    res.send(match !== null);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/recupMatchPossible', async (req,res)  => {
   const user = req.body.user; 
   const Users = mongoose.connection.collection('Users');
@@ -104,7 +130,7 @@ app.post('/recupMatchPossible', async (req,res)  => {
 
     let resultats = await Users.find({ email: { $nin: emailsToExclude } }).toArray();
     //Enlever les profils dont le genre ne correspond pas
-    if (user.genderSearch !== 'lesdeux') {
+    if (user.genderSearch !== 'Les deux') {
       resultats = resultats.filter((match) => match.gender == user.genderSearch || match.gender == "Les deux");
     } 
     // Trie par légume
