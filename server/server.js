@@ -70,6 +70,39 @@ app.post('/recupProfile', (req,res) => {
   });
 })
 
+app.post('/recupMatchs', (req,res) => {
+  const emailUser = req.body.email
+  const Match = mongoose.connection.collection('Match');
+  const Users = mongoose.connection.collection('Users');
+
+  Match.find({  $or: [{ email1: emailUser }, { email2: emailUser }]})
+    .toArray()
+    .then((matches) => {
+      const emailList = matches.reduce((acc, match) => {
+        if (match.email1 !== emailUser) {
+            acc.push(match.email1);
+        }
+        if (match.email2 !== emailUser) {
+            acc.push(match.email2);
+        }
+        return acc;
+    }, []);
+    Users.find({ email: { $in: emailList } })
+        .toArray()
+        .then((users) => {
+          res.send(users);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send('Erreur serveur');
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Erreur serveur');
+    });
+})
+
 app.post('/emailsUtilises', (req,res) => {
   const Users = mongoose.connection.collection('Users');
   Users.find({}, { email: 1 })
@@ -99,11 +132,22 @@ app.post('/noMatch', (req,res) => {
 app.post('/MatchVerif', async (req, res) => {
   try {
     const WaitMatch = mongoose.connection.collection('WaitMatch');
+    const Match = mongoose.connection.collection('Match');
     const userEmail = req.body.userEmail;
     const dataEmail = req.body.dataEmail;
     const match = await WaitMatch.findOne({ email1: dataEmail, email2: userEmail });
-    console.log(match);
-    res.send(match !== null);
+    if (match !== null){
+      const resultWait = await WaitMatch.deleteOne({ email1: dataEmail, email2: userEmail });
+      const resultMatch = await Match.insertOne({ email1: userEmail, email2: dataEmail });
+      console.log('Match add :',resultMatch.insertedId)
+      console.log('WaitMatch delete',resultWait)
+      res.send(true);
+    }
+    else{
+      const result = await WaitMatch.insertOne({ email1: userEmail, email2: dataEmail });
+      console.log('WaitMatch add :',result.insertedId)
+      res.send(false);
+    }
   } catch (err) {
     console.log(err);
   }
@@ -114,17 +158,23 @@ app.post('/recupMatchPossible', async (req,res)  => {
   const Users = mongoose.connection.collection('Users');
   const NoMatch = mongoose.connection.collection('NoMatch');
   const Match = mongoose.connection.collection('Match');
+  const WaitMatch = mongoose.connection.collection('WaitMatch');
   const emailsToExclude = [user.email];
 
   try {
     const noMatchDocs = await NoMatch.find({ email1: user.email }, { _id: 0, email2: 1 }).toArray();
     const matchDocs = await Match.find({ email1: user.email }, { _id: 0, email2: 1 }).toArray();
+    const WaitMatchDocs = await WaitMatch.find({ email1: user.email }, { _id: 0, email2: 1 }).toArray();
 
     noMatchDocs.forEach((doc) => {
       emailsToExclude.push(doc.email2);
     });
 
     matchDocs.forEach((doc) => {
+      emailsToExclude.push(doc.email2);
+    });
+
+    WaitMatchDocs.forEach((doc) => {
       emailsToExclude.push(doc.email2);
     });
 

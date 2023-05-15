@@ -5,8 +5,10 @@ import poivron from '../../../images/poivron_jaune.png';
 import piment from '../../../images/piment.png';
 import aubergine from '../../../images/aubergine.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function MatchCard ({data,myhobbies,user}) {
+  const navigate = useNavigate();
   const imageLeg = {
     "Carotte": carotte,
     "Poivron jaune": poivron,
@@ -18,8 +20,12 @@ function MatchCard ({data,myhobbies,user}) {
   const cuisineClick = () => {
     axios.post('http://localhost:5000/MatchVerif', {userEmail: user.email,dataEmail :data.email})
         .then((response) => {
-          console.log(response)
-          window.location.reload();
+          if(response.data){
+            navigate('/matchs/'+user.email);
+          }
+          else{
+            window.location.reload();
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -29,7 +35,7 @@ function MatchCard ({data,myhobbies,user}) {
   const compostClick = () => {
     axios.post('http://localhost:5000/noMatch', {userEmail: user.email,dataEmail :data.email})
     .then((response) => {
-      console.log(response)
+      console.log(response.data)
       window.location.reload();
     })
     .catch((error) => {
