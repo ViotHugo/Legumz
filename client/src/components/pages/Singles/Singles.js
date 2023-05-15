@@ -8,8 +8,10 @@ import MatchCard from "../MatchCard/MatchCard";
 function Singles() {
   const { email } = useParams();
   const [match, setMatch] = useState([])
-  // Utilisez 'email' pour récupérer les données spécifiques à cet utilisateur
+  const [loading, setLoading] = useState(true); // Ajoutez une variable d'état pour contrôler le chargement
+  const [showMessage, setShowMessage] = useState(false); // Ajoutez une variable d'état pour afficher le message
   const [user, setUser] = useState({})
+  
   useEffect(() => {
     axios.post('http://localhost:5000/recupProfile', {email: email})
       .then((response) => {
@@ -18,18 +20,23 @@ function Singles() {
         .then((response) => {
           console.log(response.data);
           setMatch(response.data);
+          setLoading(false); // Mettez à jour la variable d'état loading
+          if (response.data.length === 0) {
+            setShowMessage(true); // Mettez à jour la variable d'état showMessage
+          }
         })
         .catch((error) => {
           console.log(error);
+          setLoading(false); // Mettez à jour la variable d'état loading en cas d'erreur
+          setShowMessage(true); // Affichez le message en cas d'erreur
         });
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false); // Mettez à jour la variable d'état loading en cas d'erreur
+        setShowMessage(true); // Affichez le message en cas d'erreur
       });
-    
-  
-    
-  }, [email]); // add email as a dependency of useEffect
+  }, [email]);
 
   return (
     <div>
@@ -37,11 +44,17 @@ function Singles() {
       
       <div className="container_matchs">
         <h1>Les célibataires qui vous correspondent</h1>
-        <div className='matchs'>
-          {match.slice(0, 2).map((matchItem) => (
-            <MatchCard data={matchItem} myhobbies={user.hobbies} myLat={user.lat} myLon={user.lon}/>
-          ))}
-        </div>
+        {loading ? (
+          <p>Chargement...</p>
+        ) : showMessage ? (
+          <p>Aucun match trouvé.</p>
+        ) : (
+          <div className='matchs'>
+            {match.slice(0, 2).map((matchItem) => (
+              <MatchCard data={matchItem} myhobbies={user.hobbies} myLat={user.lat} myLon={user.lon}/>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
