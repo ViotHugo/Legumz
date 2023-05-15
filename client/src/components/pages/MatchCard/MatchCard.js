@@ -6,21 +6,13 @@ import piment from '../../../images/piment.png';
 import aubergine from '../../../images/aubergine.png';
 function MatchCard ({data,myhobbies,myLat,myLon}) {
   const imageLeg = {
-    "Légume 1": carotte,
-    "Légume 2": poivron,
-    "Légume 3": piment,
-    "Légume 4": aubergine,
+    "Carotte": carotte,
+    "Poivron jaune": poivron,
+    "Piment rouge": piment,
+    "Aubergine": aubergine,
   }
   const distance = Math.round(getDistance({ latitude: myLat, longitude: myLon }, { latitude: data.lat, longitude: data.lon }));
-  const [legumImage, setLegumImage] = useState(imageLeg[data.vegetableChoice]);
-  const [legumClass, setLegumClass] = useState('');
-  
-  const revelFruit = (event) => {
-    
-    setLegumImage(legumImage)
-    setLegumClass('transition');
-  }
-  
+
   const cuisineClick = () => {
     alert("oui");
   }
@@ -30,6 +22,52 @@ function MatchCard ({data,myhobbies,myLat,myLon}) {
   }
 
   return (
+    <div className='mainContainer'>
+      <div className="theCard">
+        <div className='theFront'>
+          <div className='image_contenant'>
+            <img src={data.profilePicture} alt="Image homme"/>
+          </div>
+          <div className="line-container">
+            <span className="line-circle">
+            <img
+              src={imageLeg[data.vegetableChoice]}
+              alt={`photo de ${data.firstName}`}
+              className="image_cercle"/>
+            </span>
+          </div>
+          <div className="devant_nom">
+            <h1 class="reduce-margin">{data.firstName}, {data.age}</h1>
+            <p>A {distance} km</p>
+          </div>
+        </div>
+        <div className='theBack'>
+          <div className='description'>
+            <h2>{data.firstName}, {data.age}</h2>
+            <p>A {distance} km</p>
+          </div>
+          <div className="line-simple"> </div>
+          <div className='description'>
+            <p>{data.bio}</p>
+          </div>
+          <div className="line-simple"> </div>
+          <div className='description'>
+            <div className="hobbies">
+              {data.hobbies.map((hobby, index) => (
+                <div className={`hobby ${myhobbies.includes(hobby) ? 'green' : ''}`} key={index}>
+              {hobby}
+            </div>
+            ))}
+            </div>
+          </div>
+          <div className='choix'>
+              <button className="poubelle" onClick={compostClick}>Composter</button>
+              <button className='cuisine' onClick = {cuisineClick}>En Cuisine</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    /*
     <div className="card-container" onClick={() => setLegumClass(legumClass ? '' : 'transition')}>
       <div className={`card ${legumClass}`}>
         <div className="card-front">
@@ -76,6 +114,7 @@ function MatchCard ({data,myhobbies,myLat,myLon}) {
         </div>
       </div>
     </div>
+    */
   );
 }
 

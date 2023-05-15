@@ -1,181 +1,174 @@
-body {
-    margin: 0;
-    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  }
+.mainContainer{
+  position: relative;
+    height: 550px;
+    width: 350px;
+    margin-top:20px;
+    margin-left:50px;
+    margin-right:50px;
+    cursor: pointer;
+}
 
+.theCard{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+  border-radius: 20px;
+}
+
+.theCard:hover{
+  transform : rotateY(180deg);
+}
+
+.theFront{
+  position:  absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 20px;
+}
+
+.theBack{
+  position:  absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: #ffffff;
+  color: #333;
+  transform : rotateY(180deg);
+  border-radius: 20px;
+}
+
+
+.image_contenant{
+  padding:30px;
+  padding-bottom: 10px;
+  overflow: hidden;
   
-  .hobbies {
-    display: flex;
-    flex-wrap: wrap;
-  }
-    .hobby {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 5px 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    font-size: 14px;
-
-  }
-
-  .green {
-    background-color: rgb(139, 237, 216);
-  }
-
-  .card-container {
-    position: relative;
-    height: 1000px;
-    width: 325px;
-    margin-left:100px;
-    margin-right:100px;
-    cursor: pointer; /* ajout d'un curseur pour indiquer que l'élément est cliquable */
-    
-  }
-    
-  .card {
-    position: absolute;
-    height: 100%;
-    width: 120%;
-    margin:10px;
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+}
+img {
+  width : 100%; 
+  height : 350px;
+  border-radius: 10px;
   
-  .card-front {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    text-align: center;
-    background-color: rgb(255, 255, 255);
-    backface-visibility: hidden;
-    
-  }
-  .card-back {
+}
 
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    backface-visibility: hidden;
-    transform: rotateY(-180deg);
-  }
-  /* ajoutez la classe 'transition' à l'élément .card pour déclencher l'animation */
-  .card.transition {
-    transform: rotateY(180deg);
-  }
-  
+.line-container {
+  position: relative;
+  height: 5px;
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
 
-  .image_contenant{
-    padding:20px;
-    padding-bottom: 10px;
-    overflow: hidden;
-    
-  }
-  img {
-    height: 280px;
-    max-width : 100%;
-    border-radius: 10px;
-    
-  }
-
-  .line-container {
-    position: relative;
-    height: 5px;
-    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    display: flex;
-    justify-content: center;
-    margin: 40px;
-    margin-top: 10px;
-    border-radius: 10px;
-  }
-
-  .line-circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform : translateY(-50%);
-    height: 80px;
-    width: 80px;
-    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    border-radius: 50%;
-    border: 5px solid #ffffff;
-    margin: 0 1rem;
-    box-shadow: 0 4px 6px rgb(145, 145, 145);
-  }
-
-  
-  .image_cercle{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    transition: all 0.5s ease-out;
-    opacity: 0;
-  }
-
-  .image_cercle:hover {
-    opacity: 1;
-  }
-
-  .show-legum {
-    transform: scale(1.2); /* Applique une transition de zoom sur l'image de légume /
-    opacity: 1; / Rend l'image de légume complètement visible */
-    }*
+.line-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform : translateY(-50%);
+  height: 80px;
+  width: 80px;
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  border-radius: 50%;
+  border: 5px solid #ffffff;
+  margin: 0 1rem;
+  box-shadow: 0 4px 6px rgb(145, 145, 145);
+}
+.image_cercle{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 
 .reduce-margin {
-     margin-bottom: -20px;
-     margin-right: 70px;
-     
+  margin-bottom: -20px;
+  margin-right: 70px;
+  
+}
+
+.line-simple{
+  position: relative;
+  height: 2px;
+  background-color: rgb(211, 208, 208);
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.description{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.hobbies {
+  display: flex;
+  flex-wrap: wrap;
+}
+  .hobby {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  font-size: 14px;
+
+}
+
+.green {
+  background-color: rgb(139, 237, 216);
 }
 
 
 .choix{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position:absolute;
-    margin: 20px;
-    
-    margin-bottom: 20px;
-    bottom:0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  bottom:0;
+  margin-bottom: 15px;
+  
 }
-.poubelle{
-    border-radius: 10px;
-    padding: 10px 10px;
-    color: #ff0000;
-    font-size: 14px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    letter-spacing: 4px;
-    border: 1px solid #ff0000;
-    position:relative;
-    margin : 10px
-}
-
-.poubelle:hover {
-  background: #ff0000;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #ff0000,  0 0 25 px #ff0000, 0  0 50px #ff0000, 0 0 100px #ff0000;
-}
-
-.cuisine{
-    border-radius: 10px;
+.poubelle {
+  border-radius: 10px;
   padding: 10px 20px;
-  color: #0cc44c;
+  color: #ff0000;
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
   transition: .5s;
   letter-spacing: 4px;
-  border: 1px solid #0cc44c;
-  margin : 10px 
+  border: 1px solid #ff0000;
+  margin: 10px;
+  text-align: center;
+}
+
+.poubelle:hover {
+background: #ff0000;
+color: #fff;
+border-radius: 5px;
+box-shadow: 0 0 5px #ff0000,  0 0 25 px #ff0000, 0  0 50px #ff0000, 0 0 100px #ff0000;
+}
+
+.cuisine{
+  border-radius: 10px;
+padding: 10px 20px;
+color: #0cc44c;
+font-size: 14px;
+text-decoration: none;
+text-transform: uppercase;
+overflow: hidden;
+transition: .5s;
+letter-spacing: 4px;
+border: 1px solid #0cc44c;
+margin : 10px 
 }
 
 .cuisine:hover {
@@ -183,25 +176,4 @@ background: #0cc44c;
 color: #fff;
 border-radius: 5px;
 box-shadow: 0 0 5px #0cc44c,  0 0 25 px #0cc44c, 0  0 50px #0cc44c, 0 0 100px #0cc44c;
-}
-
-.line-simple{
-    position: relative;
-    height: 2px;
-    background-color: rgb(211, 208, 208);
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-    margin-top: 10px;
-    border-radius: 10px;
-}
-
-.nom{
-    margin-left:20px;
-    margin-right: 20px;
-}
-
-.description{
-    margin-left: 20px;
-    margin-right: 20px;
 }
