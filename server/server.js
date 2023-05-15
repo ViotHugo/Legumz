@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config({ path: "./config.env" });
 const mongoose = require('mongoose');
 const port = process.env.PORT || 5000;
+const axios = require('axios');
 
 app.use(express.json({limit: '500mb'}))
 app.use(cors());
@@ -19,20 +20,21 @@ mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopol
     throw error;
   });
 
-app.post('/inscription', (req, res) => {
-  const personneInscrire = req.body
-  // Récupérer la collection Personne
-  const Users = mongoose.connection.collection('Users');
-  // Ajouter une personne à la collection
-  Users.insertOne(personneInscrire)
-    .then((result) => {
+app.post('/inscription', async (req, res) => {
+    const personneInscrire = req.body;
+    try {
+      const coords = await apiGeocoding(personneInscrire.adress);
+      personneInscrire.lon = coords.longitude;
+      personneInscrire.lat = coords.latitude;
+      console.log(personneInscrire)
+      const Users = mongoose.connection.collection('Users');
+      const result = await Users.insertOne(personneInscrire);
       console.log('User add :', result.insertedId);
       res.send(true);
-    })
-    .catch((err) => {
+    } catch (err) {
       console.log(err);
-      mongoose.connection.close();    
-    });
+      mongoose.connection.close();
+    }
 });
 
 app.post('/modifProfile', (req, res) => {
@@ -113,19 +115,12 @@ app.post('/recupMatchPossible', async (req,res)  => {
     if(user.vegetableSearch){
       resultats = resultats.filter((match) => user.minAge<=match.age && match.age<=user.maxAge);
     }
- 
+    
     //Trie par distance
     if (user.distanceMax) {
-      resultats = await Promise.all(resultats.map(async (match) => {
-        try {
-          const distanceAccepte = await compareDistance(match.adress, user.adress, user.distanceMax);
-          return distanceAccepte ? match : null;
-        } catch (error) {
-          return null;
-        }
-      }));
-      resultats = resultats.filter((match) => match !== null);
+      resultats = await filterByDistance(user, resultats);
     }
+   
     //par hobbies
     if(user.hobbies){
       resultats.sort((a, b) => {
@@ -179,46 +174,60 @@ app.listen(port, () => {
 });
 
 
-function calculDistance(address1, address2) {
-  // Requête de géocodage pour l'adresse 1
-  const fetchAddress1 = fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address1}`)
-    .then(response => response.json())
-    .then(data1 => {
-      // Récupération des coordonnées de l'adresse 1
-      const lat1 = data1[0].lat;
-      const lon1 = data1[0].lon;
-      return { lat: lat1, lon: lon1 };
-    });
+// Fonction qui filtre les résultats à une distance inférieure ou égale à MAX_DISTANCE_KM km de l'utilisateur
+async function filterByDistance(user, resultats) {
+  const MAX_DISTANCE_KM = user.distanceMax; // maximum distance en kilomètres
 
-  // Requête de géocodage pour l'adresse 2
-  const fetchAddress2 = fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address2}`)
-    .then(response => response.json())
-    .then(data2 => {
-      // Récupération des coordonnées de l'adresse 2
-      const lat2 = data2[0].lat;
-      const lon2 = data2[0].lon;
-      return { lat: lat2, lon: lon2 };
-    });
+  // Filtre les résultats qui sont à une distance inférieure ou égale à MAX_DISTANCE_KM km de l'utilisateur
+  const filteredResults = resultats.filter((resultat, index) => {
+    const distance = getDistance({ latitude: user.lat, longitude: user.lon }, { latitude: resultat.lat, longitude: resultat.lon });
+    return distance <= MAX_DISTANCE_KM;
+  });
 
-  // Attente des deux requêtes de géocodage
-  return Promise.all([fetchAddress1, fetchAddress2])
-    .then(([coords1, coords2]) => {
-      // Calcul de la distance en kilomètres
-      const R = 6371; // Rayon de la terre en km
-      const dLat = (coords2.lat - coords1.lat) * Math.PI / 180; // Différence de latitude en radians
-      const dLon = (coords2.lon - coords1.lon) * Math.PI / 180; // Différence de longitude en radians
-      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(coords1.lat * Math.PI / 180) * Math.cos(coords2.lat * Math.PI / 180) *
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      const distance = R * c;
-
-      // Retourne la distance en kilomètres
-      return distance;
-    });
+  return filteredResults;
 }
 
-async function compareDistance(address1, address2, distanceMax) {
-  const distance = await calculDistance(address1, address2);
-  return distance <= distanceMax;
+// Fonction qui calcule la distance en kilomètres entre deux coordonnées géographiques
+function getDistance(coords1, coords2) {
+  const R = 6371; // rayon moyen de la Terre en km
+  const dLat = deg2rad(coords2.latitude - coords1.latitude);
+  const dLon = deg2rad(coords2.longitude - coords1.longitude);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(coords1.latitude)) *
+      Math.cos(deg2rad(coords2.latitude)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+  return distance;
 }
+
+// Fonction qui convertit une valeur en degrés en radians
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
+// Fonction qui appelle l'API OpenCage Geocoder pour obtenir les coordonnées correspondantes à une adresse
+async function apiGeocoding(address) {
+  const API_KEY = "b0c41ab27bf748b0853e17f8df3faaeb"; // clé d'API OpenCage Geocoder
+  const API_URL = `https://api.opencagedata.com/geocode/v1/json?key=${API_KEY}&q=${encodeURIComponent(
+    address
+  )}&limit=1&no_annotations=1`; // URL de l'API avec les paramètres nécessaires
+
+  try {
+    const response = await fetch(API_URL); // appel à l'API avec fetch() (qui retourne une Promise)
+    const data = await response.json(); // extraction des données JSON de la réponse
+    if (data.results.length > 0) {
+      const { lat, lng } = data.results[0].geometry; // récupération des coordonnées
+      return { latitude: lat, longitude: lng }; // retourne un objet avec les coordonnées
+    } else {
+      throw new Error("L'adresse n'a pas été trouvée"); // lance une erreur si l'adresse n'a pas été trouvée
+    }
+  } catch (error) {
+    console.error(error);
+    throw new Error("Erreur lors de l'appel à l'API de géocodage"); // lance une erreur en cas d'échec de l'appel à l'API
+  }
+}
+
+

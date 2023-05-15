@@ -16,6 +16,7 @@ function Singles() {
         setUser(response.data);  
         axios.post('http://localhost:5000/recupMatchPossible', {user: response.data})
         .then((response) => {
+          console.log(response.data);
           setMatch(response.data);
         })
         .catch((error) => {
@@ -37,8 +38,8 @@ function Singles() {
       <div className="container_matchs">
         <h1>Les célibataires qui vous correspondent</h1>
         <div className='matchs'>
-          {match.slice(0, 3).map((matchItem) => (
-            <MatchCard data={matchItem} myhobbies={user.hobbies} />
+          {match.slice(0, 2).map((matchItem) => (
+            <MatchCard data={matchItem} myhobbies={user.hobbies} myLat={user.lat} myLon={user.lon}/>
           ))}
         </div>
       </div>

@@ -21,6 +21,8 @@ function SignUpForm() {
     email: "",
     password: "",
     adress: "", // not used in the code
+    lon:0.0,
+    lat:0.0,
     bio: "", // not used in the code
     profilePicture: "", // not used in the code
     hobbies: [], // chasnged hobbies to an empty array

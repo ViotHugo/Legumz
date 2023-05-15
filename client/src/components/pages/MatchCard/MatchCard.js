@@ -4,14 +4,14 @@ import carotte from '../../../images/carrote.png';
 import poivron from '../../../images/poivron_jaune.png';
 import piment from '../../../images/piment.png';
 import aubergine from '../../../images/aubergine.png';
-function MatchCard ({data,myhobbies}) {
+function MatchCard ({data,myhobbies,myLat,myLon}) {
   const imageLeg = {
     "Légume 1": carotte,
     "Légume 2": poivron,
     "Légume 3": piment,
     "Légume 4": aubergine,
   }
-
+  const distance = Math.round(getDistance({ latitude: myLat, longitude: myLon }, { latitude: data.lat, longitude: data.lon }));
   const [legumImage, setLegumImage] = useState(imageLeg[data.vegetableChoice]);
   const [legumClass, setLegumClass] = useState('');
   
@@ -46,21 +46,18 @@ function MatchCard ({data,myhobbies}) {
               </span>
             </div>
             <div className="devant_nom">
-              <h1 class="reduce-margin">{data.prenom}, {data.age}</h1>
-              <p>A {data.city}</p>
+              <h1 class="reduce-margin">{data.firstName}, {data.age}</h1>
+              <p>A {distance} km</p>
             </div>
         </div>
         <div className="card-back">
                 <div className='description'>
-                    <h2>{data.prenom}, {data.age}</h2>
-                    <p>A {data.city}</p>
+                    <h2>{data.firstName}, {data.age}</h2>
+                    <p>A {distance} km</p>
                 </div>
                 <div className="line-simple"> </div>
                 <div className='description'>
                     <p>{data.bio}</p>
-                    <p>
-                        {data.interest}
-                    </p>
                 </div>
                 <div className="line-simple"> </div>
                 <div className='description'>
@@ -83,3 +80,25 @@ function MatchCard ({data,myhobbies}) {
 }
 
 export default MatchCard;
+
+
+// Fonction qui calcule la distance en kilomètres entre deux coordonnées géographiques
+function getDistance(coords1, coords2) {
+  const R = 6371; // rayon moyen de la Terre en km
+  const dLat = deg2rad(coords2.latitude - coords1.latitude);
+  const dLon = deg2rad(coords2.longitude - coords1.longitude);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(coords1.latitude)) *
+      Math.cos(deg2rad(coords2.latitude)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+  return distance;
+}
+
+// Fonction qui convertit une valeur en degrés en radians
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
