@@ -1,0 +1,67 @@
+.matchs {
+    display: flex;
+    flex-direction: row-reverse; /* Ceci inversera l'ordre des éléments flex */
+    height: calc(100vh - 64px - 40px); /* 64px pour la hauteur de l'en-tête, 40px pour la hauteur du titre de la page */
+    margin-left: 100px;
+}
+.page-title {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    /* Ajoutez d'autres styles pour le titre de la page ici */
+}
+.matchs-list {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+}
+
+.matchs-content {
+    flex: 3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 64px); /* 64px est la hauteur approximative de votre en-tête */
+}
+
+.matchs-sidebar {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+}
+  
+  .matchs h1 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+
+  .contact {
+    padding: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    background-color: #f1f0f0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .contact-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .selected-profile {
+    flex: 3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

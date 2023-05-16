@@ -2,47 +2,68 @@ import React, { useEffect, useState } from 'react';
 import './Matchs.css';
 import { useParams } from 'react-router-dom';
 import Header2 from "../../Header2/Header2";
+import MatchCard2 from "../MatchCard2/MatchCard2";
 import axios from 'axios';
 
 function Matchs() {
   const { email } = useParams();
-  // Utilisez 'email' pour récupérer les données spécifiques à cet utilisateur
-  const [matchs, setMatchs] = useState([])
+  const [matchs, setMatchs] = useState([]);
+  const [selectedProfile, setSelectedProfile] = useState(null); // Ajout de l'état pour le profil sélectionné
+  const [user, setUser] = useState({})
+
   useEffect(() => {
-    axios.post('http://localhost:5000/recupMatchs', {email: email})
-    .then((response) => {
-      setMatchs(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  }, []);
+    axios.post('http://localhost:5000/recupProfile', {email: email})
+      .then((response) => {
+        setUser(response.data);
+        console.log(response.data);
+        axios.post('http://localhost:5000/recupMatchs', {email: email})
+        .then((response) => {
+          setMatchs(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [email]);
+
+  // Fonction pour gérer le clic sur un profil
+  const handleProfileClick = (profile) => {
+    setSelectedProfile(profile);
+  };
 
   return (
     <div>
       <Header2 activePage="matchs" email={email} />
+      <h1 className="page-title">Mes Matchs</h1>
       <div className="matchs">
-        <h1>Mes Matchs</h1>
-        {matchs.length > 0 ?
-          <table>
-            <thead>
-              <tr>
-              <th>Nom</th>
-              <th>Photo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {matchs.map((match) => (
-                <tr >
-                <td>{match.firstName}</td>
-                <td><img src={match.profilePicture} alt={match.firstName} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="matchs-list">
+          {matchs.length > 0 ?
+            matchs.map((match) => (
+              <div className="contact" onClick={() => handleProfileClick(match)}>
+                <img className="contact-image" src={match.profilePicture} alt={match.firstName} />
+                <div>{match.firstName}</div>
+              </div>
+            ))
+            : <p>Aucun match trouvé</p>
+          }
+        </div>
+        <div className="selected-profile">
+          {selectedProfile && (
+            // Insérez ici le code pour afficher le profil sélectionné
+            // en utilisant les données dans 'selectedProfile'
+            <div>
+              <MatchCard2 data={selectedProfile} myhobbies={user.hobbies} user={user}>
 
-          : <p>Aucun match trouvé</p>
-        }
+              </MatchCard2>
+
+
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
