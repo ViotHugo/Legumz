@@ -4,11 +4,41 @@ const cors = require("cors");
 require("dotenv").config({ path: "./config.env" });
 const mongoose = require('mongoose');
 const port = process.env.PORT || 5000;
-const axios = require('axios');
+const http = require("http");
+const { Server } = require("socket.io");
+const server= http.createServer(app)
 
 app.use(express.json({limit: '500mb'}))
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST'],
+  transports: ['websocket', 'polling'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+const io = new Server(server,{
+  cors : corsOptions
+})
 app.use(express.json());
+
+
+
+io.on("connection", (socket) => {
+  const email = socket.handshake.query.email;
+  socket.join("alicia.ghanem@gmail.com");
+  console.log(`${socket.handshake.query.email} connected`);
+  socket.join(email); // Ajouter le socket courant à la room de l'adresse mail
+  socket.on('message', (message) => {
+    console.log(`Message received from ${socket.id}: ${message}`);
+    io.to("alicia.ghanem@gmail.com").emit('message', message); // Envoyer le message à tous les sockets de la room de l'adresse mail
+  });
+})
+
+server.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
+
 
 // Connexion à MongoDB
 mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -241,12 +271,10 @@ app.post('/connexion', (req, res) => {
   });
 });
 
+
+
 app.get('/',(req,res) => {
   res.send("hello")
-});
-
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
 });
 
 
