@@ -5,8 +5,10 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "awesome": "^0.0.7",
+    "axios": "^1.4.0",
     "font": "^0.0.4",
     "node-sass": "^8.0.0",
+    "rc-slider": "^10.1.1",
     "react-icons": "^4.8.0",
     "react-pro-sidebar": "^0.7.1"
   }

@@ -1,0 +1,52 @@
+.About {
+    margin-top:50px;
+    margin-left: 150px;
+    margin-right: 150px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+    font-family: "Arial", sans-serif;
+    margin-top: +80px;
+}
+  
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .About h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #4a4a4a;
+  }
+  
+  .About p {
+    font-size: 1.2rem;
+    color: #7a7a7a;
+    max-width: 600px;
+  }
+  
+  .legume-list {
+    text-align: left;
+    margin-left: 4rem; 
+  }
+  
+  
+  @media (max-width: 1200px) {
+    .About p {
+      font-size: 1.1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .About h1 {
+      font-size: 2.5rem;
+    }
+  
+    .About p {
+      font-size: 1.1rem;
+    }
+  }
