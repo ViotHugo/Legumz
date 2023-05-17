@@ -27,11 +27,11 @@ function Header() {
               Connexion
             </NavLink>
           </li>
-          <li>
+          {/*<li>
             <NavLink to="/map" activeClassName="active" exact className="btn">
               Carte géographique
             </NavLink>
-          </li>
+          </li>*/}
           <li>
             <NavLink to="/quisommesnous" activeClassName="active" className="btn">
               Qui sommes-nous

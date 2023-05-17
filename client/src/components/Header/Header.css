@@ -5,6 +5,9 @@
   padding: 0.5rem 2rem;
   background-color: #ffffff; /* Modifiez la couleur du bandeau ici */
   box-shadow: 0 2px 4px rgba(122, 122, 122, 0.5);
+
+  position: relative;
+  z-index: 10;
 }
 
 

@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
-
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background-color: #ffffff; /* Modifiez la couleur du bandeau ici */
+  box-shadow: 0 2px 4px rgba(122, 122, 122, 0.5);
+}
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -22,6 +29,7 @@ body {
     text-align: center;
     max-width: 400px;
     width: 90%;
+    margin-top: -150px; /* Ajustez cette valeur pour modifier la hauteur du container */ 
   }  
   
   .logo {
