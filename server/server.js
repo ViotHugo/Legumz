@@ -26,12 +26,17 @@ app.use(express.json());
 
 io.on("connection", (socket) => {
   const email = socket.handshake.query.email;
-  socket.join("alicia.ghanem@gmail.com");
-  console.log(`${socket.handshake.query.email} connected`);
-  socket.join(email); // Ajouter le socket courant à la room de l'adresse mail
-  socket.on('message', (message) => {
-    console.log(`Message received from ${socket.id}: ${message}`);
-    io.to("alicia.ghanem@gmail.com").emit('message', message); // Envoyer le message à tous les sockets de la room de l'adresse mail
+  socket.join(email);
+  socket.on('message', (messageData) => {
+    socket.to(messageData.email2).emit('message', messageData);
+    const Messages = mongoose.connection.collection('Messages');
+    Messages.insertOne(messageData)
+    .then((result) => {
+      console.log('Message ajouté :',result.insertedId);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   });
 })
 
@@ -63,7 +68,6 @@ app.post('/inscription', async (req, res) => {
       res.send(true);
     } catch (err) {
       console.log(err);
-      mongoose.connection.close();
     }
 });
 
@@ -131,6 +135,20 @@ app.post('/recupMatchs', (req,res) => {
       console.log(err);
       res.status(500).send('Erreur serveur');
     });
+})
+
+app.post('/recupMessages', (req,res) => {
+  const emailUser = req.body.email
+  const Messages = mongoose.connection.collection('Messages');
+
+  Messages.find({  $or: [{ email1: emailUser }, { email2: emailUser }]})
+    .toArray()
+    .then((resultats) => {
+      res.send(resultats);
+    })
+  .catch((err) => {
+    console.log(err);
+  });
 })
 
 app.post('/emailsUtilises', (req,res) => {

@@ -49,8 +49,9 @@
   
   .message-list {
     flex: 1;
-    overflow-y: auto;
-    margin-bottom: 10px;
+  overflow-y: auto;
+  position: relative;
+
   }
   
   .message-sent {
