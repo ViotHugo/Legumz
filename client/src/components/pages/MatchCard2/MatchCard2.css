@@ -1,0 +1,140 @@
+.mainContainer{
+    position: relative;
+      height: 550px;
+      width: 350px;
+      margin-top:20px;
+      margin-left:50px;
+      margin-right:50px;
+      cursor: pointer;
+  }
+  
+  .theCard{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+    border-radius: 20px;
+  }
+  
+  .theCard:hover{
+    transform : rotateY(180deg);
+  }
+  
+  .theFront{
+    position:  absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 20px;
+  }
+  
+  .theBack{
+    position:  absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: #ffffff;
+    color: #333;
+    transform : rotateY(180deg);
+    border-radius: 20px;
+  }
+  
+  
+  .image_contenant{
+    padding:30px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    
+  }
+  img {
+    width : 100%; 
+    height : 350px;
+    border-radius: 10px;
+    
+  }
+  
+  .line-container {
+    position: relative;
+    height: 5px;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  
+  .line-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform : translateY(-50%);
+    height: 80px;
+    width: 80px;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    border-radius: 50%;
+    border: 5px solid #ffffff;
+    margin: 0 1rem;
+    box-shadow: 0 4px 6px rgb(145, 145, 145);
+  }
+  .image_cercle{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  
+  .reduce-margin {
+    margin-bottom: -20px;
+    margin-right: 70px;
+    
+  }
+  
+  .line-simple{
+    position: relative;
+    height: 2px;
+    background-color: rgb(211, 208, 208);
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  
+  .description{
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .hobbies {
+    display: flex;
+    flex-wrap: wrap;
+  }
+    .hobby {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 14px;
+  
+  }
+  
+  .green {
+    background-color: rgb(139, 237, 216);
+  }
+  
+  
+  .choix{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom:0;
+    margin-bottom: 15px;
+    
+  }
+  .distance {
+    text-align: center;
+  }
