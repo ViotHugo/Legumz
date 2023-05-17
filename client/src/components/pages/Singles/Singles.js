@@ -42,14 +42,14 @@ function Singles() {
     <div>
       <Header2 activePage="singles" email={email} />
       
-      <div className="container_matchs">
+      <div className="container_matchs2">
         <h1>Les célibataires qui vous correspondent</h1>
         {loading ? (
           <p>Chargement...</p>
         ) : showMessage ? (
           <p>Aucun match trouvé.</p>
         ) : (
-          <div className='matchs'>
+          <div className='matchs2'>
             {match.slice(0, 2).map((matchItem) => (
               <MatchCard data={matchItem} myhobbies={user.hobbies} user={user}/>
             ))}

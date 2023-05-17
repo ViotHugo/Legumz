@@ -1,4 +1,4 @@
-import './MatchCard2.css';
+import './CardMatch.css';
 import { useState } from 'react';
 import carotte from '../../../images/carrote.png';
 import poivron from '../../../images/poivron_jaune.png';
@@ -7,7 +7,7 @@ import aubergine from '../../../images/aubergine.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function MatchCard ({data,myhobbies,user}) {
+function CardMatch ({data,myhobbies,user}) {
   const navigate = useNavigate();
   const imageLeg = {
     "Carotte": carotte,
@@ -62,7 +62,7 @@ function MatchCard ({data,myhobbies,user}) {
   );
 }
 
-export default MatchCard;
+export default CardMatch;
 
 
 // Fonction qui calcule la distance en kilomètres entre deux coordonnées géographiques

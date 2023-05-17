@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Matchs.css';
 import { useParams } from 'react-router-dom';
 import Header2 from "../../Header2/Header2";
-import MatchCard2 from "../MatchCard2/MatchCard2";
+import CardMatch from "../CardMatch/CardMatch";
 import axios from 'axios';
 
 function Matchs() {
@@ -56,9 +56,9 @@ function Matchs() {
             // Insérez ici le code pour afficher le profil sélectionné
             // en utilisant les données dans 'selectedProfile'
             <div>
-              <MatchCard2 data={selectedProfile} myhobbies={user.hobbies} user={user}>
+              <CardMatch data={selectedProfile} myhobbies={user.hobbies} user={user}>
 
-              </MatchCard2>
+              </CardMatch>
 
 
             </div>
