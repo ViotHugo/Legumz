@@ -59,7 +59,7 @@ function MatchCard ({data,myhobbies,user}) {
             </span>
           </div>
           <div className="devant_nom">
-            <h1 class="reduce-margin">{data.firstName}, {data.age}</h1>
+            <h1 className="reduce_margin">{data.firstName}, {data.age}</h1>
             <p>A {distance} km</p>
           </div>
         </div>

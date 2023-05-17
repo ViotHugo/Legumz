@@ -85,8 +85,40 @@ app.post('/modifProfile', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      mongoose.connection.close();    
     });
+});
+
+app.post('/modifRecherche', (req, res) => {
+  const updateprofil = req.body
+  console.log(updateprofil)
+  const Users = mongoose.connection.collection('Users');
+
+  Users.findOne({email:updateprofil.email})
+    .then((result) => {
+      let newProfile = result;
+      if (updateprofil.vegetableSearch.length>0){ newProfile.vegetableSearch = updateprofil.vegetableSearch; }
+      if(updateprofil.genderSearch!=''){ newProfile.genderSearch = updateprofil.genderSearch}
+      if(updateprofil.distanceMax != 50){
+        newProfile.distanceMax = updateprofil.distanceMax;
+      }
+      if(updateprofil.minAge !=25 || updateprofil.maxAge != 45){
+        newProfile.minAge = updateprofil.minAge;
+        newProfile.maxAge = updateprofil.maxAge;
+      }
+      //modification du profil
+      Users.updateOne({email:updateprofil.email},{$set:newProfile})
+    .then((result) => {
+      console.log(result);
+      res.send(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    
 });
 
 app.post('/recupProfile', (req,res) => {

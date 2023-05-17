@@ -87,10 +87,12 @@ img {
   border-radius: 50%;
 }
 
-.reduce-margin {
-  margin-bottom: -20px;
-  margin-right: 70px;
-  
+.devant_nom {
+  text-align: center;
+}
+
+.reduce_margin {
+  margin-bottom: -10px;
 }
 
 

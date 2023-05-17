@@ -11,12 +11,13 @@ import genderIcon3 from "../../../images/bi.png";
 import "./Search.css";
 import { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
+import axios from "axios"
 
 function Search() {
   const { email } = useParams();
 
   const [relationship, setRelationship] = useState([]);
-  const [gender, setGender] = useState(null);
+  const [gender, setGender] = useState("");
   const [distance, setDistance] = useState(50);
   const [ageRange, setAgeRange] = useState([25, 45]);
 
@@ -27,7 +28,7 @@ function Search() {
       setRelationship([...relationship, value]);
     }
   };
-
+  
   return (
     <div>
       <Header2 activePage="search" email={email} />
@@ -40,37 +41,37 @@ function Search() {
               <img
                 src={relationshipIcon1}
                 alt="relationshipIcon1"
-                className={relationship.includes("1") ? "selected" : ""}
-                onClick={() => toggleRelationship("1")}
+                className={relationship.includes("Carotte") ? "selected" : ""}
+                onClick={() => toggleRelationship("Carotte")}
                 style={{
-                  border: relationship.includes("1") ? "2px solid green" : "",
+                  border: relationship.includes("Carotte") ? "2px solid green" : "",
                 }}
               />
               <img
                 src={relationshipIcon2}
                 alt="relationshipIcon2"
-                className={relationship.includes("2") ? "selected" : ""}
-                onClick={() => toggleRelationship("2")}
+                className={relationship.includes("Poivron jaune") ? "selected" : ""}
+                onClick={() => toggleRelationship("Poivron jaune")}
                 style={{
-                  border: relationship.includes("2") ? "2px solid green" : "",
+                  border: relationship.includes("Poivron jaune") ? "2px solid green" : "",
                 }}
               />
               <img
                 src={relationshipIcon3}
                 alt="relationshipIcon3"
-                className={relationship.includes("3") ? "selected" : ""}
-                onClick={() => toggleRelationship("3")}
+                className={relationship.includes("Piment rouge") ? "selected" : ""}
+                onClick={() => toggleRelationship("Piment rouge")}
                 style={{
-                  border: relationship.includes("3") ? "2px solid green" : "",
+                  border: relationship.includes("Piment rouge") ? "2px solid green" : "",
                 }}
               />
               <img
                 src={relationshipIcon4}
                 alt="relationshipIcon4"
-                className={relationship.includes("4") ? "selected" : ""}
-                onClick={() => toggleRelationship("4")}
+                className={relationship.includes("Aubergine") ? "selected" : ""}
+                onClick={() => toggleRelationship("Aubergine")}
                 style={{
-                  border: relationship.includes("4") ? "2px solid green" : "",
+                  border: relationship.includes("Aubergine") ? "2px solid green" : "",
                 }}
               />
             </div>
@@ -81,28 +82,28 @@ function Search() {
               <img
                 src={genderIcon1}
                 alt="genderIcon1"
-                className={gender === "1" ? "selected" : ""}
-                onClick={() => setGender("1")}
+                className={gender === "Homme" ? "selected" : ""}
+                onClick={() => setGender("Homme")}
                 style={{
-                  border: gender === "1" ? "2px solid green" : "",
+                  border: gender === "Homme" ? "2px solid green" : "",
                 }}
               />
               <img
                 src={genderIcon2}
                 alt="genderIcon2"
-                className={gender === "2" ? "selected" : ""}
-                onClick={() => setGender("2")}
+                className={gender === "Femme" ? "selected" : ""}
+                onClick={() => setGender("Femme")}
                 style={{
-                  border: gender === "2" ? "2px solid green" : "",
+                  border: gender === "Femme" ? "2px solid green" : "",
                 }}
               />
               <img
                 src={genderIcon3}
                 alt="genderIcon3"
-                className={gender === "3"? "selected": ""}
-                onClick={() => setGender("3")}
+                className={gender === "Les deux"? "selected": ""}
+                onClick={() => setGender("Les deux")}
                 style={{
-                  border: gender === "3" ? "2px solid green" : "",
+                  border: gender === "Les deux" ? "2px solid green" : "",
                 }}
               />
             </div>
@@ -158,6 +159,15 @@ function Search() {
                 gender,
                 distance,
                 ageRange,
+              });
+              axios.post('http://localhost:5000/modifRecherche', {email:email,vegetableSearch :relationship,genderSearch: gender,
+               distanceMax:parseInt(distance, 10), minAge : ageRange[0], maxAge : ageRange[1]
+              })
+              .then((response) => { 
+                console.log(response.data)
+              })
+              .catch((error) => {
+                console.log(error);
               });
             }}
           >

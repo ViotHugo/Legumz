@@ -88,7 +88,6 @@
   }
   
   .reduce-margin {
-    margin-bottom: -20px;
     margin-right: 70px;
     
   }
@@ -138,4 +137,5 @@
   }
   .distance {
     text-align: center;
+    margin-top: -20px;
   }
