@@ -22,6 +22,7 @@ function Profile() {
       axios.post('http://localhost:5000/recupProfile', {email : email})
           .then((response) => {
             setUser(response.data);  
+            console.log(response.data);
             
           })
           .catch((error) => {
