@@ -17,6 +17,13 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
+const customIcon = (imageURL) => new L.Icon({
+  iconUrl: imageURL,
+  iconSize: [50, 50], // nouvelle taille de l'icône
+  iconAnchor: [25, 25], // point de l'icône qui sera placé exactement à la position du marqueur
+  popupAnchor: [0, -25] // point à partir duquel le popup s'ouvre
+});
+
 const UpdateMapPosition = ({ position }) => {
   const map = useMap();
   map.flyTo(position, 13);
@@ -110,9 +117,12 @@ function MatchGeo() {
               const lat = parseFloat(match.lat);
               const lon = parseFloat(match.lon);
               return (
-                <Marker key={index} position={[lat, lon]}>
+                /*<Marker key={index} position={[lat, lon]}>
                   <Popup>{match.firstName}</Popup>
-                </Marker>
+              </Marker>*/
+              <Marker key={index} position={[lat, lon]} icon={customIcon(match.profilePicture)}>
+                <Popup>{match.firstName}</Popup>
+              </Marker>
               );
             })
           }
