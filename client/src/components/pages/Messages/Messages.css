@@ -1,11 +1,12 @@
 /* Messages.css */
 
 .messages {
-    display: flex;
-    height: 100vh;
-    margin-left: 100px;
-  }
-  
+  display: flex;
+  height: 100vh;
+  margin-left: 280px;  /* Largeur de la sidebar */
+}
+
+
   .messages-content {
     flex: 3;
     padding: 20px;
@@ -24,18 +25,23 @@
  
   
   .contact:hover {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
   }
 
-  .contact {
+  .contactmessage{
     padding: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #ccc;
-  background-color: #f1f0f0;
+  border-bottom: 1px solid #ffffff;
+  background-color: #ffffff;
   border-radius: 10px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  }
+
+  .contact-selected {
+    background-color: #84fab0;
+    border-bottom: 1px solid #84fab0;
   }
   
   .contact-image {
@@ -47,12 +53,11 @@
   }
   
   
-  .message-list {
-    flex: 1;
+ .message-list {
+  flex: 1;
   overflow-y: auto;
-  position: relative;
-
-  }
+  position: relative; /* Ajoutez cette ligne */
+}
   
   .message-sent {
     align-self: flex-end;
