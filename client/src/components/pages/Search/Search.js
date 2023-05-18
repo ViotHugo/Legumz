@@ -165,6 +165,7 @@ function Search() {
 </div>
 <div className="subButton">
   <button
+    className="subButton2"
             onClick={() => {
               console.log("Paramètres de recherche soumis :", {
                 relationship,
