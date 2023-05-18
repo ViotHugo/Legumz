@@ -135,6 +135,7 @@ function Messages() {
                 <div>{renderMessages()}<div ref={messagesEndRef} /></div>
               </div>   
           <form onSubmit={handleSubmit} className="new-message-form">
+          
             <input
               type="text"
               className="new-message-input"
@@ -142,7 +143,8 @@ function Messages() {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
             />
-            <button type="submit">Envoyer</button>
+            <button type="submit" className="send-button-message">Envoyer</button>
+            <button className="propose-meeting-message">Proposer un RDV</button>
           </form>
         </div>
         <div className="messages-sidebar">{renderContacts()}</div>

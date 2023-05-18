@@ -98,9 +98,40 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
+  .send-button-message {
+    background-color: #008CBA; 
+    color: white; 
+    padding: 14px 20px; 
+    margin: 8px 0; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    transition-duration: 0.4s; 
+    margin-right: 10px; /* ajouter une marge à droite pour espacer les boutons */
+  }
   
-
-
+  .send-button-message:hover {
+    background-color: #4CAF50; 
+    color: white; 
+  }
+  
+  .propose-meeting-message {
+    background-color: #ff9800; 
+    color: white; 
+    padding: 14px 20px; 
+    margin: 8px 0; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    transition-duration: 0.4s;
+  }
+  
+  .propose-meeting-message:hover {
+    background-color: #f57c00;
+  }
 
 
   
