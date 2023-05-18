@@ -47,7 +47,7 @@ function App() {
           <Route path="/search/:email" element={<Search/>} />
           <Route path="/singles/:email" element={<Singles/>} />
           <Route path="/matchgeo/:email" element={<MatchGeo/>} />
-          <Route path="/modifprofil/:email" element={<Modifprofil/>} />
+          <Route path="/modifprofil/:emailIni" element={<Modifprofil/>} />
           <Route path="/rdvCarte/:userContact" element={<RDVCarte/>} />
 
 
