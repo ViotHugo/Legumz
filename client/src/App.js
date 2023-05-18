@@ -16,6 +16,7 @@ import Header2 from "./components/Header2/Header2";
 import Matchs from "./components/pages/Matchs/Matchs";
 import Search from "./components/pages/Search/Search";
 import Singles from "./components/pages/Singles/Singles";
+import MatchGeo from "./components/pages/MatchGeo/MatchGeo";
 import Modifprofil from "./components/pages/Modifprofil/Modifprofil";
 
 import "./App.css";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/matchs/:email" element={<Matchs/>} />
           <Route path="/search/:email" element={<Search/>} />
           <Route path="/singles/:email" element={<Singles/>} />
+          <Route path="/matchgeo/:email" element={<MatchGeo/>} />
           <Route path="/modifprofil/:email" element={<Modifprofil/>} />
 
 

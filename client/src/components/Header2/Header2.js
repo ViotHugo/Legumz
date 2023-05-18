@@ -15,7 +15,9 @@ import {
   FaBinoculars,
   FaGrinHearts,
   FaHeart,
-} from "react-icons/fa";
+  FaMapMarkedAlt,
+  
+}from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
@@ -100,6 +102,14 @@ const Header2 = ({ activePage, email }) => {
                 onClick={() => handleClick("matchs")}
               >
                 Mes matchs
+              </MenuItem>
+
+              <MenuItem
+                active={activePage === "matchgeo"}
+                icon={<FaMapMarkedAlt/>}
+                onClick={() => handleClick("matchgeo")}
+              >
+                Carte de mes matchs
               </MenuItem>
 
           </Menu>
