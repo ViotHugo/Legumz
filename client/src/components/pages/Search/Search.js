@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header2 from "./../../Header2/Header2";
 import relationshipIcon1 from "../../../images/aubergine.png";
@@ -9,18 +9,19 @@ import genderIcon1 from "../../../images/homme.png";
 import genderIcon2 from "../../../images/femme.png";
 import genderIcon3 from "../../../images/bi.png";
 import "./Search.css";
-import { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 function Search() {
   const { email } = useParams();
-
+  const navigate = useNavigate();
   const [relationship, setRelationship] = useState([]);
   const [gender, setGender] = useState("");
-  const [distance, setDistance] = useState(50);
+  const [user,setUser] = useState({});
+  const [distance, setDistance] = useState(user.distanceMax || 50);
   const [ageRange, setAgeRange] = useState([25, 45]);
-
+  
   const toggleRelationship = (value) => {
     if (relationship.includes(value)) {
       setRelationship(relationship.filter((rel) => rel !== value));
@@ -28,7 +29,18 @@ function Search() {
       setRelationship([...relationship, value]);
     }
   };
-  
+  useEffect(() => {
+    axios.post('http://localhost:5000/recupProfile', {email : email})
+        .then((response) => {
+          setUser(response.data);  
+          setDistance(response.data.distanceMax); // Définir la distance initiale
+          setAgeRange ([response.data.minAge, response.data.maxAge]);
+        })
+        .catch((error) => {
+          console.log(error);
+    });
+}, [email])
+
   return (
     <div>
       <Header2 activePage="search" email={email} />
@@ -41,19 +53,19 @@ function Search() {
               <img
                 src={relationshipIcon1}
                 alt="relationshipIcon1"
-                className={relationship.includes("Carotte") ? "selected" : ""}
-                onClick={() => toggleRelationship("Carotte")}
+                className={relationship.includes("Aubergine") ? "selected" : ""}
+                onClick={() => toggleRelationship("Aubergine")}
                 style={{
-                  border: relationship.includes("Carotte") ? "2px solid green" : "",
+                  border: relationship.includes("Aubergine") ? "2px solid green" : "",
                 }}
               />
               <img
                 src={relationshipIcon2}
                 alt="relationshipIcon2"
-                className={relationship.includes("Poivron jaune") ? "selected" : ""}
-                onClick={() => toggleRelationship("Poivron jaune")}
+                className={relationship.includes("Carotte") ? "selected" : ""}
+                onClick={() => toggleRelationship("Carotte")}
                 style={{
-                  border: relationship.includes("Poivron jaune") ? "2px solid green" : "",
+                  border: relationship.includes("Carotte") ? "2px solid green" : "",
                 }}
               />
               <img
@@ -68,10 +80,10 @@ function Search() {
               <img
                 src={relationshipIcon4}
                 alt="relationshipIcon4"
-                className={relationship.includes("Aubergine") ? "selected" : ""}
-                onClick={() => toggleRelationship("Aubergine")}
+                className={relationship.includes("Poivron Jaune") ? "selected" : ""}
+                onClick={() => toggleRelationship("Poivron Jaune")}
                 style={{
-                  border: relationship.includes("Aubergine") ? "2px solid green" : "",
+                  border: relationship.includes("Poivron Jaune") ? "2px solid green" : "",
                 }}
               />
             </div>
@@ -161,10 +173,10 @@ function Search() {
                 ageRange,
               });
               axios.post('http://localhost:5000/modifRecherche', {email:email,vegetableSearch :relationship,genderSearch: gender,
-               distanceMax:parseInt(distance, 10), minAge : ageRange[0], maxAge : ageRange[1]
+               distanceMax:parseInt(distance, 10), minAge : parseInt(ageRange[0],10), maxAge : parseInt(ageRange[1],10)
               })
               .then((response) => { 
-                console.log(response.data)
+                navigate('/singles/'+email);
               })
               .catch((error) => {
                 console.log(error);

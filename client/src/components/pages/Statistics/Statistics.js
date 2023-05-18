@@ -1,8 +1,17 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import Header from "./../../Header/Header";
-
+import axios from 'axios';
 
 function Statistics() {
+  useEffect(() => {
+    axios.post('http://localhost:5000/statistiques', {})
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div>
       <Header/>

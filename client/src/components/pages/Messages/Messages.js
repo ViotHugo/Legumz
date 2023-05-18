@@ -4,17 +4,18 @@ import { useParams } from 'react-router-dom';
 import Header2 from './../../Header2/Header2';
 const io = require("socket.io-client");
 import axios from 'axios';
-import Draggable from "react-draggable";
+import { useNavigate } from "react-router-dom";
 
 function Messages() {
   const { email } = useParams();
+  const navigate = useNavigate();
   const [contacts,setContacts] = useState([]);
   const [messages,setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [user, setUser] = useState({});
   const socketRef = useRef();
   const [contactVisible, setContactVisible] = useState({});
   const messagesEndRef = useRef(null);
-
 
   const [selectedContact, setSelectedContact] = useState(null);
 
@@ -51,6 +52,8 @@ function Messages() {
       try {
         const response = await axios.post('http://localhost:5000/recupMatchs', { email: email });
         setContacts(response.data);
+        const responseUser = await axios.post('http://localhost:5000/recupProfile', { email: email });
+        setUser(responseUser.data);
         if(response.data.length > 0){
           setContactVisible(response.data[0]);
           setSelectedContact(response.data[0].email);
@@ -67,7 +70,6 @@ function Messages() {
       socket.disconnect();
     };
   }, [email]);
-
   function handleContactClick(contact) {
     setContactVisible(contact);
     setSelectedContact(contact.email);
@@ -126,6 +128,15 @@ function Messages() {
     
   } 
 
+  function handleProposeMeeting() {
+    const data = {
+      user: user,
+      contact: contactVisible
+    };
+    const encodedData = encodeURIComponent(JSON.stringify(data));
+    navigate('/rdvCarte/'+encodedData);
+  }
+
   return (
     <div>
       <Header2 activePage="messages" email={email} />
@@ -144,7 +155,7 @@ function Messages() {
               onChange={(e) => setNewMessage(e.target.value)}
             />
             <button type="submit" className="send-button-message">Envoyer</button>
-            <button className="propose-meeting-message">Proposer un RDV</button>
+            <button className="propose-meeting-message" onClick={handleProposeMeeting}>Proposer un RDV</button>
           </form>
         </div>
         <div className="messages-sidebar">{renderContacts()}</div>

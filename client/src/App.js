@@ -18,6 +18,7 @@ import Search from "./components/pages/Search/Search";
 import Singles from "./components/pages/Singles/Singles";
 import MatchGeo from "./components/pages/MatchGeo/MatchGeo";
 import Modifprofil from "./components/pages/Modifprofil/Modifprofil";
+import RDVCarte from "./components/pages/RDVCarte/RDVCarte";
 
 import "./App.css";
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/singles/:email" element={<Singles/>} />
           <Route path="/matchgeo/:email" element={<MatchGeo/>} />
           <Route path="/modifprofil/:email" element={<Modifprofil/>} />
+          <Route path="/rdvCarte/:userContact" element={<RDVCarte/>} />
 
 
         </Routes>

@@ -7,6 +7,7 @@ const port = process.env.PORT || 5000;
 const http = require("http");
 const { Server } = require("socket.io");
 const server= http.createServer(app)
+const axios = require('axios');
 
 app.use(express.json({limit: '500mb'}))
 const corsOptions = {
@@ -61,7 +62,6 @@ app.post('/inscription', async (req, res) => {
       const coords = await apiGeocoding(personneInscrire.adress);
       personneInscrire.lon = coords.longitude;
       personneInscrire.lat = coords.latitude;
-      console.log(personneInscrire)
       const Users = mongoose.connection.collection('Users');
       const result = await Users.insertOne(personneInscrire);
       console.log('User add :', result.insertedId);
@@ -90,7 +90,6 @@ app.post('/modifProfile', (req, res) => {
 
 app.post('/modifRecherche', (req, res) => {
   const updateprofil = req.body
-  console.log(updateprofil)
   const Users = mongoose.connection.collection('Users');
 
   Users.findOne({email:updateprofil.email})
@@ -98,17 +97,12 @@ app.post('/modifRecherche', (req, res) => {
       let newProfile = result;
       if (updateprofil.vegetableSearch.length>0){ newProfile.vegetableSearch = updateprofil.vegetableSearch; }
       if(updateprofil.genderSearch!=''){ newProfile.genderSearch = updateprofil.genderSearch}
-      if(updateprofil.distanceMax != 50){
-        newProfile.distanceMax = updateprofil.distanceMax;
-      }
-      if(updateprofil.minAge !=25 || updateprofil.maxAge != 45){
-        newProfile.minAge = updateprofil.minAge;
-        newProfile.maxAge = updateprofil.maxAge;
-      }
+      newProfile.distanceMax = updateprofil.distanceMax;
+      newProfile.minAge = updateprofil.minAge;
+      newProfile.maxAge = updateprofil.maxAge;
       //modification du profil
       Users.updateOne({email:updateprofil.email},{$set:newProfile})
     .then((result) => {
-      console.log(result);
       res.send(true);
     })
     .catch((err) => {
@@ -322,7 +316,131 @@ app.post('/connexion', (req, res) => {
 });
 
 
+app.post('/statistiques', (req, res) => {
+  const Users = mongoose.connection.collection('Users');
+  const Match = mongoose.connection.collection('Match');
+  const WaitMatch = mongoose.connection.collection('WaitMatch');
+  const NoMatch = mongoose.connection.collection('NoMatch');
+  const Messages = mongoose.connection.collection('Messages');
+  let stats = {
+    totInscrits: 0,
+    totMatchs: 0,
+    totMessages: 0,
+    repartLegums: [0, 0, 0, 0],
+    totMatchsAttentes: 0,
+    totMatchsRefuses: 0
+  };
 
+  // Promesse pour récupérer les utilisateurs
+  const getUsers = new Promise((resolve, reject) => {
+    Users.find()
+      .toArray()
+      .then((resultats) => {
+        stats.totInscrits = resultats.length;
+        resultats.forEach((result) => {
+          if (result.vegetableChoice == "Carotte") {
+            stats.repartLegums[0]++;
+          } else if (result.vegetableChoice == "Poivron jaune") {
+            stats.repartLegums[1]++;
+          } else if (result.vegetableChoice == "Piment rouge") {
+            stats.repartLegums[2]++;
+          } else {
+            stats.repartLegums[3]++;
+          }
+        });
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  // Promesse pour récupérer les messages
+  const getMessages = new Promise((resolve, reject) => {
+    Messages.find()
+      .toArray()
+      .then((resultats) => {
+        stats.totMessages = resultats.length;
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  // Promesse pour récupérer les matchs
+  const getMatchs = new Promise((resolve, reject) => {
+    Match.find()
+      .toArray()
+      .then((resultats) => {
+        stats.totMatchs = resultats.length;
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  // Promesse pour récupérer les matchs refusés
+  const getNoMatchs = new Promise((resolve, reject) => {
+    NoMatch.find()
+      .toArray()
+      .then((resultats) => {
+        stats.totMatchsRefuses = resultats.length;
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  // Promesse pour récupérer les matchs en attente
+  const getWaitMatchs = new Promise((resolve, reject) => {
+    WaitMatch.find()
+      .toArray()
+      .then((resultats) => {
+        stats.totMatchsAttentes = resultats.length;
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  // Attendre que toutes les promesses soient résolues
+  Promise.all([getUsers, getMessages, getMatchs, getNoMatchs, getWaitMatchs])
+    .then(() => {
+      res.send(stats)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status
+    })
+  })
+
+app.post('/recupRDV',(req,res)=>{
+  const address1 = req.body.address1;
+  const address2 = req.body.address2; 
+  const defaultCenter = req.body.defaultCenter; 
+  const latitude = defaultCenter[0];
+  const longitude = defaultCenter[1];
+
+  try {
+    // Requête à l'API Overpass pour récupérer les lieux de rendez-vous dans un rayon de 20 km
+    axios.get(`https://overpass-api.de/api/interpreter?data=[out:json];(node(around:20000,${latitude},${longitude})["amenity"="restaurant"];node(around:20000,${latitude},${longitude})["amenity"="bar"];node(around:20000,${latitude},${longitude})["amenity"="cinema"];node(around:20000,${latitude},${longitude})["amenity"="bowling_alley"];node(around:20000,${latitude},${longitude})["tourism"="museum"];);out;`)
+  .then(response => {
+    res.send(response.data.elements);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+    //const places = response.data.elements; // Liste des lieux de rendez-vous
+    //res.send(places);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Une erreur s\'est produite lors de la récupération des lieux de rendez-vous.' });
+  }
+})
 app.get('/',(req,res) => {
   res.send("hello")
 });
