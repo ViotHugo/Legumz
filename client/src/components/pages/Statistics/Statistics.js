@@ -5,9 +5,7 @@ import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, Legend } fro
 import "./Statistics.css"; 
 
 function Statistics() {
-<<<<<<< HEAD
-  
-=======
+
   const [stats, setStats] = useState({
     totInscrits: 0,
     totMatchs: 0,
@@ -17,7 +15,6 @@ function Statistics() {
     totMatchsRefuses: 0
   });
 
->>>>>>> aa3c5f76b185ed0b5a26b4d8689d0a10949e84a2
   useEffect(() => {
     axios.post('http://localhost:5000/statistiques', {})
       .then((response) => {
