@@ -109,3 +109,17 @@ display: flex;
 justify-content: center;
 margin-right: 30px;
 }
+.subButton2 {
+  background-color: #6cb2eb; /* Couleur d'arrière-plan à ajuster selon vos besoins */
+  color: white; /* Couleur du texte */
+  border: none;
+  border-radius: 20px; /* Rend le bouton plus arrondi */
+  padding: 10px 30px; /* Plus de padding pour allonger le bouton */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.subButton2:hover {
+  background-color:#84fab0 ; /* Couleur d'arrière-plan plus foncée au survol */
+}

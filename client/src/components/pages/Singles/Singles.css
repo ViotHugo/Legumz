@@ -12,3 +12,12 @@ align-items: center;
   margin-top: 50px;
   margin-left: 70px;
 }
+
+.title-container {
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px; /* Plus de padding pour allonger le titre */
+  width: 40%; /* Ajustez la largeur en fonction de vos besoins */
+  margin: 0 auto; /* Centrer le titre */
+  margin-top:10px;
+}

@@ -43,7 +43,9 @@ function Singles() {
       <Header2 activePage="singles" email={email} />
       
       <div className="container_matchs2">
+      <div className="title-container">
         <h1>Les célibataires qui vous correspondent</h1>
+      </div>
         {loading ? (
           <p>Chargement...</p>
         ) : showMessage ? (

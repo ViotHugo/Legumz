@@ -38,7 +38,8 @@ function Matchs() {
   return (
     <div>
       <Header2 activePage="matchs" email={email} />
-      <h1 className="page-title">Mes Matchs</h1>
+      <div className="title-container-match">
+      <h1 className="page-title">Mes Matchs</h1></div>
       <div className="matchs">
         <div className="matchs-list">
           {matchs.length > 0 ?
