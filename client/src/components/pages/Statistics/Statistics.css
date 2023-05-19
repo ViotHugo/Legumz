@@ -15,6 +15,18 @@
   text-align: center;
   align-self: start;
 }
+.statistics-card2 {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  flex: 1 1 auto;
+  text-align: center;
+  align-self: start;
+  max-width: 250px; /* Nouvelle valeur pour réduire la largeur */
+  max-height: 150px; /* Nouvelle valeur pour réduire la hauteur */
+}
 
 #statistics-title {
   margin-top:0px;
@@ -38,8 +50,8 @@ margin-top: 30px;
 #bar-chart-card {
   width: 400px;  
   height: 350px; 
-  padding-top: 70px; 
-  padding-left: 50px;  
+  padding-top: 10px; 
+  padding-left: 32px;  
 }
 
 .column-container {
@@ -51,7 +63,7 @@ margin-top: 30px;
 .total-inscrits {
   background-color: #ffffff; /* Couleur de fond pour le texte Total d'inscrits */
   border-radius: 10px;
-  padding: 20px;
+  padding: 40px;
   align-items: center;
   text-align: center;
 }
@@ -59,7 +71,7 @@ margin-top: 30px;
 .total-messages {
   background-color: #ffffff; /* Couleur de fond pour le texte Total de messages envoyés */
   border-radius: 10px;
-  padding: 20px;
+  padding: 35px;
   align-items: center;
   text-align: center;
 }

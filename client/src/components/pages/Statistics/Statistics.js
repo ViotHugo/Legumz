@@ -46,10 +46,10 @@ function Statistics() {
       <h1 id="statistics-title">Quelques chiffres</h1>
       <div className="statistics-container">
         <div className="column-container">
-          <div className="statistics-card">
+          <div className="statistics-card2" >
             <h3 className="total-inscrits">Total d'inscrits: {stats.totInscrits}</h3>
           </div>
-          <div className="statistics-card">
+          <div className="statistics-card2" >
             <h3 className="total-messages">Total de messages envoyés: {stats.totMessages}</h3>
           </div>
         </div>
@@ -58,7 +58,7 @@ function Statistics() {
           <PieChart width={400} height={400}>
             <Pie
               data={legumeData}
-              cx={235}
+              cx={241}
               cy={150}
               labelLine={false}
               label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
@@ -74,7 +74,8 @@ function Statistics() {
             </PieChart>
       </div>
       <div className="statistics-card" id="bar-chart-card">
-        <BarChart width={400} height={300} data={matchData}>
+      <h3>Les Matchs:</h3>
+        <BarChart width={450} height={300} data={matchData}>
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
