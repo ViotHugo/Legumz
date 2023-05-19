@@ -59,7 +59,7 @@ function Statistics() {
           <PieChart width={400} height={400}>
             <Pie
               data={legumeData}
-              cx={241}
+              cx={250}
               cy={150}
               labelLine={false}
               label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
