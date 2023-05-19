@@ -12,3 +12,37 @@
   margin-right: 100px;
   margin-top: 20px;
 }
+
+.marker-popup {
+  max-width: 200px;
+}
+
+.marker-popup h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.marker-popup p {
+  margin: 5px 0;
+}
+
+.marker-popup label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.marker-popup input {
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.marker-popup button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4db5be;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}

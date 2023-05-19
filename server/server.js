@@ -26,18 +26,53 @@ app.use(express.json());
 
 
 io.on("connection", (socket) => {
-  const email = socket.handshake.query.email;
+  const email = socket.handshake.query.newEmail;
   socket.join(email);
   socket.on('message', (messageData) => {
     socket.to(messageData.email2).emit('message', messageData);
     const Messages = mongoose.connection.collection('Messages');
     Messages.insertOne(messageData)
     .then((result) => {
+      console.log(email)
       console.log('Message ajouté :',result.insertedId);
     })
     .catch((err) => {
       console.log(err);
     });
+  });
+  socket.on('invitation', (messageData) => {
+    const message = messageData.user.firstName + " vous invite à aller à ce lieu : "+ messageData.rdv.place.tags.name;
+    const latitude = messageData.rdv.place.lat;
+    const longitude = messageData.rdv.place.lon;
+   
+    const apiUrl = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`;
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const address = data.address;
+      const street = address.road || '';
+      const houseNumber = address.house_number || '';
+      const postalCode = address.postcode || '';
+      const city = address.city || address.town || '';
+      const country = address.country || '';
+      const addressFinal = `${houseNumber} ${street}, ${postalCode} ${city}, ${country}`;
+      const invitation = {email1:messageData.user.email,email2:messageData.contact.email,message:message,lieu : addressFinal,
+        type : messageData.rdv.place.tags.amenity, heure:messageData.rdv.heure , date:messageData.rdv.date}
+      socket.to(messageData.contact.email).emit('message', invitation);
+      const Messages = mongoose.connection.collection('Messages');
+      Messages.insertOne(invitation)
+      .then((result) => {
+        console.log('Message ajouté :',result.insertedId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    })
+    .catch(error => {
+      console.error('Error while fetching address:', error);
+      return '';
+    });
+    
   });
 })
 

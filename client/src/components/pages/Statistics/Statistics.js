@@ -5,6 +5,7 @@ import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, Legend } fro
 import "./Statistics.css"; 
 
 function Statistics() {
+
   const [stats, setStats] = useState({
     totInscrits: 0,
     totMatchs: 0,

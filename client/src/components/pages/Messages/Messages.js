@@ -8,6 +8,20 @@ import { useNavigate } from "react-router-dom";
 
 function Messages() {
   const { email } = useParams();
+  console.log(email)
+  const [newEmail,setnewEmail] = useState("")
+  const [contactIni,setContactIni] = useState({})
+  useEffect(() => {
+    try {
+      const parsed = JSON.parse(email);
+      setContactIni(parsed.contactVisible);
+      setnewEmail(parsed.email);
+    } catch (error) {
+      setContactIni(null);
+      setnewEmail(email)
+    }
+  }, [email]);
+  console.log(newEmail, contactIni)
   const navigate = useNavigate();
   const [contacts,setContacts] = useState([]);
   const [messages,setMessages] = useState([]);
@@ -18,19 +32,7 @@ function Messages() {
   const messagesEndRef = useRef(null);
 
   const [selectedContact, setSelectedContact] = useState(null);
-
-
-  const messageListRef = useRef();
-  const messageContainerRef = useRef();
-
-  useEffect(() => {
-  scrollToBottom();
-  }, [messages]);
-
-  function scrollToBottom() {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-
+  
   function processMessage(message) {
     let processedMessage = '';
     for (let i = 0; i < message.length; i += 100) {
@@ -41,7 +43,7 @@ function Messages() {
 
   useEffect(() => {
     const socket = io("http://localhost:5000/", {
-    query: { email }
+    query: { newEmail }
   });
     socketRef.current = socket;
     socketRef.current.on("message", (message) => {
@@ -50,14 +52,21 @@ function Messages() {
 
     async function fetchData() {
       try {
-        const response = await axios.post('http://localhost:5000/recupMatchs', { email: email });
+        const response = await axios.post('http://localhost:5000/recupMatchs', { email: newEmail });
         setContacts(response.data);
-        const responseUser = await axios.post('http://localhost:5000/recupProfile', { email: email });
+        const responseUser = await axios.post('http://localhost:5000/recupProfile', { email: newEmail });
         setUser(responseUser.data);
         if(response.data.length > 0){
-          setContactVisible(response.data[0]);
-          setSelectedContact(response.data[0].email);
-          const response2 = await axios.post('http://localhost:5000/recupMessages', { email: email });
+          if(contactIni == null){
+            setContactVisible(response.data[0]);
+            setSelectedContact(response.data[0].email);
+          }
+          else{
+            setContactVisible(contactIni);
+            setSelectedContact(contactIni.email);
+          }
+          
+          const response2 = await axios.post('http://localhost:5000/recupMessages', { email: newEmail });
           setMessages(response2.data);
         }
       } catch (error) {
@@ -69,7 +78,7 @@ function Messages() {
     return () => {
       socket.disconnect();
     };
-  }, [email]);
+  }, [newEmail]);
   function handleContactClick(contact) {
     setContactVisible(contact);
     setSelectedContact(contact.email);
@@ -96,11 +105,11 @@ function Messages() {
   function renderMessages() {
     return messages.map((message) => {
       if (
-        (message.email2 === contactVisible.email && message.email1 === email) ||
-        (message.email1 === contactVisible.email && message.email2 === email)
+        (message.email2 === contactVisible.email && message.email1 === newEmail) ||
+        (message.email1 === contactVisible.email && message.email2 === newEmail)
       ) {
         let messageClass = "";
-        if (message.email1 === email) {
+        if (message.email1 === newEmail) {
           messageClass = "message-sent";
         } else {
           messageClass = "message-received";
@@ -108,9 +117,14 @@ function Messages() {
         return (
           <div className={messageClass}>
             <p>
-              <span className="sender">{message.email1}</span>
+              {!message.type && message.email1 == user.email && <span className="sender">{user.firstName}</span>}
+              {!message.type && message.email2 == user.email && <span className="sender">{contactVisible.firstName}</span>}
             </p>
             <pre>{processMessage(message.message)}</pre>
+            {message.type && <pre>type : {processMessage(message.type)}</pre>}
+            {message.lieu && <pre>adresse : {processMessage(message.lieu)}</pre>}
+            {message.date && <pre>date : {processMessage(message.date)}</pre>}
+            {message.heure && <pre>heure : {processMessage(message.heure)}</pre>}
             {/*<p>{message.message}</p>*/}
           </div>
         );
@@ -121,8 +135,8 @@ function Messages() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(newMessage){
-      socketRef.current.emit('message',{email1:email,email2:contactVisible.email,message:newMessage} );
-      setMessages([...messages, {email1:email,email2:contactVisible.email,message:newMessage}]);
+      socketRef.current.emit('message',{email1:newEmail,email2:contactVisible.email,message:newMessage} );
+      setMessages([...messages, {email1:newEmail,email2:contactVisible.email,message:newMessage}]);
       setNewMessage("");
     }
     
@@ -139,7 +153,7 @@ function Messages() {
 
   return (
     <div>
-      <Header2 activePage="messages" email={email} />
+      <Header2 activePage="messages" email={newEmail} />
       <div className="messages">
         <div className="messages-content">
               <div className="message-list" >
