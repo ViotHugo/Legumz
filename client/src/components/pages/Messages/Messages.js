@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Messages() {
   const { email } = useParams();
+  console.log(email)
   const [newEmail,setnewEmail] = useState("")
   const [contactIni,setContactIni] = useState({})
   useEffect(() => {
@@ -20,6 +21,7 @@ function Messages() {
       setnewEmail(email)
     }
   }, [email]);
+  console.log(newEmail, contactIni)
   const navigate = useNavigate();
   const [contacts,setContacts] = useState([]);
   const [messages,setMessages] = useState([]);

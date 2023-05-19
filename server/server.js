@@ -26,13 +26,14 @@ app.use(express.json());
 
 
 io.on("connection", (socket) => {
-  const email = socket.handshake.query.email;
+  const email = socket.handshake.query.newEmail;
   socket.join(email);
   socket.on('message', (messageData) => {
     socket.to(messageData.email2).emit('message', messageData);
     const Messages = mongoose.connection.collection('Messages');
     Messages.insertOne(messageData)
     .then((result) => {
+      console.log(email)
       console.log('Message ajouté :',result.insertedId);
     })
     .catch((err) => {

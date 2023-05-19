@@ -128,7 +128,7 @@ function RDVCarte() {
                     {places.map(place => (
                         place.tags.name && place.tags.amenity &&
                         <Marker position={[place.lat, place.lon]} key={place.id} icon={icons[place.tags.amenity]} >
-                            <Popup>
+                            <Popup className="marker-popup">
                             <h3>{place.tags.name}</h3>
                             {place.tags.amenity && <p>Type : {place.tags.amenity}</p>}
                             {place.tags['contact:website'] && <p>Site : <a href={place.tags['contact:website']}
