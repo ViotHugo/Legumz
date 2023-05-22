@@ -375,6 +375,8 @@ app.post('/statistiques', (req, res) => {
       .toArray()
       .then((resultats) => {
         stats.totInscrits = resultats.length;
+        const cityCounts = {};
+
         resultats.forEach((result) => {
           if (result.vegetableChoice == "Carotte") {
             stats.repartLegums[0]++;
@@ -386,13 +388,24 @@ app.post('/statistiques', (req, res) => {
             stats.repartLegums[3]++;
           }
             // Utiliser la variable "city" contenant le nom de la ville
-            if(stats.villes[result.city]){
-              stats.villes[result.city]++
-            }
-            else{
-              stats.villes[result.city] = 1;
+            const city = result.city;
+            if (cityCounts[city]) {
+              cityCounts[city]++;
+            } else {
+              cityCounts[city] = 1;
             }
         });
+        // Convertir le tableau d'objets en tableau de paires clé-valeur
+        const cityCountsArray = Object.entries(cityCounts);
+
+        // Trier le tableau en fonction du nombre de personnes (par ordre décroissant)
+        cityCountsArray.sort((a, b) => b[1] - a[1]);
+
+        // Assigner les villes triées à stats.villes
+        stats.villes = cityCountsArray.reduce((acc, [city, count]) => {
+          acc[city] = count;
+          return acc;
+        }, {});
         resolve();
       })
       .catch((err) => {
