@@ -505,7 +505,6 @@ app.post('/statistiques', (req, res) => {
   Promise.all([getUsers, getMessages, getMatchs, getNoMatchs, getWaitMatchs])
     .then(() => {
       res.send(stats)
-      console.log(stats.age)
     })
     .catch((err) => {
       console.log(err);

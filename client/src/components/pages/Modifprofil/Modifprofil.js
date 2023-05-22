@@ -16,6 +16,7 @@ import genderIcon3 from "../../../images/bi.png";
 
 function Modifprofil() {
   const { email } = useParams();
+  console.log(email)
   const navigate = useNavigate();
   const [user, setUser] = useState({
     firstName: "",
@@ -32,6 +33,7 @@ useEffect(() => {
   axios.post('http://localhost:5000/recupProfile', { email: email })
     .then((response) => {
       setUser({ ...user, ...response.data }); // Pré-remplir les champs avec les valeurs existantes de l'utilisateur
+      console.log(response.data)
     })
     .catch((error) => {
       console.log(error);

@@ -16,14 +16,11 @@ import genderIcon3 from "../../../images/bi.png";
 
 function Profile() {
     const { email } = useParams();
-    
     const [user, setUser] = useState({})
     useEffect(() => {
       axios.post('http://localhost:5000/recupProfile', {email : email})
           .then((response) => {
-            setUser(response.data);  
-            console.log(response.data);
-            
+            setUser(response.data);              
           })
           .catch((error) => {
             console.log(error);
@@ -31,7 +28,6 @@ function Profile() {
   }, [email])
 
   let vegetableImage;
-  console.log(user.vegetableChoice)
   if (user.vegetableChoice === "Piment rouge") {
     vegetableImage = relationshipIcon3;
   } else if (user.vegetableChoice === "Poivron jaune") {
