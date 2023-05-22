@@ -28,6 +28,7 @@ function Statistics() {
         const topVilles = villes.slice(0, 3);
         const autres = villes.slice(3).reduce((total, [_, count]) => total + count, 0);
         topVilles.push(['Autres', autres]);
+
         let ageData = [];
         const ageMax = response.data.age ? Math.max(...Object.keys(response.data.age).map(Number)) : 0;
 
@@ -35,11 +36,22 @@ function Statistics() {
           const count = response.data.age && response.data.age[age.toString()] ? response.data.age[age.toString()] : 0;
           ageData.push({ name: age.toString(), value: count });
         }
+
+
+
+        let hobbies = Object.entries(response.data.hobbies);
+        hobbies.sort((a, b) => b[1] - a[1]);
+        const tophobbies = hobbies.slice(0, 3);
+        const autreshobbies = hobbies.slice(3).reduce((total, [_, count]) => total + count, 0);
+        tophobbies.push(['Autres', autres]);
+
+
         setStats({
           ...response.data,
           age:ageData,
           villes: topVilles,
-          sexualite: response.data.sexualite
+          sexualite: response.data.sexualite,
+          hobbies:tophobbies
         });
   
         console.log(response.data);
@@ -160,6 +172,17 @@ function Statistics() {
 </div>
 </div>
 
+
+<div className="statistics-card" id="hobbies-chart-card">
+  <h3>Hobbies les plus représentés:</h3>
+  <BarChart width={500} height={300} data={stats.hobbies}>
+    <XAxis dataKey="0" />
+    <YAxis />
+    <Tooltip />
+    
+    <Bar dataKey="1" fill="#8884d8" />
+  </BarChart>
+</div>
 
 
 
