@@ -13,28 +13,37 @@ function Statistics() {
     repartLegums: [0, 0, 0, 0],
     totMatchsAttentes: 0,
     totMatchsRefuses: 0,
-    villes : {},
-    age : []
+    age: [],
+    villes: {}
   });
 
   useEffect(() => {
     axios.post('http://localhost:5000/statistiques', {})
       .then((response) => {
+        const ageData = response.data.age.map(item => (
+          { name: item.age, value: item.count }
+        ));
+  
         let villes = Object.entries(response.data.villes);
         villes.sort((a, b) => b[1] - a[1]);
-        let topVilles = villes.slice(0, 3);
-        let autres = villes.slice(3).reduce((a, b) => a + b[1], 0);
+  
+        const topVilles = villes.slice(0, 3);
+        const autres = villes.slice(3).reduce((total, [_, count]) => total + count, 0);
         topVilles.push(['Autres', autres]);
+  
         setStats({
           ...response.data,
+          age: ageData,
           villes: topVilles
         });
+  
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+  
 
   const legumeLabels = ['🥕', '🌶️', '🍆', '🌽'];
 
@@ -65,50 +74,60 @@ function Statistics() {
           </div>
         </div>
         <div className="statistics-card" id="pie-chart-card">
-        <h3 className="chart-title">Répartition des légumes:</h3>
+          <h3 className="chart-title">Répartition des légumes:</h3>
           <div className="chart-container">
-          <PieChart width={400} height={400} className="center-chart">
-          <Pie
-              data={legumeData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-  {
-    legumeData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-  }
-</Pie>
-            <Tooltip />
+            <PieChart width={400} height={400} className="center-chart">
+              <Pie
+                data={legumeData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {
+                  legumeData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                }
+              </Pie>
+              <Tooltip />
             </PieChart>
-      </div>
-      </div>
-      <div className="statistics-card" id="bar-chart-card">
+          </div>
+        </div>
+        <div className="statistics-card" id="bar-chart-card">
           <h3>Les Matchs:</h3>
-            <BarChart width={450} height={300} data={matchData}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="matches" fill="#8884d8" />
-        </BarChart>
-      </div>
-      <div className="statistics-card" id="villes-chart-card">
-          <h3>Villes avec le plus d'inscrits:</h3>
-            <BarChart width={450} height={300} data={stats.villes}>
-        <XAxis dataKey="0" />
-        <YAxis />
-        <Tooltip />
-        
-        <Bar dataKey="1" fill="#8884d8" />
-        </BarChart>
+          <BarChart width={450} height={300} data={matchData}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="matches" fill="#8884d8" />
+          </BarChart>
+        </div>
+        <div className="statistics-card" id="age-chart-card">
+          <h3>Répartition par âge:</h3>
+          <BarChart width={500} height={300} data={stats.age}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            
+            <Bar dataKey="value" fill="#8884d8" />
+          </BarChart>
+        </div>
+        <div className="statistics-card" id="villes-chart-card">
+  <h3>Villes avec le plus d'inscrits:</h3>
+  <BarChart width={500} height={300} data={stats.villes}>
+    <XAxis dataKey="0" />
+    <YAxis />
+    <Tooltip />
+    
+    <Bar dataKey="1" fill="#8884d8" />
+  </BarChart>
+</div> 
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Statistics;
