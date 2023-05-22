@@ -97,6 +97,8 @@ app.post('/inscription', async (req, res) => {
       const coords = await apiGeocoding(personneInscrire.adress);
       personneInscrire.lon = coords.longitude;
       personneInscrire.lat = coords.latitude;
+      const city = await getCityFromCoordinates(coords.latitude, coords.longitude);
+      personneInscrire.city = city;
       const Users = mongoose.connection.collection('Users');
       const result = await Users.insertOne(personneInscrire);
       console.log('User add :', result.insertedId);
@@ -363,7 +365,8 @@ app.post('/statistiques', (req, res) => {
     totMessages: 0,
     repartLegums: [0, 0, 0, 0],
     totMatchsAttentes: 0,
-    totMatchsRefuses: 0
+    totMatchsRefuses: 0,
+    villes : {}
   };
 
   // Promesse pour récupérer les utilisateurs
@@ -382,6 +385,13 @@ app.post('/statistiques', (req, res) => {
           } else {
             stats.repartLegums[3]++;
           }
+            // Utiliser la variable "city" contenant le nom de la ville
+            if(stats.villes[result.city]){
+              stats.villes[result.city]++
+            }
+            else{
+              stats.villes[result.city] = 1;
+            }
         });
         resolve();
       })
@@ -537,4 +547,16 @@ async function apiGeocoding(address) {
   }
 }
 
+async function getCityFromCoordinates(latitude, longitude) {
+  const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
 
+  try {
+    const response = await axios.get(url, { family: 4 });
+    const city = response.data.address.city;
+    console.log('Ville :', city);
+    return city;
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+}

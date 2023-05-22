@@ -12,7 +12,8 @@ function Statistics() {
     totMessages: 0,
     repartLegums: [0, 0, 0, 0],
     totMatchsAttentes: 0,
-    totMatchsRefuses: 0
+    totMatchsRefuses: 0,
+    villes : {}
   });
 
   useEffect(() => {
