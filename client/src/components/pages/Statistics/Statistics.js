@@ -149,8 +149,8 @@ function Statistics() {
 </div>
 
 
-<div className="statistics-card" id="sexualite-chart-card">
-  <h3>Répartition par sexualité :</h3>
+<div className="statistics-card" id="pie-chart-card">
+<h3 className="chart-title">Répartition par sexualité :</h3>
   <div className="chart-container">
     <PieChart width={400} height={400} className="center-chart">
     <Pie
