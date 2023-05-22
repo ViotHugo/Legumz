@@ -38,7 +38,7 @@ function Statistics() {
     { name: legumeLabels[index], value: item }
   ));
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#F39F46', '#E3331E', '#6C0A76', '#D4D845'];
 
 
   return (
@@ -55,28 +55,30 @@ function Statistics() {
           </div>
         </div>
         <div className="statistics-card" id="pie-chart-card">
-          <h3>Répartition des légumes:</h3>
-          <PieChart width={400} height={400}>
-            <Pie
+        <h3 className="chart-title">Répartition des légumes:</h3>
+          <div className="chart-container">
+          <PieChart width={400} height={400} className="center-chart">
+          <Pie
               data={legumeData}
-              cx={250}
-              cy={150}
+              cx="50%"
+              cy="50%"
               labelLine={false}
               label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
               outerRadius={80}
               fill="#8884d8"
               dataKey="value"
             >
-              {
-                legumeData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-              }
-            </Pie>
+  {
+    legumeData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+  }
+</Pie>
             <Tooltip />
             </PieChart>
       </div>
+      </div>
       <div className="statistics-card" id="bar-chart-card">
-      <h3>Les Matchs:</h3>
-        <BarChart width={450} height={300} data={matchData}>
+          <h3>Les Matchs:</h3>
+            <BarChart width={450} height={300} data={matchData}>
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
