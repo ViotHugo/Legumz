@@ -367,7 +367,7 @@ app.post('/statistiques', (req, res) => {
     totMatchsAttentes: 0,
     totMatchsRefuses: 0,
     villes : {},
-    age : [],
+    age : {},
     sexualite : {"Bisexuelle" : 0,"Hétérosexuelle" : 0, "Homosexuelle":0},
     hobbies : {}
   };
@@ -380,7 +380,6 @@ app.post('/statistiques', (req, res) => {
         stats.totInscrits = resultats.length;
         const cityCounts = {};
         const hobbiesCounts = {};
-        const ageCounts = {};
         resultats.forEach((result) => {
           if (result.vegetableChoice == "Carotte") {
             stats.repartLegums[0]++;
@@ -401,10 +400,10 @@ app.post('/statistiques', (req, res) => {
 
             // Utiliser la variable "age" contenant l'age
             const age = result.age;
-            if (ageCounts[age]) {
-              ageCounts[age]++;
+            if (stats.age[age]) {
+              stats.age[age]++;
             } else {
-              ageCounts[age] = 1;
+              stats.age[age] = 1;
             }
             // Utiliser la variable "sexualite" contenant l'age
             if(result.gender == result.genderSearch){
@@ -430,11 +429,9 @@ app.post('/statistiques', (req, res) => {
         });
         // Convertir le tableau d'objets en tableau de paires clé-valeur
         const cityCountsArray = Object.entries(cityCounts);
-        const ageCountsArray = Object.entries(ageCounts);
         const hobbiesCountsArray = Object.entries(hobbiesCounts);
         // Trier le tableau en fonction du nombre de personnes (par ordre décroissant)
         cityCountsArray.sort((a, b) => b[1] - a[1]);
-        ageCountsArray.sort((a, b) => b[1] - a[1]);
         hobbiesCountsArray.sort((a, b) => b[1] - a[1]);
         // Assigner les villes triées à stats.villes
         stats.villes = cityCountsArray.reduce((acc, [city, count]) => {
@@ -445,8 +442,6 @@ app.post('/statistiques', (req, res) => {
           acc[hobby] = count;
           return acc;
         }, {});
-        stats.age = ageCountsArray.map(([age, count]) => ({ age, count }));
-
         resolve();
       })
       .catch((err) => {
@@ -510,6 +505,7 @@ app.post('/statistiques', (req, res) => {
   Promise.all([getUsers, getMessages, getMatchs, getNoMatchs, getWaitMatchs])
     .then(() => {
       res.send(stats)
+      console.log(stats.age)
     })
     .catch((err) => {
       console.log(err);

@@ -22,24 +22,22 @@ function Statistics() {
   useEffect(() => {
     axios.post('http://localhost:5000/statistiques', {})
       .then((response) => {
-        const ageData = response.data.age.map(item => (
-          { name: item.age, value: item.count }
-        ));
   
         let villes = Object.entries(response.data.villes);
         villes.sort((a, b) => b[1] - a[1]);
         const topVilles = villes.slice(0, 3);
         const autres = villes.slice(3).reduce((total, [_, count]) => total + count, 0);
         topVilles.push(['Autres', autres]);
+        let ageData = [];
+        const ageMax = response.data.age ? Math.max(...Object.keys(response.data.age).map(Number)) : 0;
 
-
-
-
-
-  
+        for (let age = 18; age <= ageMax; age++) {
+          const count = response.data.age && response.data.age[age.toString()] ? response.data.age[age.toString()] : 0;
+          ageData.push({ name: age.toString(), value: count });
+        }
         setStats({
           ...response.data,
-          age: ageData,
+          age:ageData,
           villes: topVilles,
           sexualite: response.data.sexualite
         });
@@ -124,7 +122,6 @@ function Statistics() {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            
             <Bar dataKey="value" fill="#8884d8" />
           </BarChart>
         </div>
