@@ -367,7 +367,9 @@ app.post('/statistiques', (req, res) => {
     totMatchsAttentes: 0,
     totMatchsRefuses: 0,
     villes : {},
-    age : []
+    age : [],
+    sexualite : {"Bisexuelle" : 0,"Hétérosexuelle" : 0, "Homosexuelle":0},
+    hobbies : {}
   };
 
   // Promesse pour récupérer les utilisateurs
@@ -377,6 +379,7 @@ app.post('/statistiques', (req, res) => {
       .then((resultats) => {
         stats.totInscrits = resultats.length;
         const cityCounts = {};
+        const hobbiesCounts = {};
         const ageCounts = {};
         resultats.forEach((result) => {
           if (result.vegetableChoice == "Carotte") {
@@ -403,16 +406,43 @@ app.post('/statistiques', (req, res) => {
             } else {
               ageCounts[age] = 1;
             }
+            // Utiliser la variable "sexualite" contenant l'age
+            if(result.gender == result.genderSearch){
+              stats.sexualite["Homosexuelle"]++
+            }else if(result.genderSearch == "Les deux"){
+              stats.sexualite["Bisexuelle"]++
+            }
+            else{
+              stats.sexualite["Hétérosexuelle"]++
+            }
+
+            // Utiliser la variable "hobbies" contenant l'age
+            const hobbies = result.hobbies;
+            hobbies.forEach(function(hobby) {
+              // Faites quelque chose avec l'élément du tableau
+              if (hobbiesCounts[hobby]) {
+                hobbiesCounts[hobby]++;
+              } else {
+                hobbiesCounts[hobby] = 1;
+              }
+            });
+            
         });
         // Convertir le tableau d'objets en tableau de paires clé-valeur
         const cityCountsArray = Object.entries(cityCounts);
         const ageCountsArray = Object.entries(ageCounts);
+        const hobbiesCountsArray = Object.entries(hobbiesCounts);
         // Trier le tableau en fonction du nombre de personnes (par ordre décroissant)
         cityCountsArray.sort((a, b) => b[1] - a[1]);
         ageCountsArray.sort((a, b) => b[1] - a[1]);
+        hobbiesCountsArray.sort((a, b) => b[1] - a[1]);
         // Assigner les villes triées à stats.villes
         stats.villes = cityCountsArray.reduce((acc, [city, count]) => {
           acc[city] = count;
+          return acc;
+        }, {});
+        stats.hobbies = hobbiesCountsArray.reduce((acc, [hobby, count]) => {
+          acc[hobby] = count;
           return acc;
         }, {});
         stats.age = ageCountsArray.map(([age, count]) => ({ age, count }));
