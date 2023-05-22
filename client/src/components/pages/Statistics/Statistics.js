@@ -13,15 +13,10 @@ function Statistics() {
     repartLegums: [0, 0, 0, 0],
     totMatchsAttentes: 0,
     totMatchsRefuses: 0,
-<<<<<<< HEAD
-    age: [],
-    villes: {}
-=======
     villes : {},
     age : [],
-    sexualite : {"Bisexuelle" : 0,"Hétérosexuelle" : 0, "Homosexuelle":0},
+    sexualite : {"Bisexuelle" : 0,"Heterosexuelle" : 0, "Homosexuelle":0},
     hobbies : {}
->>>>>>> 55da532c9bde5bbf0f7caa5c4e727b88de216fae
   });
 
   useEffect(() => {
@@ -33,15 +28,20 @@ function Statistics() {
   
         let villes = Object.entries(response.data.villes);
         villes.sort((a, b) => b[1] - a[1]);
-  
         const topVilles = villes.slice(0, 3);
         const autres = villes.slice(3).reduce((total, [_, count]) => total + count, 0);
         topVilles.push(['Autres', autres]);
+
+
+
+
+
   
         setStats({
           ...response.data,
           age: ageData,
-          villes: topVilles
+          villes: topVilles,
+          sexualite: response.data.sexualite
         });
   
         console.log(response.data);
@@ -53,6 +53,12 @@ function Statistics() {
   
 
   const legumeLabels = ['🥕', '🌶️', '🍆', '🌽'];
+
+  const sexualiteData = [
+    { name: 'Hétérosexuelle', value: stats.sexualite['Hétérosexuelle'] || 0 },
+    { name: 'Bisexuelle', value: stats.sexualite['Bisexuelle'] || 0 },
+    { name: 'Homosexuelle', value: stats.sexualite['Homosexuelle'] || 0 },
+  ];
 
   const matchData = [
     { name: 'Total', matches: stats.totMatchs },
@@ -131,7 +137,36 @@ function Statistics() {
     
     <Bar dataKey="1" fill="#8884d8" />
   </BarChart>
-</div> 
+</div>
+
+
+<div className="statistics-card" id="sexualite-chart-card">
+  <h3>Répartition par sexualité :</h3>
+  <div className="chart-container">
+    <PieChart width={400} height={400} className="center-chart">
+    <Pie
+      data={sexualiteData}
+      cx="50%"
+      cy="50%"
+      labelLine={false}
+      label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+      outerRadius={80}
+      fill="#8884d8"
+      dataKey="value"
+    >
+      {sexualiteData.map((entry, index) => (
+        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+      ))}
+    </Pie>
+    <Tooltip />
+  </PieChart>
+</div>
+</div>
+
+
+
+
+
       </div>
     </div>
   );
