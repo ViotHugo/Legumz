@@ -15,7 +15,8 @@ function Statistics() {
     totMatchsRefuses: 0,
     villes : {},
     age : [],
-    sexualite : {"Bisexuelle" : 0,"Hétérosexuelle" : 0, "Homosexuelle":0}
+    sexualite : {"Bisexuelle" : 0,"Hétérosexuelle" : 0, "Homosexuelle":0},
+    hobbies : {}
   });
 
   useEffect(() => {
