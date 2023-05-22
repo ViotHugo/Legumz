@@ -367,7 +367,8 @@ app.post('/statistiques', (req, res) => {
     totMatchsAttentes: 0,
     totMatchsRefuses: 0,
     villes : {},
-    age : []
+    age : [],
+    sexualite : {"Bisexuelle" : 0,"Hétérosexuelle" : 0, "Homosexuelle":0}
   };
 
   // Promesse pour récupérer les utilisateurs
@@ -402,6 +403,15 @@ app.post('/statistiques', (req, res) => {
               ageCounts[age]++;
             } else {
               ageCounts[age] = 1;
+            }
+            // Utiliser la variable "age" contenant l'age
+            if(result.gender == result.genderSearch){
+              stats.sexualite["Homosexuelle"]++
+            }else if(result.genderSearch == "Les deux"){
+              stats.sexualite["Bisexuelle"]++
+            }
+            else{
+              stats.sexualite["Hétérosexuelle"]++
             }
         });
         // Convertir le tableau d'objets en tableau de paires clé-valeur
