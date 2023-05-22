@@ -366,7 +366,8 @@ app.post('/statistiques', (req, res) => {
     repartLegums: [0, 0, 0, 0],
     totMatchsAttentes: 0,
     totMatchsRefuses: 0,
-    villes : {}
+    villes : {},
+    age : []
   };
 
   // Promesse pour récupérer les utilisateurs
@@ -376,7 +377,7 @@ app.post('/statistiques', (req, res) => {
       .then((resultats) => {
         stats.totInscrits = resultats.length;
         const cityCounts = {};
-
+        const ageCounts = {};
         resultats.forEach((result) => {
           if (result.vegetableChoice == "Carotte") {
             stats.repartLegums[0]++;
@@ -394,18 +395,28 @@ app.post('/statistiques', (req, res) => {
             } else {
               cityCounts[city] = 1;
             }
+
+            // Utiliser la variable "age" contenant l'age
+            const age = result.age;
+            if (ageCounts[age]) {
+              ageCounts[age]++;
+            } else {
+              ageCounts[age] = 1;
+            }
         });
         // Convertir le tableau d'objets en tableau de paires clé-valeur
         const cityCountsArray = Object.entries(cityCounts);
-
+        const ageCountsArray = Object.entries(ageCounts);
         // Trier le tableau en fonction du nombre de personnes (par ordre décroissant)
         cityCountsArray.sort((a, b) => b[1] - a[1]);
-
+        ageCountsArray.sort((a, b) => b[1] - a[1]);
         // Assigner les villes triées à stats.villes
         stats.villes = cityCountsArray.reduce((acc, [city, count]) => {
           acc[city] = count;
           return acc;
         }, {});
+        stats.age = ageCountsArray.map(([age, count]) => ({ age, count }));
+
         resolve();
       })
       .catch((err) => {
