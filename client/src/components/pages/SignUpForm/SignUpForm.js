@@ -20,7 +20,8 @@ function SignUpForm() {
     gender: "", // not used in the code
     email: "",
     password: "",
-    adress: "", // not used in the code
+    adress: "",
+    city: "", // not used in the code
     lon:0.0,
     lat:0.0,
     bio: "", // not used in the code
