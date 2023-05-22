@@ -19,7 +19,15 @@ function Statistics() {
   useEffect(() => {
     axios.post('http://localhost:5000/statistiques', {})
       .then((response) => {
-        setStats(response.data);
+        let villes = Object.entries(response.data.villes);
+        villes.sort((a, b) => b[1] - a[1]);
+        let topVilles = villes.slice(0, 3);
+        let autres = villes.slice(3).reduce((a, b) => a + b[1], 0);
+        topVilles.push(['Autres', autres]);
+        setStats({
+          ...response.data,
+          villes: topVilles
+        });
         console.log(response.data);
       })
       .catch((error) => {
@@ -84,7 +92,17 @@ function Statistics() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="matches" fill="#8884d8" />  // Ajusté à partir de "Matchs"
+        <Bar dataKey="matches" fill="#8884d8" />
+        </BarChart>
+      </div>
+      <div className="statistics-card" id="villes-chart-card">
+          <h3>Villes avec le plus d'inscrits:</h3>
+            <BarChart width={450} height={300} data={stats.villes}>
+        <XAxis dataKey="0" />
+        <YAxis />
+        <Tooltip />
+        
+        <Bar dataKey="1" fill="#8884d8" />
         </BarChart>
       </div>
     </div>
